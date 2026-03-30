@@ -1,0 +1,5 @@
+TextureRect
+Camera2D
+Node
+CollisionPolygon2D
+CollisionShape2D

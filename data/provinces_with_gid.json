@@ -1,0 +1,322 @@
+[
+  {
+	"gid": "ES-0001",
+	"color": [190, 145, 52],
+	"nombre": "Valladolid"
+  },
+  {
+	"gid": "ES-0002",
+	"color": [181, 142, 230],
+	"nombre": "La Coruña"
+  },
+  {
+	"gid": "ES-0003",
+	"color": [206, 30, 142],
+	"nombre": "Pontevedra"
+  },
+  {
+	"gid": "ES-0004",
+	"color": [225, 138, 110],
+	"nombre": "Orense"
+  },
+  {
+	"gid": "ES-0005",
+	"color": [142, 230, 192],
+	"nombre": "Lugo"
+  },
+  {
+	"gid": "ES-0006",
+	"color": [206, 181, 20],
+	"nombre": "Asturias"
+  },
+  {
+	"gid": "ES-0007",
+	"color": [206, 152, 30],
+	"nombre": "Cantabria"
+  },
+  {
+	"gid": "ES-0008",
+	"color": [30, 206, 41],
+	"nombre": "Vizcaya"
+  },
+  {
+	"gid": "ES-0009",
+	"color": [161, 27, 51],
+	"nombre": "Alava"
+  },
+  {
+	"gid": "ES-0010",
+	"color": [117, 27, 161],
+	"nombre": "Guipúzcoa"
+  },
+  {
+	"gid": "ES-0011",
+	"color": [87, 63, 40],
+	"nombre": "Navarra"
+  },
+  {
+	"gid": "ES-0012",
+	"color": [76, 111, 170],
+	"nombre": "Huesca"
+  },
+  {
+	"gid": "ES-0013",
+	"color": [105, 108, 144],
+	"nombre": "Lérida"
+  },
+  {
+	"gid": "ES-0014",
+	"color": [69, 202, 55],
+	"nombre": "Barcelona"
+  },
+  {
+	"gid": "ES-0015",
+	"color": [240, 48, 77],
+	"nombre": "Gerona"
+  },
+  {
+	"gid": "ES-0016",
+	"color": [181, 157, 60],
+	"nombre": "Tarragona"
+  },
+  {
+	"gid": "ES-0017",
+	"color": [151, 94, 23],
+	"nombre": "Zaragoza"
+  },
+  {
+	"gid": "ES-0018",
+	"color": [182, 160, 126],
+	"nombre": "Teruel"
+  },
+  {
+	"gid": "ES-0019",
+	"color": [206, 46, 30],
+	"nombre": "León"
+  },
+  {
+	"gid": "ES-0020",
+	"color": [52, 146, 119],
+	"nombre": "Zamora"
+  },
+  {
+	"gid": "ES-0021",
+	"color": [172, 194, 184],
+	"nombre": "Salamanca"
+  },
+  {
+	"gid": "ES-0022",
+	"color": [117, 206, 30],
+	"nombre": "Palencia"
+  },
+  {
+	"gid": "ES-0023",
+	"color": [27, 161, 139],
+	"nombre": "Burgos"
+  },
+  {
+	"gid": "ES-0024",
+	"color": [218, 70, 16],
+	"nombre": "Ávila"
+  },
+  {
+	"gid": "ES-0025",
+	"color": [111, 148, 81],
+	"nombre": "Segovia"
+  },
+  {
+	"gid": "ES-0026",
+	"color": [101, 53, 38],
+	"nombre": "Logroño"
+  },
+  {
+	"gid": "ES-0027",
+	"color": [141, 100, 105],
+	"nombre": "Madrid"
+  },
+  {
+	"gid": "ES-0028",
+	"color": [131, 110, 6],
+	"nombre": "Cáceres"
+  },
+  {
+	"gid": "ES-0029",
+	"color": [59, 136, 199],
+	"nombre": "Badajoz"
+  },
+  {
+	"gid": "ES-0030",
+	"color": [218, 16, 175],
+	"nombre": "Toledo"
+  },
+  {
+	"gid": "ES-0031",
+	"color": [240, 48, 172],
+	"nombre": "Guadalajara"
+  },
+  {
+	"gid": "ES-0032",
+	"color": [76, 151, 150],
+	"nombre": "Cuenca"
+  },
+  {
+	"gid": "ES-0033",
+	"color": [107, 25, 25],
+	"nombre": "Ciudad Real"
+  },
+  {
+	"gid": "ES-0034",
+	"color": [65, 5, 5],
+	"nombre": "Albacete"
+  },
+  {
+	"gid": "ES-0035",
+	"color": [193, 116, 46],
+	"nombre": "Castellón"
+  },
+  {
+	"gid": "ES-0036",
+	"color": [54, 51, 165],
+	"nombre": "Valencia"
+  },
+  {
+	"gid": "ES-0037",
+	"color": [5, 65, 23],
+	"nombre": "Alicante"
+  },
+  {
+	"gid": "ES-0038",
+	"color": [59, 230, 199],
+	"nombre": "Murcia"
+  },
+  {
+	"gid": "ES-0039",
+	"color": [255, 0, 0],
+	"nombre": "Huelva"
+  },
+  {
+	"gid": "ES-0040",
+	"color": [70, 70, 70],
+	"nombre": "Sevilla"
+  },
+  {
+	"gid": "ES-0041",
+	"color": [0, 219, 0],
+	"nombre": "Sevilla"
+  },
+  {
+	"gid": "ES-0042",
+	"color": [237, 219, 0],
+	"nombre": "Cádiz"
+  },
+  {
+	"gid": "ES-0043",
+	"color": [248, 41, 255],
+	"nombre": "Málaga"
+  },
+  {
+	"gid": "ES-0044",
+	"color": [234, 192, 255],
+	"nombre": "Córdoba"
+  },
+  {
+	"gid": "ES-0045",
+	"color": [113, 51, 0],
+	"nombre": "Granada"
+  },
+  {
+	"gid": "ES-0046",
+	"color": [223, 223, 223],
+	"nombre": "Almería"
+  },
+  {
+	"gid": "PT-0001",
+	"color": [52, 106, 146],
+	"nombre": "Viana do Castelo"
+  },
+  {
+	"gid": "PT-0002",
+	"color": [137, 131, 131],
+	"nombre": "Braga"
+  },
+  {
+	"gid": "PT-0003",
+	"color": [196, 20, 20],
+	"nombre": "Vila Real"
+  },
+  {
+	"gid": "PT-0004",
+	"color": [255, 247, 143],
+	"nombre": "Bragança"
+  },
+  {
+	"gid": "PT-0005",
+	"color": [40, 51, 181],
+	"nombre": "Porto"
+  },
+  {
+	"gid": "PT-0006",
+	"color": [122, 11, 83],
+	"nombre": "Aveiro"
+  },
+  {
+	"gid": "PT-0007",
+	"color": [213, 116, 70],
+	"nombre": "Viseu"
+  },
+  {
+	"gid": "PT-0008",
+	"color": [136, 76, 170],
+	"nombre": "Guarda"
+  },
+  {
+	"gid": "PT-0009",
+	"color": [174, 202, 55],
+	"nombre": "Coimbra"
+  },
+  {
+	"gid": "PT-0010",
+	"color": [92, 123, 146],
+	"nombre": "Castelo Branco"
+  },
+  {
+	"gid": "PT-0011",
+	"color": [146, 92, 124],
+	"nombre": "Leiria"
+  },
+  {
+	"gid": "PT-0012",
+	"color": [96, 92, 72],
+	"nombre": "Santarém"
+  },
+  {
+	"gid": "PT-0013",
+	"color": [76, 151, 89],
+	"nombre": "Portalegre"
+  },
+  {
+	"gid": "PT-0014",
+	"color": [77, 140, 6],
+	"nombre": "Évora"
+  },
+  {
+	"gid": "PT-0015",
+	"color": [7, 134, 133],
+	"nombre": "Setúbal"
+  },
+  {
+	"gid": "PT-0016",
+	"color": [185, 230, 59],
+	"nombre": "Beja"
+  },
+  {
+	"gid": "PT-0017",
+	"color": [230, 215, 59],
+	"nombre": "Faro"
+  },
+  {
+	"gid": "PT-0018",
+	"color": [135, 49, 66],
+	"nombre": "Lisboa"
+  }
+]

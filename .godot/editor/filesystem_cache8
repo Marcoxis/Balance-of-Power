@@ -1,0 +1,9 @@
+2a60927148abd1d33b818b535e306557
+::res://::1680282892
+camara_zoom.tscn::PackedScene::7111057828171611309::1684864196::0::1::::<><>::
+Espana_provincial.jpg::CompressedTexture2D::792516208761477727::1680282884::1684862686::1::::<><>::
+icon.svg::CompressedTexture2D::1999312278338512501::1684862674::1684862682::1::::<><>::
+MAPA.png::CompressedTexture2D::4476518524511360069::1683754236::1684862686::1::::<><>::
+mapa.tscn::PackedScene::7606133450298432658::1684864194::0::1::::<><>::uid://b41puuvayffy0
+::res://camara zoom/::1684864448
+camara_zoom.gd::GDScript::-1::1684864380::0::1::::<>Camera2D<>::
