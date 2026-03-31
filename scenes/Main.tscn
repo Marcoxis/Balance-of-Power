@@ -1,25 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgmp53dhuo2ru"]
+[gd_scene format=3 uid="uid://dgmp53dhuo2ru"]
 
-[ext_resource type="Texture2D" uid="uid://4q1g0t7d80jf" path="res://assets/maps/color_map.png" id="2_r0du0"]
-[ext_resource type="Script" uid="uid://dtk1ebtr28fjb" path="res://scripts/camera_2d.gd" id="2_uu6xs"]
-[ext_resource type="Texture2D" uid="uid://btyq5a2cqwf1m" path="res://assets/maps/white_map.png" id="3_cm0pq"]
-[ext_resource type="Script" uid="uid://b4gwrqq8lhr03" path="res://scripts/textures.gd" id="4_fos0i"]
+[ext_resource type="Texture2D" uid="uid://cwd8shnyh0uer" path="res://assets/maps/color_map.png" id="2_r0du0"]
+[ext_resource type="Script" uid="uid://cpk4t0fqm18vs" path="res://scripts/camera_2d.gd" id="2_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://djt2g27m2dq1g" path="res://assets/maps/white_map.png" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://8millgk5ysww" path="res://scripts/textures.gd" id="4_fos0i"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=567377542]
 script = ExtResource("4_fos0i")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=444059609]
 offset = Vector2(960, 480)
 script = ExtResource("2_uu6xs")
 
-[node name="whiteMap" type="TextureRect" parent="."]
+[node name="whiteMap" type="TextureRect" parent="." unique_id=32087908]
 offset_left = -2100.0
 offset_top = -2000.0
 offset_right = 1900.0
 offset_bottom = 2000.0
 texture = ExtResource("3_cm0pq")
 
-[node name="colorMap" type="TextureRect" parent="."]
+[node name="colorMap" type="TextureRect" parent="." unique_id=1919895736]
 visible = false
 offset_left = -2100.0
 offset_top = -2000.0

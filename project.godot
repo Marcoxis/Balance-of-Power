@@ -15,14 +15,16 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Victoria 2.1"
-run/main_scene="res://Main.tscn"
+run/main_scene="uid://dgmp53dhuo2ru"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=900
+window/size/viewport_width=1900
+window/size/viewport_height=1000
+window/size/window_width=1600
+window/size/window_height=900
 
 [input]
 
