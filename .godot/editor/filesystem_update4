@@ -1,1 +1,2 @@
-res://scripts/textures.gd
+res://scenes/MainMenu.tscn
+res://scripts/main_menu.gd
