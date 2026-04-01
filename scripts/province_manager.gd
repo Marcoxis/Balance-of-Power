@@ -42,6 +42,7 @@ func load_from_file(path: String) -> void:
 	color_to_gid.clear()
 	rgb_to_gid.clear()
 
+	# Guardamos tanto el acceso por gid como el acceso por color para resolver el mapa rapido.
 	for p in data:
 		var gid = p.get("gid", "")
 		var nombre = p.get("nombre", "")
@@ -115,6 +116,19 @@ func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) 
 				if nation_manager and nation_manager.has_method("get_nation_color"):
 					ncolor = nation_manager.get_nation_color(owner_id)
 				out.set_pixel(x, y, Color(ncolor.r, ncolor.g, ncolor.b, 0.7))
+			else:
+				out.set_pixel(x, y, Color(0, 0, 0, 0))
+	return out
+
+func build_selection_overlay(color_map: Texture2D, selected_gid: String, overlay_color: Color = Color(1, 1, 1, 1)) -> Image:
+	# Construye una mascara con solo la provincia seleccionada para dibujarla por encima del mapa.
+	var img = color_map.get_image()
+	var out = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
+	for y in range(img.get_height()):
+		for x in range(img.get_width()):
+			var gid = get_gid_by_color(img.get_pixel(x, y))
+			if gid == selected_gid:
+				out.set_pixel(x, y, overlay_color)
 			else:
 				out.set_pixel(x, y, Color(0, 0, 0, 0))
 	return out

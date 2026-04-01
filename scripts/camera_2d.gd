@@ -14,6 +14,7 @@ var ultima_pos_raton := Vector2.ZERO
 func _process(delta):
 	var direccion := Vector2.ZERO
 
+	# Movimiento clasico con WASD.
 	if Input.is_key_pressed(KEY_D):
 		direccion.x += 1
 	if Input.is_key_pressed(KEY_A):
@@ -32,6 +33,7 @@ func _input(event):
 			arrastrando = event.pressed
 			ultima_pos_raton = event.position
 
+		# La rueda modifica el zoom y luego lo limitamos al rango permitido.
 		if event.pressed:
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				zoom -= Vector2(paso_zoom, paso_zoom)
@@ -43,6 +45,7 @@ func _input(event):
 
 	elif event is InputEventMouseMotion and arrastrando:
 		var delta_mov: Vector2 = event.position - ultima_pos_raton
+		# El arrastre escala con el zoom, pero de forma suavizada para que no se dispare.
 		var zoom_normalizado := zoom.x / zoom_referencia_arrastre
 		var factor_arrastre := lerpf(1.0, zoom_normalizado, sensibilidad_zoom_arrastre)
 		position -= delta_mov * velocidad_arrastre * factor_arrastre

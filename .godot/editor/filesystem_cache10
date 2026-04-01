@@ -16,7 +16,7 @@ Main.tscn::PackedScene::7606133450298432658::1774982742::0::1::::<><><>0<>0<><>:
 camara_zoom.gd::GDScript::1144608017182260973::1765732592::0::1::::<>Camera2D<><>0<>0<><>::
 camara_zoom.tscn::PackedScene::7111057828171611309::1684864736::0::1::::<><><>0<>0<><>::
 ::res://scripts/::1774886932
-camera_2d.gd::GDScript::5848113843923545392::1774982156::0::1::::<>Camera2D<><>0<>0<><>::
+camera_2d.gd::GDScript::5848113843923545392::1775046350::0::1::::<>Camera2D<><>0<>0<><>::
 nation_manager.gd::GDScript::4654232358980417587::1774982742::0::1::::NationManager<>Node<><>0<>0<><>::
-province_manager.gd::GDScript::2177318449371377632::1774979794::0::1::::ProvinceManager<>Node<><>0<>0<><>::
-textures.gd::GDScript::2341510340299958826::1774981328::0::1::::<>Node2D<><>0<>0<><>::
+province_manager.gd::GDScript::2177318449371377632::1775046350::0::1::::ProvinceManager<>Node<><>0<>0<><>::
+textures.gd::GDScript::2341510340299958826::1775046350::0::1::::<>Node2D<><>0<>0<><>::
