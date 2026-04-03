@@ -113,6 +113,8 @@ func _get_nearby_province_info(x: int, y: int, radius: int = 3) -> Variant:
 	return null
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	var cursor_texture: Texture2D = load(CUSTOM_CURSOR_PATH)
 	if cursor_texture != null:
 		Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(4, 2))
@@ -334,6 +336,10 @@ func _create_hover_name_panel() -> void:
 
 func _update_hover_name() -> void:
 	if hover_name_panel == null or color_map_image == null or white_map.size == Vector2.ZERO:
+		return
+
+	if get_tree().paused:
+		hover_name_panel.visible = false
 		return
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
@@ -628,14 +634,19 @@ func _set_selected_province(gid: String, nombre: String) -> void:
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
+		if province_info_panel != null and province_info_panel.visible:
+			province_info_dragging = false
+			province_info_panel.visible = false
+			return
+
 		if pause_menu_panel != null:
 			var is_open: bool = pause_menu_panel.visible
 			pause_menu_panel.visible = not is_open
 			if not is_open:
+				if hover_name_panel != null:
+					hover_name_panel.visible = false
 				_center_pause_menu()
 			get_tree().paused = not is_open
-			if province_info_panel != null and not is_open:
-				province_info_panel.visible = false
 		return
 
 	if event is InputEventMouseButton \
