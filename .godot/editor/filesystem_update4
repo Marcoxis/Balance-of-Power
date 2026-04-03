@@ -1,3 +1,2 @@
-res://scripts/main_menu.gd
+res://scripts/nation_manager.gd
 res://scripts/textures.gd
-res://scripts/province_manager.gd

@@ -28,8 +28,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LoadingLabel" type="Label" parent="CenterContainer"]
+[node name="Content" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(560, 220)
+theme_override_constants/separation = 18
+
+[node name="LoadingLabel" type="Label" parent="CenterContainer/Content"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
 theme_override_colors/font_color = Color(0.956863, 0.921569, 0.796078, 1)
 text = "Cargando"
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/Content"]
+custom_minimum_size = Vector2(560, 26)
+layout_mode = 2
+max_value = 100.0
+value = 5.0
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="CenterContainer/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.709804, 0.741176, 0.780392, 1)
+text = "Preparando recursos..."
+
+[node name="TipPanel" type="PanelContainer" parent="CenterContainer/Content"]
+layout_mode = 2
+
+[node name="TipMargin" type="MarginContainer" parent="CenterContainer/Content/TipPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="TipLabel" type="Label" parent="CenterContainer/Content/TipPanel/TipMargin"]
+custom_minimum_size = Vector2(500, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.890196, 0.901961, 0.92549, 1)
+autowrap_mode = 3
+text = "Consejo: expandete con cuidado y protege tus provincias frontera."

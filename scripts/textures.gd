@@ -133,6 +133,7 @@ func _ready():
 
 	nation_manager = NationManager.new()
 	add_child(nation_manager)
+	nation_manager.load_from_file("res://data/countries.json")
 
 	# Reutilizamos la carga ya hecha por ProvinceManager para no parsear el JSON dos veces.
 	provincias.clear()
@@ -176,7 +177,6 @@ func _ready():
 		add_child(owner_overlay)
 
 	if selection_overlay == null:
-		# Overlay independiente para la provincia seleccionada; se anima cambiando su alpha.
 		selection_overlay = TextureRect.new()
 		selection_overlay.name = "selectionOverlay"
 		selection_overlay.anchor_left = white_map.anchor_left
@@ -192,7 +192,6 @@ func _ready():
 
 	_create_selection_ui()
 
-	# Generamos la textura de propietarios una vez, ya apoyados en la cache de pixeles.
 	call_deferred("_refresh_owner_overlay")
 
 func _process(delta: float) -> void:
@@ -450,7 +449,7 @@ func _show_province_info(gid: String, nombre: String) -> void:
 	if gid != "SEA":
 		province_data = province_manager.provinces_by_gid.get(gid, {})
 
-	var owner_id: Variant = province_manager.get_province_owner(gid)
+	var owner_id: Variant = nation_manager.get_province_owner(gid)
 	var owner_name: String = "Desconocido"
 	if gid == "SEA":
 		owner_name = "Ninguno"
@@ -586,7 +585,7 @@ func _refresh_owner_overlay() -> void:
 	owner_overlay_image.fill(Color(0, 0, 0, 0))
 
 	for gid in province_pixels_by_gid.keys():
-		var owner_id: Variant = province_manager.get_province_owner(gid)
+		var owner_id: Variant = nation_manager.get_province_owner(gid)
 		if owner_id == null or owner_id == "":
 			continue
 
@@ -599,8 +598,8 @@ func _refresh_owner_overlay() -> void:
 
 func set_province_owner_by_gid(gid: String, owner_id: String) -> void:
 	if province_manager:
-		province_manager.set_province_owner(gid, owner_id)
+		nation_manager.set_province_owner(gid, owner_id)
 		_refresh_owner_overlay()
-		var save_ok: bool = province_manager.save_to_file("res://data/provinces_with_gid.json")
+		var save_ok: bool = nation_manager.save_to_file("res://data/countries.json")
 		if not save_ok:
-			push_warning("No se pudo guardar el estado de provincias en JSON")
+			push_warning("No se pudo guardar el estado de paises en JSON")

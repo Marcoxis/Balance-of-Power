@@ -7,7 +7,6 @@
       52
     ],
     "nombre": "Valladolid",
-    "owner": "ES",
     "population_1835": 225000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -23,7 +22,6 @@
       230
     ],
     "nombre": "La Coruña",
-    "owner": "ES",
     "population_1835": 430000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -39,7 +37,6 @@
       142
     ],
     "nombre": "Pontevedra",
-    "owner": "ES",
     "population_1835": 390000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -55,7 +52,6 @@
       110
     ],
     "nombre": "Orense",
-    "owner": "ES",
     "population_1835": 250000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -71,7 +67,6 @@
       192
     ],
     "nombre": "Lugo",
-    "owner": "ES",
     "population_1835": 300000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -87,7 +82,6 @@
       20
     ],
     "nombre": "Asturias",
-    "owner": "ES",
     "population_1835": 380000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -103,7 +97,6 @@
       30
     ],
     "nombre": "Cantabria",
-    "owner": "ES",
     "population_1835": 165000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -119,7 +112,6 @@
       41
     ],
     "nombre": "Vizcaya",
-    "owner": "ES",
     "population_1835": 155000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -135,7 +127,6 @@
       51
     ],
     "nombre": "Alava",
-    "owner": "ES",
     "population_1835": 95000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -151,7 +142,6 @@
       161
     ],
     "nombre": "Guipúzcoa",
-    "owner": "ES",
     "population_1835": 125000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -167,7 +157,6 @@
       40
     ],
     "nombre": "Navarra",
-    "owner": "ES",
     "population_1835": 235000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -183,7 +172,6 @@
       170
     ],
     "nombre": "Huesca",
-    "owner": "ES",
     "population_1835": 190000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -199,7 +187,6 @@
       144
     ],
     "nombre": "Lérida",
-    "owner": "ES",
     "population_1835": 300000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -215,7 +202,6 @@
       55
     ],
     "nombre": "Barcelona",
-    "owner": "ES",
     "population_1835": 760000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -231,7 +217,6 @@
       77
     ],
     "nombre": "Gerona",
-    "owner": "ES",
     "population_1835": 210000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -247,7 +232,6 @@
       60
     ],
     "nombre": "Tarragona",
-    "owner": "ES",
     "population_1835": 255000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -263,7 +247,6 @@
       23
     ],
     "nombre": "Zaragoza",
-    "owner": "ES",
     "population_1835": 285000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -279,7 +262,6 @@
       126
     ],
     "nombre": "Teruel",
-    "owner": "ES",
     "population_1835": 240000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -295,7 +277,6 @@
       30
     ],
     "nombre": "León",
-    "owner": "ES",
     "population_1835": 320000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -311,7 +292,6 @@
       119
     ],
     "nombre": "Zamora",
-    "owner": "ES",
     "population_1835": 180000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -327,7 +307,6 @@
       184
     ],
     "nombre": "Salamanca",
-    "owner": "ES",
     "population_1835": 235000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -343,7 +322,6 @@
       30
     ],
     "nombre": "Palencia",
-    "owner": "ES",
     "population_1835": 140000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -359,7 +337,6 @@
       139
     ],
     "nombre": "Burgos",
-    "owner": "ES",
     "population_1835": 255000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -375,7 +352,6 @@
       16
     ],
     "nombre": "Ávila",
-    "owner": "ES",
     "population_1835": 145000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -391,7 +367,6 @@
       81
     ],
     "nombre": "Segovia",
-    "owner": "ES",
     "population_1835": 125000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -407,7 +382,6 @@
       38
     ],
     "nombre": "Logroño",
-    "owner": "ES",
     "population_1835": 160000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -423,7 +397,6 @@
       105
     ],
     "nombre": "Madrid",
-    "owner": "ES",
     "population_1835": 320000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -439,7 +412,6 @@
       6
     ],
     "nombre": "Cáceres",
-    "owner": "ES",
     "population_1835": 380000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -455,7 +427,6 @@
       199
     ],
     "nombre": "Badajoz",
-    "owner": "ES",
     "population_1835": 390000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -471,7 +442,6 @@
       175
     ],
     "nombre": "Toledo",
-    "owner": "ES",
     "population_1835": 285000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -487,7 +457,6 @@
       172
     ],
     "nombre": "Guadalajara",
-    "owner": "ES",
     "population_1835": 170000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -503,7 +472,6 @@
       150
     ],
     "nombre": "Cuenca",
-    "owner": "ES",
     "population_1835": 240000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -519,7 +487,6 @@
       25
     ],
     "nombre": "Ciudad Real",
-    "owner": "ES",
     "population_1835": 275000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -535,7 +502,6 @@
       5
     ],
     "nombre": "Albacete",
-    "owner": "ES",
     "population_1835": 220000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -551,7 +517,6 @@
       46
     ],
     "nombre": "Castellón",
-    "owner": "ES",
     "population_1835": 190000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -567,7 +532,6 @@
       165
     ],
     "nombre": "Valencia",
-    "owner": "ES",
     "population_1835": 390000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -583,7 +547,6 @@
       23
     ],
     "nombre": "Alicante",
-    "owner": "ES",
     "population_1835": 360000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -599,7 +562,6 @@
       199
     ],
     "nombre": "Murcia",
-    "owner": "ES",
     "population_1835": 330000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -615,7 +577,6 @@
       0
     ],
     "nombre": "Huelva",
-    "owner": "ES",
     "population_1835": 155000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -631,7 +592,6 @@
       70
     ],
     "nombre": "Sevilla",
-    "owner": "ES",
     "population_1835": 480000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -647,7 +607,6 @@
       0
     ],
     "nombre": "Sevilla",
-    "owner": "ES",
     "population_1835": 480000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -663,7 +622,6 @@
       0
     ],
     "nombre": "Cádiz",
-    "owner": "ES",
     "population_1835": 380000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -679,7 +637,6 @@
       255
     ],
     "nombre": "Málaga",
-    "owner": "ES",
     "population_1835": 320000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -695,7 +652,6 @@
       255
     ],
     "nombre": "Córdoba",
-    "owner": "ES",
     "population_1835": 330000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -711,7 +667,6 @@
       0
     ],
     "nombre": "Granada",
-    "owner": "ES",
     "population_1835": 350000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -727,7 +682,6 @@
       223
     ],
     "nombre": "Almería",
-    "owner": "ES",
     "population_1835": 250000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -743,7 +697,6 @@
       123
     ],
     "nombre": "Soria",
-    "owner": "ES",
     "population_1835": 120000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -759,7 +712,6 @@
       146
     ],
     "nombre": "Viana do Castelo",
-    "owner": "PT",
     "population_1835": 220000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -775,7 +727,6 @@
       131
     ],
     "nombre": "Braga",
-    "owner": "PT",
     "population_1835": 260000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -791,7 +742,6 @@
       20
     ],
     "nombre": "Vila Real",
-    "owner": "PT",
     "population_1835": 180000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -807,7 +757,6 @@
       143
     ],
     "nombre": "Bragança",
-    "owner": "PT",
     "population_1835": 165000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -823,7 +772,6 @@
       181
     ],
     "nombre": "Porto",
-    "owner": "PT",
     "population_1835": 470000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -839,7 +787,6 @@
       83
     ],
     "nombre": "Aveiro",
-    "owner": "PT",
     "population_1835": 250000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -855,7 +802,6 @@
       70
     ],
     "nombre": "Viseu",
-    "owner": "PT",
     "population_1835": 245000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -871,7 +817,6 @@
       170
     ],
     "nombre": "Guarda",
-    "owner": "PT",
     "population_1835": 200000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -887,7 +832,6 @@
       55
     ],
     "nombre": "Coimbra",
-    "owner": "PT",
     "population_1835": 250000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -903,7 +847,6 @@
       146
     ],
     "nombre": "Castelo Branco",
-    "owner": "PT",
     "population_1835": 185000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -919,7 +862,6 @@
       124
     ],
     "nombre": "Leiria",
-    "owner": "PT",
     "population_1835": 170000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -935,7 +877,6 @@
       72
     ],
     "nombre": "Santarém",
-    "owner": "PT",
     "population_1835": 215000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -951,7 +892,6 @@
       89
     ],
     "nombre": "Portalegre",
-    "owner": "PT",
     "population_1835": 110000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -967,7 +907,6 @@
       6
     ],
     "nombre": "Évora",
-    "owner": "PT",
     "population_1835": 105000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -983,7 +922,6 @@
       133
     ],
     "nombre": "Setúbal",
-    "owner": "PT",
     "population_1835": 95000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -999,7 +937,6 @@
       59
     ],
     "nombre": "Beja",
-    "owner": "PT",
     "population_1835": 130000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -1015,7 +952,6 @@
       59
     ],
     "nombre": "Faro",
-    "owner": "PT",
     "population_1835": 115000,
     "buildings": "work in progress",
     "resources": "work in progress",
@@ -1031,7 +967,6 @@
       66
     ],
     "nombre": "Lisboa",
-    "owner": "PT",
     "population_1835": 360000,
     "buildings": "work in progress",
     "resources": "work in progress",
