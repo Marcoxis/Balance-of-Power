@@ -75,8 +75,6 @@
 - Añadir soporte para remapeo de controles.
 - Añadir soporte opcional para teclado en flechas.
 - Revisar la direccion del zoom para que coincida con la expectativa habitual del jugador.
-- Hacer zoom hacia la posicion del cursor en lugar de hacerlo al centro de la camara.
-- Añadir limites de camara para no salir del mapa.
 - Añadir suavizado opcional de movimiento y zoom.
 - Ajustar el arrastre para que no dependa solo de `zoom.x`.
 - Bloquear input de mapa mientras el juego esta pausado si eso es lo esperado.
@@ -84,7 +82,6 @@
 
 ## Datos y dominio
 
-- Enriquecer `provinces_with_gid.json` con estructura mas estable para poblacion, edificios y recursos.
 - Definir claramente que campos son obligatorios y cuales opcionales en los datos de provincia.
 - Añadir versionado de formato al JSON para facilitar migraciones futuras.
 - Añadir pruebas de integridad para detectar colores duplicados o `gid` repetidos.
@@ -95,7 +92,6 @@
 
 ## Calidad de codigo
 
-- Eliminar funciones no usadas como `colores_iguales()` si ya no aportan valor.
 - Revisar comentarios temporales como `patch: force reload timestamp`.
 - Homogeneizar idioma de nombres de variables, funciones y comentarios.
 - Añadir tipado a funciones como `_input(event)` y `_unhandled_input(event)`.
@@ -133,7 +129,6 @@
 - Añadir imagen o listado real de municipios por provincia.
 - Añadir mas naciones cargadas desde datos externos.
 - Añadir colores, banderas y nombres historicos por periodo.
-- Añadir tooltips de provincias al pasar el raton.
 - Añadir estadisticas historicas por provincia.
 - Añadir capas del mapa activables: propietarios, recursos, poblacion, infraestructura.
 - Añadir sistema de seleccion multiple o resaltado contextual.

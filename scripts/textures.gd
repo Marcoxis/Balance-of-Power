@@ -17,6 +17,8 @@ var province_info_buildings: Label = null
 var province_info_resources: Label = null
 var province_info_extra: Label = null
 var pause_menu_panel: PanelContainer = null
+var hover_name_panel: PanelContainer = null
+var hover_name_label: Label = null
 var province_info_dragging: bool = false
 var province_info_drag_offset: Vector2 = Vector2.ZERO
 
@@ -39,19 +41,10 @@ const SELECTION_BLINK_SPEED: float = 3.2
 const SELECTION_MIN_ALPHA: float = 0.38
 const SELECTION_MAX_ALPHA: float = 0.62
 const SEA_RGB_KEY: int = (172 << 16) | (201 << 8) | 233
+const CUSTOM_CURSOR_PATH: String = "res://assets/ui/cursor.svg"
 
 func _rgb_key(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
-
-func _get_exact_gid_at_pixel(x: int, y: int) -> String:
-	if color_map_image == null:
-		return ""
-
-	var c: Color = color_map_image.get_pixel(x, y)
-	var r: int = int(round(c.r * 255.0))
-	var g: int = int(round(c.g * 255.0))
-	var b: int = int(round(c.b * 255.0))
-	return province_manager.rgb_to_gid.get(_rgb_key(r, g, b), "")
 
 func _build_color_lookup_cache() -> Dictionary:
 	var color_lookup: Dictionary = {}
@@ -119,13 +112,11 @@ func _get_nearby_province_info(x: int, y: int, radius: int = 3) -> Variant:
 
 	return null
 
-# Funcion para comparar colores con tolerancia
-func colores_iguales(c1: Color, c2: Color, tolerancia: float = 0.01) -> bool:
-	return abs(c1.r - c2.r) < tolerancia \
-		and abs(c1.g - c2.g) < tolerancia \
-		and abs(c1.b - c2.b) < tolerancia
-
 func _ready():
+	var cursor_texture: Texture2D = load(CUSTOM_CURSOR_PATH)
+	if cursor_texture != null:
+		Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(4, 2))
+
 	# Crear y configurar managers
 	province_manager = ProvinceManager.new()
 	add_child(province_manager)
@@ -195,6 +186,8 @@ func _ready():
 	call_deferred("_refresh_owner_overlay")
 
 func _process(delta: float) -> void:
+	_update_hover_name()
+
 	if selection_overlay == null or selected_province_gid == "":
 		return
 
@@ -203,6 +196,44 @@ func _process(delta: float) -> void:
 	var t: float = (sin(blink_time) + 1.0) * 0.5
 	var alpha: float = lerpf(SELECTION_MIN_ALPHA, SELECTION_MAX_ALPHA, t)
 	selection_overlay.self_modulate = Color(1, 1, 1, alpha)
+
+func _format_population(value: int) -> String:
+	var text: String = str(value)
+	var out: String = ""
+	var count: int = 0
+	for i in range(text.length() - 1, -1, -1):
+		out = text[i] + out
+		count += 1
+		if count == 3 and i > 0:
+			out = "." + out
+			count = 0
+	return out
+
+func _get_population_value(province_data: Dictionary) -> int:
+	if province_data.has("population"):
+		var population_data: Variant = province_data.get("population", {})
+		if typeof(population_data) == TYPE_DICTIONARY:
+			return int(population_data.get("value", 0))
+	return int(province_data.get("population_1835", 0))
+
+func _format_status_list_field(field_value: Variant) -> String:
+	if typeof(field_value) == TYPE_DICTIONARY:
+		var field_data: Dictionary = field_value
+		var entries: Array = field_data.get("entries", [])
+		if not entries.is_empty():
+			var values: Array[String] = []
+			for entry in entries:
+				values.append(str(entry))
+			return ", ".join(values)
+		return str(field_data.get("status", "work in progress"))
+
+	if typeof(field_value) == TYPE_ARRAY:
+		var values: Array[String] = []
+		for entry in field_value:
+			values.append(str(entry))
+		return ", ".join(values)
+
+	return str(field_value)
 
 func _clamp_province_info_panel_position(target_position: Vector2) -> Vector2:
 	if province_info_panel == null:
@@ -229,18 +260,6 @@ func _on_province_info_header_gui_input(event: InputEvent) -> void:
 			province_info_drag_offset = province_info_panel.position - get_global_mouse_position()
 	elif event is InputEventMouseMotion and province_info_dragging:
 		province_info_panel.position = _clamp_province_info_panel_position(get_global_mouse_position() + province_info_drag_offset)
-
-func _format_population(value: int) -> String:
-	var text: String = str(value)
-	var out: String = ""
-	var count: int = 0
-	for i in range(text.length() - 1, -1, -1):
-		out = text[i] + out
-		count += 1
-		if count == 3 and i > 0:
-			out = "." + out
-			count = 0
-	return out
 
 func _build_province_pixel_cache() -> void:
 	if color_map_image == null or province_manager == null:
@@ -283,6 +302,74 @@ func _create_selection_ui() -> void:
 
 	_create_province_info_panel()
 	_create_pause_menu()
+	_create_hover_name_panel()
+
+func _create_hover_name_panel() -> void:
+	hover_name_panel = PanelContainer.new()
+	hover_name_panel.name = "hoverNamePanel"
+	hover_name_panel.visible = false
+	hover_name_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ui_layer.add_child(hover_name_panel)
+
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.12, 0.16, 0.94)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.82, 0.78, 0.62, 0.9)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	style.content_margin_left = 12
+	style.content_margin_top = 8
+	style.content_margin_right = 12
+	style.content_margin_bottom = 8
+	hover_name_panel.add_theme_stylebox_override("panel", style)
+
+	hover_name_label = Label.new()
+	hover_name_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
+	hover_name_panel.add_child(hover_name_label)
+
+func _update_hover_name() -> void:
+	if hover_name_panel == null or color_map_image == null or white_map.size == Vector2.ZERO:
+		return
+
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var white_rect: Rect2 = Rect2(white_map.global_position, white_map.size)
+	if not white_rect.has_point(mouse_pos):
+		hover_name_panel.visible = false
+		return
+
+	var pos_local: Vector2 = white_map.get_local_mouse_position()
+	var tex_size: Vector2 = color_map.texture.get_size()
+	var x: int = int(pos_local.x * tex_size.x / white_map.size.x)
+	var y: int = int(pos_local.y * tex_size.y / white_map.size.y)
+	if x < 0 or y < 0 or x >= tex_size.x or y >= tex_size.y:
+		hover_name_panel.visible = false
+		return
+
+	var result: Variant = _get_nearby_province_info(x, y, 2)
+	if result == null:
+		hover_name_panel.visible = false
+		return
+
+	var info: Dictionary = result.get("info", {})
+	var nombre: String = str(info.get("nombre", ""))
+	if nombre == "":
+		hover_name_panel.visible = false
+		return
+
+	hover_name_label.text = nombre
+	var desired_position: Vector2 = mouse_pos + Vector2(20, -6)
+	var panel_size: Vector2 = hover_name_panel.get_combined_minimum_size()
+	var viewport_size: Vector2 = get_viewport_rect().size
+	hover_name_panel.position = Vector2(
+		clampf(desired_position.x, 0.0, maxf(0.0, viewport_size.x - panel_size.x)),
+		clampf(desired_position.y, 0.0, maxf(0.0, viewport_size.y - panel_size.y))
+	)
+	hover_name_panel.visible = true
 
 func _create_pause_menu() -> void:
 	pause_menu_panel = PanelContainer.new()
@@ -456,9 +543,9 @@ func _show_province_info(gid: String, nombre: String) -> void:
 	if nation_manager != null and owner_id != null and owner_id != "":
 		owner_name = nation_manager.get_nation_name(owner_id)
 
-	var population: int = 0 if gid == "SEA" else int(province_data.get("population_1835", 100000))
-	var buildings_text: String = str(province_data.get("buildings", "Se esta trabajando en ello"))
-	var resources_text: String = str(province_data.get("resources", "Se esta trabajando en ello"))
+	var population: int = 0 if gid == "SEA" else _get_population_value(province_data)
+	var buildings_text: String = _format_status_list_field(province_data.get("buildings", "work in progress"))
+	var resources_text: String = _format_status_list_field(province_data.get("resources", "work in progress"))
 	var terrain_text: String = str(province_data.get("terrain_image", "Se esta trabajando en ello"))
 	var municipalities_text: String = str(province_data.get("municipalities_image", "Se esta trabajando en ello"))
 	var extra_text: String = str(province_data.get("extra_info", "Infraestructura: Se esta trabajando en ello\nCultura predominante: Se esta trabajando en ello\nAdministracion local: Se esta trabajando en ello"))

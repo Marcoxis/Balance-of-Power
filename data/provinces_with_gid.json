@@ -7,12 +7,22 @@
       52
     ],
     "nombre": "Valladolid",
-    "population_1835": 225000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 225000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0002",
@@ -22,12 +32,22 @@
       230
     ],
     "nombre": "La Coruña",
-    "population_1835": 430000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 430000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0003",
@@ -37,12 +57,22 @@
       142
     ],
     "nombre": "Pontevedra",
-    "population_1835": 390000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 390000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0004",
@@ -52,12 +82,22 @@
       110
     ],
     "nombre": "Orense",
-    "population_1835": 250000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 250000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0005",
@@ -67,12 +107,22 @@
       192
     ],
     "nombre": "Lugo",
-    "population_1835": 300000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 300000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0006",
@@ -82,12 +132,22 @@
       20
     ],
     "nombre": "Asturias",
-    "population_1835": 380000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 380000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0007",
@@ -97,12 +157,22 @@
       30
     ],
     "nombre": "Cantabria",
-    "population_1835": 165000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 165000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0008",
@@ -112,12 +182,22 @@
       41
     ],
     "nombre": "Vizcaya",
-    "population_1835": 155000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 155000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0009",
@@ -127,12 +207,22 @@
       51
     ],
     "nombre": "Alava",
-    "population_1835": 95000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 95000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0010",
@@ -142,12 +232,22 @@
       161
     ],
     "nombre": "Guipúzcoa",
-    "population_1835": 125000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 125000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0011",
@@ -157,12 +257,22 @@
       40
     ],
     "nombre": "Navarra",
-    "population_1835": 235000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 235000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0012",
@@ -172,12 +282,22 @@
       170
     ],
     "nombre": "Huesca",
-    "population_1835": 190000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 190000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0013",
@@ -187,12 +307,22 @@
       144
     ],
     "nombre": "Lérida",
-    "population_1835": 300000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 300000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0014",
@@ -202,12 +332,22 @@
       55
     ],
     "nombre": "Barcelona",
-    "population_1835": 760000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 760000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0015",
@@ -217,12 +357,22 @@
       77
     ],
     "nombre": "Gerona",
-    "population_1835": 210000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 210000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0016",
@@ -232,12 +382,22 @@
       60
     ],
     "nombre": "Tarragona",
-    "population_1835": 255000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 255000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0017",
@@ -247,12 +407,22 @@
       23
     ],
     "nombre": "Zaragoza",
-    "population_1835": 285000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 285000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0018",
@@ -262,12 +432,22 @@
       126
     ],
     "nombre": "Teruel",
-    "population_1835": 240000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 240000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0019",
@@ -277,12 +457,22 @@
       30
     ],
     "nombre": "León",
-    "population_1835": 320000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 320000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0020",
@@ -292,12 +482,22 @@
       119
     ],
     "nombre": "Zamora",
-    "population_1835": 180000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 180000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0021",
@@ -307,12 +507,22 @@
       184
     ],
     "nombre": "Salamanca",
-    "population_1835": 235000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 235000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0022",
@@ -322,12 +532,22 @@
       30
     ],
     "nombre": "Palencia",
-    "population_1835": 140000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 140000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0023",
@@ -337,12 +557,22 @@
       139
     ],
     "nombre": "Burgos",
-    "population_1835": 255000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 255000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0024",
@@ -352,12 +582,22 @@
       16
     ],
     "nombre": "Ávila",
-    "population_1835": 145000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 145000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0025",
@@ -367,12 +607,22 @@
       81
     ],
     "nombre": "Segovia",
-    "population_1835": 125000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 125000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0026",
@@ -382,12 +632,22 @@
       38
     ],
     "nombre": "Logroño",
-    "population_1835": 160000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 160000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0027",
@@ -397,12 +657,22 @@
       105
     ],
     "nombre": "Madrid",
-    "population_1835": 320000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 320000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0028",
@@ -412,12 +682,22 @@
       6
     ],
     "nombre": "Cáceres",
-    "population_1835": 380000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 380000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0029",
@@ -427,12 +707,22 @@
       199
     ],
     "nombre": "Badajoz",
-    "population_1835": 390000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 390000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0030",
@@ -442,12 +732,22 @@
       175
     ],
     "nombre": "Toledo",
-    "population_1835": 285000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 285000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0031",
@@ -457,12 +757,22 @@
       172
     ],
     "nombre": "Guadalajara",
-    "population_1835": 170000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 170000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0032",
@@ -472,12 +782,22 @@
       150
     ],
     "nombre": "Cuenca",
-    "population_1835": 240000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 240000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0033",
@@ -487,12 +807,22 @@
       25
     ],
     "nombre": "Ciudad Real",
-    "population_1835": 275000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 275000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0034",
@@ -502,12 +832,22 @@
       5
     ],
     "nombre": "Albacete",
-    "population_1835": 220000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 220000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0035",
@@ -517,12 +857,22 @@
       46
     ],
     "nombre": "Castellón",
-    "population_1835": 190000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 190000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0036",
@@ -532,12 +882,22 @@
       165
     ],
     "nombre": "Valencia",
-    "population_1835": 390000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 390000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0037",
@@ -547,12 +907,22 @@
       23
     ],
     "nombre": "Alicante",
-    "population_1835": 360000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 360000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0038",
@@ -562,12 +932,22 @@
       199
     ],
     "nombre": "Murcia",
-    "population_1835": 330000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 330000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0039",
@@ -577,12 +957,22 @@
       0
     ],
     "nombre": "Huelva",
-    "population_1835": 155000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 155000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0040",
@@ -592,12 +982,22 @@
       70
     ],
     "nombre": "Sevilla",
-    "population_1835": 480000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 480000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0041",
@@ -607,12 +1007,22 @@
       0
     ],
     "nombre": "Sevilla",
-    "population_1835": 480000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 480000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0042",
@@ -622,12 +1032,22 @@
       0
     ],
     "nombre": "Cádiz",
-    "population_1835": 380000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 380000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0043",
@@ -637,12 +1057,22 @@
       255
     ],
     "nombre": "Málaga",
-    "population_1835": 320000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 320000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0044",
@@ -652,12 +1082,22 @@
       255
     ],
     "nombre": "Córdoba",
-    "population_1835": 330000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 330000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0045",
@@ -667,12 +1107,22 @@
       0
     ],
     "nombre": "Granada",
-    "population_1835": 350000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 350000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0046",
@@ -682,12 +1132,22 @@
       223
     ],
     "nombre": "Almería",
-    "population_1835": 250000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 250000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "ES-0047",
@@ -697,12 +1157,22 @@
       123
     ],
     "nombre": "Soria",
-    "population_1835": 120000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 120000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0001",
@@ -712,12 +1182,22 @@
       146
     ],
     "nombre": "Viana do Castelo",
-    "population_1835": 220000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 220000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0002",
@@ -727,12 +1207,22 @@
       131
     ],
     "nombre": "Braga",
-    "population_1835": 260000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 260000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0003",
@@ -742,12 +1232,22 @@
       20
     ],
     "nombre": "Vila Real",
-    "population_1835": 180000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 180000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0004",
@@ -757,12 +1257,22 @@
       143
     ],
     "nombre": "Bragança",
-    "population_1835": 165000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 165000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0005",
@@ -772,12 +1282,22 @@
       181
     ],
     "nombre": "Porto",
-    "population_1835": 470000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 470000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0006",
@@ -787,12 +1307,22 @@
       83
     ],
     "nombre": "Aveiro",
-    "population_1835": 250000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 250000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0007",
@@ -802,12 +1332,22 @@
       70
     ],
     "nombre": "Viseu",
-    "population_1835": 245000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 245000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0008",
@@ -817,12 +1357,22 @@
       170
     ],
     "nombre": "Guarda",
-    "population_1835": 200000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 200000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0009",
@@ -832,12 +1382,22 @@
       55
     ],
     "nombre": "Coimbra",
-    "population_1835": 250000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 250000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0010",
@@ -847,12 +1407,22 @@
       146
     ],
     "nombre": "Castelo Branco",
-    "population_1835": 185000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 185000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0011",
@@ -862,12 +1432,22 @@
       124
     ],
     "nombre": "Leiria",
-    "population_1835": 170000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 170000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0012",
@@ -877,12 +1457,22 @@
       72
     ],
     "nombre": "Santarém",
-    "population_1835": 215000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 215000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0013",
@@ -892,12 +1482,22 @@
       89
     ],
     "nombre": "Portalegre",
-    "population_1835": 110000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 110000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0014",
@@ -907,12 +1507,22 @@
       6
     ],
     "nombre": "Évora",
-    "population_1835": 105000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 105000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0015",
@@ -922,12 +1532,22 @@
       133
     ],
     "nombre": "Setúbal",
-    "population_1835": 95000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 95000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0016",
@@ -937,12 +1557,22 @@
       59
     ],
     "nombre": "Beja",
-    "population_1835": 130000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 130000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0017",
@@ -952,12 +1582,22 @@
       59
     ],
     "nombre": "Faro",
-    "population_1835": 115000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 115000,
+      "status": "estimated"
+    }
   },
   {
     "gid": "PT-0018",
@@ -967,11 +1607,21 @@
       66
     ],
     "nombre": "Lisboa",
-    "population_1835": 360000,
-    "buildings": "work in progress",
-    "resources": "work in progress",
+    "buildings": {
+      "status": "work in progress",
+      "entries": []
+    },
+    "resources": {
+      "status": "work in progress",
+      "entries": []
+    },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
-    "extra_info": "work in progress"
+    "extra_info": "work in progress",
+    "population": {
+      "year": 1835,
+      "value": 360000,
+      "status": "estimated"
+    }
   }
 ]
