@@ -22,5 +22,10 @@ func get_nation_color(id: String) -> Color:
 		return nations[id]["color"]
 	return Color(1,1,1,0)
 
+func get_nation_name(id: String) -> String:
+	if nations.has(id):
+		return nations[id]["name"]
+	return "Desconocido"
+
 func has_nation(id: String) -> bool:
 	return nations.has(id)

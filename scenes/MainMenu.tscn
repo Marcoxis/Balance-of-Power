@@ -131,6 +131,45 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Atras"
 
+[node name="OptionsPanel" type="PanelContainer" parent="MainLayout/CenterWrap"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h9v3o")
+
+[node name="OptionsButtons" type="VBoxContainer" parent="MainLayout/CenterWrap/OptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Graphics" type="Button" parent="MainLayout/CenterWrap/OptionsPanel/OptionsButtons"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Graficos"
+
+[node name="Sound" type="Button" parent="MainLayout/CenterWrap/OptionsPanel/OptionsButtons"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sonido"
+
+[node name="Controls" type="Button" parent="MainLayout/CenterWrap/OptionsPanel/OptionsButtons"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Controles"
+
+[node name="Accessibility" type="Button" parent="MainLayout/CenterWrap/OptionsPanel/OptionsButtons"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Accesibilidad"
+
+[node name="OptionsBack" type="Button" parent="MainLayout/CenterWrap/OptionsPanel/OptionsButtons"]
+custom_minimum_size = Vector2(300, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Atras"
+
 [node name="Popup" type="AcceptDialog" parent="."]
 title = "Proximamente"
 dialog_text = "Proximamente"
@@ -143,3 +182,8 @@ ok_button_text = "Aceptar"
 [connection signal="pressed" from="MainLayout/CenterWrap/SingleplayerPanel/SingleplayerButtons/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/SingleplayerPanel/SingleplayerButtons/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/SingleplayerPanel/SingleplayerButtons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Graphics" to="." method="_on_graphics_pressed"]
+[connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Sound" to="." method="_on_sound_pressed"]
+[connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Accessibility" to="." method="_on_accessibility_pressed"]
+[connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/OptionsBack" to="." method="_on_back_pressed"]

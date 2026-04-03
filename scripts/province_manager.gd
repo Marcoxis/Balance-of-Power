@@ -13,19 +13,19 @@ func _rgb_key_from_ints(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
 
 func _rgb_key_from_color(col: Color) -> int:
-	var r := clampi(int(round(col.r * 255.0)), 0, 255)
-	var g := clampi(int(round(col.g * 255.0)), 0, 255)
-	var b := clampi(int(round(col.b * 255.0)), 0, 255)
+	var r: int = clampi(int(round(col.r * 255.0)), 0, 255)
+	var g: int = clampi(int(round(col.g * 255.0)), 0, 255)
+	var b: int = clampi(int(round(col.b * 255.0)), 0, 255)
 	return _rgb_key_from_ints(r, g, b)
 
 func load_from_file(path: String) -> void:
-	var f = FileAccess.open(path, FileAccess.READ)
+	var f: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not f:
 		push_error("No se pudo abrir %s" % path)
 		return
-	var txt = f.get_as_text()
-	var parsed = JSON.parse_string(txt)
-	var data = null
+	var txt: String = f.get_as_text()
+	var parsed: Variant = JSON.parse_string(txt)
+	var data: Variant = null
 	if typeof(parsed) == TYPE_DICTIONARY and parsed.has("error"):
 		if parsed.error == OK:
 			data = parsed.result
@@ -44,24 +44,29 @@ func load_from_file(path: String) -> void:
 
 	# Guardamos tanto el acceso por gid como el acceso por color para resolver el mapa rapido.
 	for p in data:
-		var gid = p.get("gid", "")
-		var nombre = p.get("nombre", "")
-		var col_arr = p.get("color", [])
-		var r = int(col_arr[0] if col_arr.size() > 0 else 0)
-		var g = int(col_arr[1] if col_arr.size() > 1 else 0)
-		var b = int(col_arr[2] if col_arr.size() > 2 else 0)
-		var col = Color.from_rgba8(r, g, b, 255)
-		var owner_id = null
+		var gid: String = p.get("gid", "")
+		var nombre: String = p.get("nombre", "")
+		var col_arr: Array = p.get("color", [])
+		var r: int = int(col_arr[0] if col_arr.size() > 0 else 0)
+		var g: int = int(col_arr[1] if col_arr.size() > 1 else 0)
+		var b: int = int(col_arr[2] if col_arr.size() > 2 else 0)
+		var col: Color = Color.from_rgba8(r, g, b, 255)
+		var owner_id: Variant = null
 		if typeof(p) == TYPE_DICTIONARY and p.has("owner"):
 			owner_id = p.get("owner")
-		provinces_by_gid[gid] = {"gid": gid, "nombre": nombre, "color": col, "owner": owner_id}
+		var province_entry: Dictionary = p.duplicate(true)
+		province_entry["gid"] = gid
+		province_entry["nombre"] = nombre
+		province_entry["color"] = col
+		province_entry["owner"] = owner_id
+		provinces_by_gid[gid] = province_entry
 		color_to_gid[col] = gid
 		rgb_to_gid[_rgb_key_from_ints(r, g, b)] = gid
 
 	f.close()
 
 func get_gid_by_color(col: Color, tolerancia: float = 0.01) -> String:
-	var exact_gid = rgb_to_gid.get(_rgb_key_from_color(col), "")
+	var exact_gid: String = rgb_to_gid.get(_rgb_key_from_color(col), "")
 	if exact_gid != "":
 		return exact_gid
 
@@ -76,23 +81,26 @@ func set_province_owner(gid: String, owner_id: String) -> void:
 		provinces_by_gid[gid]["owner"] = owner_id
 
 func save_to_file(path: String) -> bool:
-	var arr := []
+	var arr: Array = []
 	for gid in provinces_by_gid.keys():
-		var p = provinces_by_gid[gid]
+		var p: Dictionary = provinces_by_gid[gid]
 		var col: Color = p.get("color")
-		var r = int(col.r * 255)
-		var g = int(col.g * 255)
-		var b = int(col.b * 255)
-		var entry := {"gid": p.get("gid", ""), "nombre": p.get("nombre", ""), "color": [r, g, b]}
-		if p.get("owner", null) != null:
-			entry["owner"] = p.get("owner")
+		var r: int = int(col.r * 255)
+		var g: int = int(col.g * 255)
+		var b: int = int(col.b * 255)
+		var entry: Dictionary = p.duplicate(true)
+		entry["gid"] = p.get("gid", "")
+		entry["nombre"] = p.get("nombre", "")
+		entry["color"] = [r, g, b]
+		if p.get("owner", null) == null:
+			entry.erase("owner")
 		arr.append(entry)
 
-	var f = FileAccess.open(path, FileAccess.WRITE)
+	var f: FileAccess = FileAccess.open(path, FileAccess.WRITE)
 	if not f:
 		push_error("No se pudo abrir para escribir: %s" % path)
 		return false
-	var json_text = JSON.stringify(arr)
+	var json_text: String = JSON.stringify(arr)
 	f.store_string(json_text)
 	f.close()
 	return true
@@ -104,15 +112,15 @@ func get_province_owner(gid: String) -> Variant:
 
 func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) -> Image:
 	# Crea un Image donde cada pixel de la color_map se reemplaza por el color de la nacion propietaria.
-	var img = color_map.get_image()
-	var out = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
+	var img: Image = color_map.get_image()
+	var out: Image = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
 	for y in range(img.get_height()):
 		for x in range(img.get_width()):
-			var c = img.get_pixel(x, y)
-			var gid = get_gid_by_color(c)
+			var c: Color = img.get_pixel(x, y)
+			var gid: String = get_gid_by_color(c)
 			if gid != "" and provinces_by_gid.has(gid) and provinces_by_gid[gid]["owner"]:
-				var owner_id = provinces_by_gid[gid]["owner"]
-				var ncolor = Color(1, 1, 1, 0)
+				var owner_id: Variant = provinces_by_gid[gid]["owner"]
+				var ncolor: Color = Color(1, 1, 1, 0)
 				if nation_manager and nation_manager.has_method("get_nation_color"):
 					ncolor = nation_manager.get_nation_color(owner_id)
 				out.set_pixel(x, y, Color(ncolor.r, ncolor.g, ncolor.b, 0.7))
@@ -122,11 +130,11 @@ func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) 
 
 func build_selection_overlay(color_map: Texture2D, selected_gid: String, overlay_color: Color = Color(1, 1, 1, 1)) -> Image:
 	# Construye una mascara con solo la provincia seleccionada para dibujarla por encima del mapa.
-	var img = color_map.get_image()
-	var out = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
+	var img: Image = color_map.get_image()
+	var out: Image = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
 	for y in range(img.get_height()):
 		for x in range(img.get_width()):
-			var gid = get_gid_by_color(img.get_pixel(x, y))
+			var gid: String = get_gid_by_color(img.get_pixel(x, y))
 			if gid == selected_gid:
 				out.set_pixel(x, y, overlay_color)
 			else:

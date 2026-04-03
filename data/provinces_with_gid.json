@@ -1,392 +1,1042 @@
 [
   {
-	"gid": "ES-0001",
-	"color": [190, 145, 52],
-	"nombre": "Valladolid",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0002",
-	"color": [181, 142, 230],
-	"nombre": "La Coruña",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0003",
-	"color": [206, 30, 142],
-	"nombre": "Pontevedra",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0004",
-	"color": [225, 138, 110],
-	"nombre": "Orense",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0005",
-	"color": [142, 230, 192],
-	"nombre": "Lugo",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0006",
-	"color": [206, 181, 20],
-	"nombre": "Asturias",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0007",
-	"color": [206, 152, 30],
-	"nombre": "Cantabria",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0008",
-	"color": [30, 206, 41],
-	"nombre": "Vizcaya",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0009",
-	"color": [161, 27, 51],
-	"nombre": "Alava",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0010",
-	"color": [117, 27, 161],
-	"nombre": "Guipúzcoa",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0011",
-	"color": [87, 63, 40],
-	"nombre": "Navarra",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0012",
-	"color": [76, 111, 170],
-	"nombre": "Huesca",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0013",
-	"color": [105, 188, 144],
-	"nombre": "Lérida",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0014",
-	"color": [69, 202, 55],
-	"nombre": "Barcelona",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0015",
-	"color": [240, 48, 77],
-	"nombre": "Gerona",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0016",
-	"color": [181, 157, 60],
-	"nombre": "Tarragona",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0017",
-	"color": [151, 94, 23],
-	"nombre": "Zaragoza",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0018",
-	"color": [182, 160, 126],
-	"nombre": "Teruel",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0019",
-	"color": [206, 46, 30],
-	"nombre": "León",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0020",
-	"color": [52, 146, 119],
-	"nombre": "Zamora",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0021",
-	"color": [172, 194, 184],
-	"nombre": "Salamanca",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0022",
-	"color": [117, 206, 30],
-	"nombre": "Palencia",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0023",
-	"color": [27, 161, 139],
-	"nombre": "Burgos",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0024",
-	"color": [218, 70, 16],
-	"nombre": "Ávila",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0025",
-	"color": [111, 148, 81],
-	"nombre": "Segovia",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0026",
-	"color": [101, 53, 38],
-	"nombre": "Logroño",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0027",
-	"color": [141, 100, 105],
-	"nombre": "Madrid",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0028",
-	"color": [131, 110, 6],
-	"nombre": "Cáceres",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0029",
-	"color": [59, 136, 199],
-	"nombre": "Badajoz",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0030",
-	"color": [218, 16, 175],
-	"nombre": "Toledo",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0031",
-	"color": [240, 48, 172],
-	"nombre": "Guadalajara",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0032",
-	"color": [76, 151, 150],
-	"nombre": "Cuenca",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0033",
-	"color": [107, 25, 25],
-	"nombre": "Ciudad Real",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0034",
-	"color": [65, 5, 5],
-	"nombre": "Albacete",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0035",
-	"color": [193, 116, 46],
-	"nombre": "Castellón",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0036",
-	"color": [54, 51, 165],
-	"nombre": "Valencia",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0037",
-	"color": [5, 65, 23],
-	"nombre": "Alicante",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0038",
-	"color": [59, 230, 199],
-	"nombre": "Murcia",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0039",
-	"color": [255, 0, 0],
-	"nombre": "Huelva",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0040",
-	"color": [70, 70, 70],
-	"nombre": "Sevilla",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0041",
-	"color": [0, 219, 0],
-	"nombre": "Sevilla",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0042",
-	"color": [237, 219, 0],
-	"nombre": "Cádiz",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0043",
-	"color": [248, 41, 255],
-	"nombre": "Málaga",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0044",
-	"color": [234, 192, 255],
-	"nombre": "Córdoba",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0045",
-	"color": [113, 51, 0],
-	"nombre": "Granada",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0046",
-	"color": [223, 223, 223],
-	"nombre": "Almería",
-	"owner": "ES"
-  },
-  {
-	"gid": "ES-0047",
-	"color": [184, 214, 123],
-	"nombre": "Soria",
-	"owner": "ES"
-  },
-  {
-	"gid": "PT-0001",
-	"color": [52, 106, 146],
-	"nombre": "Viana do Castelo",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0002",
-	"color": [137, 131, 131],
-	"nombre": "Braga",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0003",
-	"color": [196, 20, 20],
-	"nombre": "Vila Real",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0004",
-	"color": [255, 247, 143],
-	"nombre": "Bragança",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0005",
-	"color": [40, 51, 181],
-	"nombre": "Porto",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0006",
-	"color": [122, 11, 83],
-	"nombre": "Aveiro",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0007",
-	"color": [213, 116, 70],
-	"nombre": "Viseu",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0008",
-	"color": [136, 76, 170],
-	"nombre": "Guarda",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0009",
-	"color": [174, 202, 55],
-	"nombre": "Coimbra",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0010",
-	"color": [92, 123, 146],
-	"nombre": "Castelo Branco",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0011",
-	"color": [146, 92, 124],
-	"nombre": "Leiria",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0012",
-	"color": [96, 92, 72],
-	"nombre": "Santarém",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0013",
-	"color": [76, 151, 89],
-	"nombre": "Portalegre",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0014",
-	"color": [77, 140, 6],
-	"nombre": "Évora",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0015",
-	"color": [7, 134, 133],
-	"nombre": "Setúbal",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0016",
-	"color": [185, 230, 59],
-	"nombre": "Beja",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0017",
-	"color": [230, 215, 59],
-	"nombre": "Faro",
-	"owner": "PT"
-  },
-  {
-	"gid": "PT-0018",
-	"color": [135, 49, 66],
-	"nombre": "Lisboa",
-	"owner": "PT"
+    "gid": "ES-0001",
+    "color": [
+      190,
+      145,
+      52
+    ],
+    "nombre": "Valladolid",
+    "owner": "ES",
+    "population_1835": 225000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0002",
+    "color": [
+      181,
+      142,
+      230
+    ],
+    "nombre": "La Coruña",
+    "owner": "ES",
+    "population_1835": 430000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0003",
+    "color": [
+      206,
+      30,
+      142
+    ],
+    "nombre": "Pontevedra",
+    "owner": "ES",
+    "population_1835": 390000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0004",
+    "color": [
+      225,
+      138,
+      110
+    ],
+    "nombre": "Orense",
+    "owner": "ES",
+    "population_1835": 250000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0005",
+    "color": [
+      142,
+      230,
+      192
+    ],
+    "nombre": "Lugo",
+    "owner": "ES",
+    "population_1835": 300000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0006",
+    "color": [
+      206,
+      181,
+      20
+    ],
+    "nombre": "Asturias",
+    "owner": "ES",
+    "population_1835": 380000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0007",
+    "color": [
+      206,
+      152,
+      30
+    ],
+    "nombre": "Cantabria",
+    "owner": "ES",
+    "population_1835": 165000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0008",
+    "color": [
+      30,
+      206,
+      41
+    ],
+    "nombre": "Vizcaya",
+    "owner": "ES",
+    "population_1835": 155000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0009",
+    "color": [
+      161,
+      27,
+      51
+    ],
+    "nombre": "Alava",
+    "owner": "ES",
+    "population_1835": 95000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0010",
+    "color": [
+      117,
+      27,
+      161
+    ],
+    "nombre": "Guipúzcoa",
+    "owner": "ES",
+    "population_1835": 125000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0011",
+    "color": [
+      87,
+      63,
+      40
+    ],
+    "nombre": "Navarra",
+    "owner": "ES",
+    "population_1835": 235000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0012",
+    "color": [
+      76,
+      111,
+      170
+    ],
+    "nombre": "Huesca",
+    "owner": "ES",
+    "population_1835": 190000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0013",
+    "color": [
+      105,
+      188,
+      144
+    ],
+    "nombre": "Lérida",
+    "owner": "ES",
+    "population_1835": 300000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0014",
+    "color": [
+      69,
+      202,
+      55
+    ],
+    "nombre": "Barcelona",
+    "owner": "ES",
+    "population_1835": 760000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0015",
+    "color": [
+      240,
+      48,
+      77
+    ],
+    "nombre": "Gerona",
+    "owner": "ES",
+    "population_1835": 210000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0016",
+    "color": [
+      181,
+      157,
+      60
+    ],
+    "nombre": "Tarragona",
+    "owner": "ES",
+    "population_1835": 255000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0017",
+    "color": [
+      151,
+      94,
+      23
+    ],
+    "nombre": "Zaragoza",
+    "owner": "ES",
+    "population_1835": 285000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0018",
+    "color": [
+      182,
+      160,
+      126
+    ],
+    "nombre": "Teruel",
+    "owner": "ES",
+    "population_1835": 240000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0019",
+    "color": [
+      206,
+      46,
+      30
+    ],
+    "nombre": "León",
+    "owner": "ES",
+    "population_1835": 320000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0020",
+    "color": [
+      52,
+      146,
+      119
+    ],
+    "nombre": "Zamora",
+    "owner": "ES",
+    "population_1835": 180000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0021",
+    "color": [
+      172,
+      194,
+      184
+    ],
+    "nombre": "Salamanca",
+    "owner": "ES",
+    "population_1835": 235000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0022",
+    "color": [
+      117,
+      206,
+      30
+    ],
+    "nombre": "Palencia",
+    "owner": "ES",
+    "population_1835": 140000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0023",
+    "color": [
+      27,
+      161,
+      139
+    ],
+    "nombre": "Burgos",
+    "owner": "ES",
+    "population_1835": 255000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0024",
+    "color": [
+      218,
+      70,
+      16
+    ],
+    "nombre": "Ávila",
+    "owner": "ES",
+    "population_1835": 145000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0025",
+    "color": [
+      111,
+      148,
+      81
+    ],
+    "nombre": "Segovia",
+    "owner": "ES",
+    "population_1835": 125000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0026",
+    "color": [
+      101,
+      53,
+      38
+    ],
+    "nombre": "Logroño",
+    "owner": "ES",
+    "population_1835": 160000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0027",
+    "color": [
+      141,
+      100,
+      105
+    ],
+    "nombre": "Madrid",
+    "owner": "ES",
+    "population_1835": 320000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0028",
+    "color": [
+      131,
+      110,
+      6
+    ],
+    "nombre": "Cáceres",
+    "owner": "ES",
+    "population_1835": 380000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0029",
+    "color": [
+      59,
+      136,
+      199
+    ],
+    "nombre": "Badajoz",
+    "owner": "ES",
+    "population_1835": 390000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0030",
+    "color": [
+      218,
+      16,
+      175
+    ],
+    "nombre": "Toledo",
+    "owner": "ES",
+    "population_1835": 285000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0031",
+    "color": [
+      240,
+      48,
+      172
+    ],
+    "nombre": "Guadalajara",
+    "owner": "ES",
+    "population_1835": 170000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0032",
+    "color": [
+      76,
+      151,
+      150
+    ],
+    "nombre": "Cuenca",
+    "owner": "ES",
+    "population_1835": 240000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0033",
+    "color": [
+      107,
+      25,
+      25
+    ],
+    "nombre": "Ciudad Real",
+    "owner": "ES",
+    "population_1835": 275000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0034",
+    "color": [
+      65,
+      5,
+      5
+    ],
+    "nombre": "Albacete",
+    "owner": "ES",
+    "population_1835": 220000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0035",
+    "color": [
+      193,
+      116,
+      46
+    ],
+    "nombre": "Castellón",
+    "owner": "ES",
+    "population_1835": 190000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0036",
+    "color": [
+      54,
+      51,
+      165
+    ],
+    "nombre": "Valencia",
+    "owner": "ES",
+    "population_1835": 390000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0037",
+    "color": [
+      5,
+      65,
+      23
+    ],
+    "nombre": "Alicante",
+    "owner": "ES",
+    "population_1835": 360000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0038",
+    "color": [
+      59,
+      230,
+      199
+    ],
+    "nombre": "Murcia",
+    "owner": "ES",
+    "population_1835": 330000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0039",
+    "color": [
+      255,
+      0,
+      0
+    ],
+    "nombre": "Huelva",
+    "owner": "ES",
+    "population_1835": 155000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0040",
+    "color": [
+      70,
+      70,
+      70
+    ],
+    "nombre": "Sevilla",
+    "owner": "ES",
+    "population_1835": 480000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0041",
+    "color": [
+      0,
+      219,
+      0
+    ],
+    "nombre": "Sevilla",
+    "owner": "ES",
+    "population_1835": 480000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0042",
+    "color": [
+      237,
+      219,
+      0
+    ],
+    "nombre": "Cádiz",
+    "owner": "ES",
+    "population_1835": 380000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0043",
+    "color": [
+      248,
+      41,
+      255
+    ],
+    "nombre": "Málaga",
+    "owner": "ES",
+    "population_1835": 320000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0044",
+    "color": [
+      234,
+      192,
+      255
+    ],
+    "nombre": "Córdoba",
+    "owner": "ES",
+    "population_1835": 330000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0045",
+    "color": [
+      113,
+      51,
+      0
+    ],
+    "nombre": "Granada",
+    "owner": "ES",
+    "population_1835": 350000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0046",
+    "color": [
+      223,
+      223,
+      223
+    ],
+    "nombre": "Almería",
+    "owner": "ES",
+    "population_1835": 250000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "ES-0047",
+    "color": [
+      184,
+      214,
+      123
+    ],
+    "nombre": "Soria",
+    "owner": "ES",
+    "population_1835": 120000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0001",
+    "color": [
+      52,
+      106,
+      146
+    ],
+    "nombre": "Viana do Castelo",
+    "owner": "PT",
+    "population_1835": 220000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0002",
+    "color": [
+      137,
+      131,
+      131
+    ],
+    "nombre": "Braga",
+    "owner": "PT",
+    "population_1835": 260000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0003",
+    "color": [
+      196,
+      20,
+      20
+    ],
+    "nombre": "Vila Real",
+    "owner": "PT",
+    "population_1835": 180000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0004",
+    "color": [
+      255,
+      247,
+      143
+    ],
+    "nombre": "Bragança",
+    "owner": "PT",
+    "population_1835": 165000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0005",
+    "color": [
+      40,
+      51,
+      181
+    ],
+    "nombre": "Porto",
+    "owner": "PT",
+    "population_1835": 470000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0006",
+    "color": [
+      122,
+      11,
+      83
+    ],
+    "nombre": "Aveiro",
+    "owner": "PT",
+    "population_1835": 250000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0007",
+    "color": [
+      213,
+      116,
+      70
+    ],
+    "nombre": "Viseu",
+    "owner": "PT",
+    "population_1835": 245000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0008",
+    "color": [
+      136,
+      76,
+      170
+    ],
+    "nombre": "Guarda",
+    "owner": "PT",
+    "population_1835": 200000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0009",
+    "color": [
+      174,
+      202,
+      55
+    ],
+    "nombre": "Coimbra",
+    "owner": "PT",
+    "population_1835": 250000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0010",
+    "color": [
+      92,
+      123,
+      146
+    ],
+    "nombre": "Castelo Branco",
+    "owner": "PT",
+    "population_1835": 185000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0011",
+    "color": [
+      146,
+      92,
+      124
+    ],
+    "nombre": "Leiria",
+    "owner": "PT",
+    "population_1835": 170000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0012",
+    "color": [
+      96,
+      92,
+      72
+    ],
+    "nombre": "Santarém",
+    "owner": "PT",
+    "population_1835": 215000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0013",
+    "color": [
+      76,
+      151,
+      89
+    ],
+    "nombre": "Portalegre",
+    "owner": "PT",
+    "population_1835": 110000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0014",
+    "color": [
+      77,
+      140,
+      6
+    ],
+    "nombre": "Évora",
+    "owner": "PT",
+    "population_1835": 105000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0015",
+    "color": [
+      7,
+      134,
+      133
+    ],
+    "nombre": "Setúbal",
+    "owner": "PT",
+    "population_1835": 95000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0016",
+    "color": [
+      185,
+      230,
+      59
+    ],
+    "nombre": "Beja",
+    "owner": "PT",
+    "population_1835": 130000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0017",
+    "color": [
+      230,
+      215,
+      59
+    ],
+    "nombre": "Faro",
+    "owner": "PT",
+    "population_1835": 115000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
+  },
+  {
+    "gid": "PT-0018",
+    "color": [
+      135,
+      49,
+      66
+    ],
+    "nombre": "Lisboa",
+    "owner": "PT",
+    "population_1835": 360000,
+    "buildings": "work in progress",
+    "resources": "work in progress",
+    "terrain_image": "work in progress",
+    "municipalities_image": "work in progress",
+    "extra_info": "work in progress"
   }
 ]
