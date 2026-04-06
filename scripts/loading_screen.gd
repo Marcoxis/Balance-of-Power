@@ -6,19 +6,22 @@ const TIPS_PATH: String = "res://data/loading_tips.json"
 @onready var progress_bar: ProgressBar = $CenterContainer/Content/ProgressBar
 @onready var progress_label: Label = $CenterContainer/Content/ProgressLabel
 @onready var tip_label: Label = $CenterContainer/Content/TipPanel/TipMargin/TipLabel
+@onready var loading_label: Label = $CenterContainer/Content/LoadingLabel
 
 var tip_index: int = 0
 var tip_elapsed: float = 0.0
 var total_elapsed: float = 0.0
 var scene_changed: bool = false
-var tips: Array[String] = []
+var tips: Array = []
 
 const MIN_LOADING_TIME: float = 0.75
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	if not Localization.language_changed.is_connected(_on_language_changed):
+		Localization.language_changed.connect(_on_language_changed)
 	tips = _load_tips()
-	tip_label.text = tips[tip_index]
+	tip_label.text = Localization.translate_tip(tips[tip_index])
 	ResourceLoader.load_threaded_request(TARGET_SCENE_PATH)
 
 func _process(delta: float) -> void:
@@ -27,7 +30,7 @@ func _process(delta: float) -> void:
 	if tip_elapsed >= 1.4:
 		tip_elapsed = 0.0
 		tip_index = (tip_index + 1) % tips.size()
-		tip_label.text = tips[tip_index]
+		tip_label.text = Localization.translate_tip(tips[tip_index])
 
 	if scene_changed:
 		return
@@ -40,38 +43,43 @@ func _process(delta: float) -> void:
 
 	if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 		progress_bar.value = maxf(progress_bar.value, progress_value * 100.0)
-		progress_label.text = "Cargando recursos... %d%%" % int(round(progress_bar.value))
+		progress_label.text = Localization.t("loading.resources", [int(round(progress_bar.value))])
 	elif status == ResourceLoader.THREAD_LOAD_LOADED:
 		progress_bar.value = 100.0
-		progress_label.text = "Entrando en partida..."
+		progress_label.text = Localization.t("loading.entering")
 		if total_elapsed >= MIN_LOADING_TIME:
 			var packed_scene: Resource = ResourceLoader.load_threaded_get(TARGET_SCENE_PATH)
 			if packed_scene is PackedScene:
 				scene_changed = true
 				get_tree().change_scene_to_packed(packed_scene)
 	elif status == ResourceLoader.THREAD_LOAD_FAILED:
-		progress_label.text = "Error al cargar la partida"
+		progress_label.text = Localization.t("loading.error")
 		push_error("No se pudo cargar la escena principal: %s" % TARGET_SCENE_PATH)
 	else:
 		progress_bar.value = maxf(progress_bar.value, 5.0)
-		progress_label.text = "Preparando recursos..."
+		progress_label.text = Localization.t("loading.preparing")
 
-func _load_tips() -> Array[String]:
+func _load_tips() -> Array:
 	var file: FileAccess = FileAccess.open(TIPS_PATH, FileAccess.READ)
 	if not file:
-		return ["Consejo: preparate para gobernar con paciencia y observa el mapa con atencion."]
+		return [Localization.t("loading.fallback_tip")]
 
 	var text: String = file.get_as_text()
 	file.close()
 
 	var parsed: Variant = JSON.parse_string(text)
 	if typeof(parsed) != TYPE_ARRAY or parsed.is_empty():
-		return ["Consejo: preparate para gobernar con paciencia y observa el mapa con atencion."]
+		return [Localization.t("loading.fallback_tip")]
 
-	var loaded_tips: Array[String] = []
+	var loaded_tips: Array = []
 	for entry in parsed:
-		loaded_tips.append(str(entry))
+		loaded_tips.append(entry)
 
 	if loaded_tips.is_empty():
-		loaded_tips.append("Consejo: preparate para gobernar con paciencia y observa el mapa con atencion.")
+		loaded_tips.append(Localization.t("loading.fallback_tip"))
 	return loaded_tips
+
+func _on_language_changed(_language_code: String) -> void:
+	if not tips.is_empty():
+		tip_label.text = Localization.translate_tip(tips[tip_index])
+	loading_label.text = Localization.t("loading.title")

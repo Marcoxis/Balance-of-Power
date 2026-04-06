@@ -1,10 +1,34 @@
 [
-  "Consejo: vigila las fronteras antes de expandirte; una provincia aislada es mucho mas dificil de defender.",
-  "Consejo: controla provincias costeras para mantener abiertas rutas maritimas y mas opciones de maniobra.",
-  "Consejo: no descuides las provincias interiores; suelen sostener tu economia y la movilidad del pais.",
-  "Consejo: las regiones con muchos vecinos exigen mas atencion porque pueden convertirse en cuellos de botella.",
-  "Consejo: observa el color politico del mapa con frecuencia para detectar cambios de control rapidamente.",
-  "Consejo: una expansion lenta pero estable suele ser mejor que conquistar demasiado y no poder sostenerlo.",
-  "Consejo: revisa la informacion provincial a menudo; incluso los datos provisionales ayudan a decidir prioridades.",
-  "Consejo: usa la pausa para replantear movimientos y no improvisar cuando varias fronteras cambian a la vez."
+  {
+    "en": "Tip: watch your borders before expanding; an isolated province is much harder to defend.",
+    "es": "Consejo: vigila las fronteras antes de expandirte; una provincia aislada es mucho mas dificil de defender."
+  },
+  {
+    "en": "Tip: control coastal provinces to keep maritime routes and more strategic options open.",
+    "es": "Consejo: controla provincias costeras para mantener abiertas rutas maritimas y mas opciones de maniobra."
+  },
+  {
+    "en": "Tip: do not neglect inland provinces; they often sustain your economy and mobility.",
+    "es": "Consejo: no descuides las provincias interiores; suelen sostener tu economia y la movilidad del pais."
+  },
+  {
+    "en": "Tip: regions with many neighbors demand more attention because they can become bottlenecks.",
+    "es": "Consejo: las regiones con muchos vecinos exigen mas atencion porque pueden convertirse en cuellos de botella."
+  },
+  {
+    "en": "Tip: check the political map often to spot changes of control quickly.",
+    "es": "Consejo: observa el color politico del mapa con frecuencia para detectar cambios de control rapidamente."
+  },
+  {
+    "en": "Tip: slow and steady expansion is often better than conquering more than you can hold.",
+    "es": "Consejo: una expansion lenta pero estable suele ser mejor que conquistar demasiado y no poder sostenerlo."
+  },
+  {
+    "en": "Tip: review provincial information often; even provisional data can guide priorities.",
+    "es": "Consejo: revisa la informacion provincial a menudo; incluso los datos provisionales ayudan a decidir prioridades."
+  },
+  {
+    "en": "Tip: use the pause to rethink your moves when several borders change at once.",
+    "es": "Consejo: usa la pausa para replantear movimientos y no improvisar cuando varias fronteras cambian a la vez."
+  }
 ]

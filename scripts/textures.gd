@@ -17,14 +17,22 @@ var province_info_owner: Label = null
 var province_info_buildings: Label = null
 var province_info_resources: Label = null
 var province_info_extra: Label = null
+var terrain_title_label: Label = null
+var terrain_placeholder_label: Label = null
+var municipalities_title_label: Label = null
+var municipalities_placeholder_label: Label = null
 var pause_menu_panel: PanelContainer = null
 var hover_name_panel: PanelContainer = null
 var hover_name_label: Label = null
 var side_menu_panel: PanelContainer = null
+var side_menu_buttons: Array[Button] = []
+var side_menu_title_keys: Array[String] = []
 var top_bar_panel: PanelContainer = null
 var date_label: Label = null
 var speed_buttons: Array[Button] = []
 var pause_toggle_button: Button = null
+var pause_menu_title_label: Label = null
+var pause_menu_buttons: Array[Button] = []
 var intro_overlay: Control = null
 var intro_skip: Label = null
 var intro_fade_rect: ColorRect = null
@@ -63,10 +71,6 @@ const SEA_RGB_KEY: int = (172 << 16) | (201 << 8) | 233
 const CUSTOM_CURSOR_PATH: String = "res://assets/ui/cursor.svg"
 const INTRO_ANIMATION_DURATION: float = 3.8
 const SPEED_TO_SECONDS: Dictionary = {1: 1.6, 2: 1.0, 3: 0.6, 4: 0.3, 5: 0.12}
-const MONTH_NAMES: Array[String] = [
-	"January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"
-]
 
 func _rgb_key(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
@@ -144,6 +148,9 @@ func _ready():
 	if cursor_texture != null:
 		Input.set_custom_mouse_cursor(cursor_texture, Input.CURSOR_ARROW, Vector2(4, 2))
 
+	if not Localization.language_changed.is_connected(_on_language_changed):
+		Localization.language_changed.connect(_on_language_changed)
+
 	# Crear y configurar managers
 	province_manager = ProvinceManager.new()
 	add_child(province_manager)
@@ -209,6 +216,7 @@ func _ready():
 		add_child(selection_overlay)
 
 	_create_selection_ui()
+	_apply_language()
 
 	call_deferred("_refresh_owner_overlay")
 	call_deferred("_start_intro_cinematic")
@@ -419,10 +427,10 @@ func _refresh_top_bar() -> void:
 	if pause_toggle_button != null:
 		if get_tree().paused and (pause_menu_panel == null or not pause_menu_panel.visible):
 			pause_toggle_button.text = ">"
-			pause_toggle_button.tooltip_text = "Reanudar tiempo"
+			pause_toggle_button.tooltip_text = Localization.t("game.resume_time")
 		else:
 			pause_toggle_button.text = "||"
-			pause_toggle_button.tooltip_text = "Pausar tiempo"
+			pause_toggle_button.tooltip_text = Localization.t("game.pause_time")
 
 	for i in range(speed_buttons.size()):
 		var button: Button = speed_buttons[i]
@@ -430,8 +438,8 @@ func _refresh_top_bar() -> void:
 		button.disabled = is_selected
 
 func _format_game_date() -> String:
-	var month_index: int = clampi(int(game_date.get("month", 1)) - 1, 0, MONTH_NAMES.size() - 1)
-	return "%d %s %d" % [int(game_date.get("day", 1)), MONTH_NAMES[month_index], int(game_date.get("year", 1836))]
+	var month_name: String = Localization.get_month_name(int(game_date.get("month", 1)))
+	return "%d %s %d" % [int(game_date.get("day", 1)), month_name, int(game_date.get("year", 1836))]
 
 func _update_game_clock(delta: float) -> void:
 	if get_tree().paused:
@@ -502,25 +510,28 @@ func _create_side_menu() -> void:
 	side_menu_panel.add_child(buttons_box)
 
 	var menu_buttons: Array = [
-		{"icon": "G", "title": "Gobierno"},
-		{"icon": "D", "title": "Diplomacia"},
-		{"icon": "C", "title": "Comercio"},
-		{"icon": "M", "title": "Militar"},
-		{"icon": "P", "title": "Poblacion"},
-		{"icon": "E", "title": "Economia"},
-		{"icon": "T", "title": "Tecnologia"}
+		{"icon": "G", "key": "game.side.government"},
+		{"icon": "D", "key": "game.side.diplomacy"},
+		{"icon": "C", "key": "game.side.trade"},
+		{"icon": "M", "key": "game.side.military"},
+		{"icon": "P", "key": "game.side.population"},
+		{"icon": "E", "key": "game.side.economy"},
+		{"icon": "T", "key": "game.side.technology"}
 	]
 
+	side_menu_buttons.clear()
+	side_menu_title_keys.clear()
 	for button_data in menu_buttons:
 		var button: Button = Button.new()
 		button.custom_minimum_size = Vector2(56, 56)
 		button.text = str(button_data["icon"])
-		button.tooltip_text = str(button_data["title"])
 		button.add_theme_font_size_override("font_size", 26)
-		button.pressed.connect(func(menu_title: String = str(button_data["title"]), menu_icon: String = str(button_data["icon"])) -> void:
-			_show_coming_soon_popup(menu_title, menu_icon)
+		button.pressed.connect(func(title_key: String = str(button_data["key"]), menu_icon: String = str(button_data["icon"])) -> void:
+			_show_coming_soon_popup(Localization.t(title_key), menu_icon)
 		)
 		buttons_box.add_child(button)
+		side_menu_buttons.append(button)
+		side_menu_title_keys.append(str(button_data["key"]))
 
 func _create_intro_overlay() -> void:
 	intro_overlay = Control.new()
@@ -548,7 +559,6 @@ func _create_intro_overlay() -> void:
 	intro_overlay.add_child(intro_bottom_bar)
 
 	intro_skip = Label.new()
-	intro_skip.text = "Pulsa clic, Enter o Esc para saltar"
 	intro_skip.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	intro_skip.add_theme_font_size_override("font_size", 16)
 	intro_skip.add_theme_color_override("font_color", Color(0.72, 0.76, 0.82, 0.85))
@@ -718,25 +728,26 @@ func _create_pause_menu() -> void:
 	content.add_theme_constant_override("separation", 12)
 	pause_menu_panel.add_child(content)
 
-	var title: Label = Label.new()
-	title.text = "Menu de pausa"
-	title.add_theme_font_size_override("font_size", 28)
-	content.add_child(title)
+	pause_menu_title_label = Label.new()
+	pause_menu_title_label.add_theme_font_size_override("font_size", 28)
+	content.add_child(pause_menu_title_label)
 
 	var buttons: Array = [
-		{"text": "Volver", "action": Callable(self, "_resume_game")},
-		{"text": "Opciones", "action": Callable(self, "_show_pause_options_placeholder")},
-		{"text": "Salir al menu principal", "action": Callable(self, "_return_to_main_menu")},
-		{"text": "Salir del juego", "action": Callable(self, "_quit_game")}
+		{"key": "game.resume", "action": Callable(self, "_resume_game")},
+		{"key": "menu.options", "action": Callable(self, "_show_pause_options_placeholder")},
+		{"key": "game.quit_to_menu", "action": Callable(self, "_return_to_main_menu")},
+		{"key": "game.quit_game", "action": Callable(self, "_quit_game")}
 	]
 
+	pause_menu_buttons.clear()
 	for button_data in buttons:
 		var button: Button = Button.new()
-		button.text = button_data["text"]
 		button.custom_minimum_size = Vector2(280, 48)
 		button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 		button.pressed.connect(button_data["action"])
 		content.add_child(button)
+		button.set_meta("translation_key", str(button_data["key"]))
+		pause_menu_buttons.append(button)
 
 	call_deferred("_center_pause_menu")
 
@@ -808,35 +819,31 @@ func _create_province_info_panel() -> void:
 	province_info_resources.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	content.add_child(province_info_resources)
 
-	var terrain_title: Label = Label.new()
-	terrain_title.text = "Foto del terreno"
-	content.add_child(terrain_title)
+	terrain_title_label = Label.new()
+	content.add_child(terrain_title_label)
 
 	var terrain_placeholder: PanelContainer = PanelContainer.new()
 	terrain_placeholder.custom_minimum_size = Vector2(360, 90)
 	content.add_child(terrain_placeholder)
 
-	var terrain_label: Label = Label.new()
-	terrain_label.text = "Se esta trabajando en ello"
-	terrain_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	terrain_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	terrain_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-	terrain_placeholder.add_child(terrain_label)
+	terrain_placeholder_label = Label.new()
+	terrain_placeholder_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	terrain_placeholder_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	terrain_placeholder_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	terrain_placeholder.add_child(terrain_placeholder_label)
 
-	var municipalities_title: Label = Label.new()
-	municipalities_title.text = "Foto de los municipios"
-	content.add_child(municipalities_title)
+	municipalities_title_label = Label.new()
+	content.add_child(municipalities_title_label)
 
 	var municipalities_placeholder: PanelContainer = PanelContainer.new()
 	municipalities_placeholder.custom_minimum_size = Vector2(360, 90)
 	content.add_child(municipalities_placeholder)
 
-	var municipalities_label: Label = Label.new()
-	municipalities_label.text = "Se esta trabajando en ello"
-	municipalities_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	municipalities_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	municipalities_label.set_anchors_preset(Control.PRESET_FULL_RECT)
-	municipalities_placeholder.add_child(municipalities_label)
+	municipalities_placeholder_label = Label.new()
+	municipalities_placeholder_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	municipalities_placeholder_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	municipalities_placeholder_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	municipalities_placeholder.add_child(municipalities_placeholder_label)
 
 	province_info_panel.position = _clamp_province_info_panel_position(Vector2(24, get_viewport_rect().size.y - 564))
 
@@ -853,24 +860,24 @@ func _show_province_info(gid: String, nombre: String) -> void:
 		province_data = province_manager.provinces_by_gid.get(gid, {})
 
 	var owner_id: Variant = nation_manager.get_province_owner(gid)
-	var owner_name: String = "Desconocido"
+	var owner_name: String = Localization.t("game.country.unknown")
 	if gid == "SEA":
-		owner_name = "Ninguno"
+		owner_name = Localization.t("game.country.none")
 	if nation_manager != null and owner_id != null and owner_id != "":
 		owner_name = nation_manager.get_nation_name(owner_id)
 
 	var population: int = 0 if gid == "SEA" else _get_population_value(province_data)
-	var buildings_text: String = _format_status_list_field(province_data.get("buildings", "work in progress"))
-	var resources_text: String = _format_status_list_field(province_data.get("resources", "work in progress"))
-	var terrain_text: String = str(province_data.get("terrain_image", "Se esta trabajando en ello"))
-	var municipalities_text: String = str(province_data.get("municipalities_image", "Se esta trabajando en ello"))
-	var extra_text: String = str(province_data.get("extra_info", "Infraestructura: Se esta trabajando en ello\nCultura predominante: Se esta trabajando en ello\nAdministracion local: Se esta trabajando en ello"))
+	var buildings_text: String = _format_status_list_field(province_data.get("buildings", Localization.t("game.province.wip")))
+	var resources_text: String = _format_status_list_field(province_data.get("resources", Localization.t("game.province.wip")))
+	var terrain_text: String = str(province_data.get("terrain_image", Localization.t("game.province.wip")))
+	var municipalities_text: String = str(province_data.get("municipalities_image", Localization.t("game.province.wip")))
+	var extra_text: String = str(province_data.get("extra_info", Localization.t("game.province.wip")))
 	province_info_title.text = nombre
-	province_info_population.text = "Poblacion: %s" % _format_population(population)
-	province_info_owner.text = "Pais: %s" % owner_name
-	province_info_buildings.text = "Edificios: %s" % buildings_text
-	province_info_resources.text = "Recursos disponibles: %s" % resources_text
-	province_info_extra.text = "%s\nFoto del terreno: %s\nFoto de los municipios: %s" % [extra_text, terrain_text, municipalities_text]
+	province_info_population.text = Localization.t("game.province.population", [_format_population(population)])
+	province_info_owner.text = Localization.t("game.province.country", [owner_name])
+	province_info_buildings.text = Localization.t("game.province.buildings", [buildings_text])
+	province_info_resources.text = Localization.t("game.province.resources", [resources_text])
+	province_info_extra.text = "%s\n%s: %s\n%s: %s" % [extra_text, Localization.t("game.province.terrain"), terrain_text, Localization.t("game.province.municipalities"), municipalities_text]
 	province_info_panel.position = _clamp_province_info_panel_position(province_info_panel.position)
 	province_info_panel.visible = true
 
@@ -897,7 +904,7 @@ func _resume_game() -> void:
 func _show_pause_options_placeholder() -> void:
 	if get_tree().paused:
 		get_tree().paused = false
-	_show_coming_soon_popup("Opciones")
+	_show_coming_soon_popup(Localization.t("menu.options"))
 	get_tree().paused = true
 
 func _return_to_main_menu() -> void:
@@ -911,10 +918,10 @@ func _show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	var dialog: AcceptDialog = AcceptDialog.new()
 	dialog.title = title
 	if icon_label == "":
-		dialog.dialog_text = "Proximamente"
+		dialog.dialog_text = Localization.t("ui.coming_soon")
 	else:
-		dialog.dialog_text = "Proximamente\nIcono temporal asignado: %s" % icon_label
-	dialog.ok_button_text = "Aceptar"
+		dialog.dialog_text = "%s\n%s" % [Localization.t("ui.coming_soon"), Localization.t("game.temp_icon", [icon_label])]
+	dialog.ok_button_text = Localization.t("ui.ok")
 	ui_layer.add_child(dialog)
 	dialog.popup_centered()
 	dialog.confirmed.connect(func() -> void:
@@ -991,7 +998,7 @@ func _unhandled_input(event):
 			var info: Dictionary = result.get("info", {})
 			var rgb: Array = result.get("rgb", [0, 0, 0])
 			var gid: String = info.get("gid", "(sin gid)")
-			var nombre: String = info.get("nombre", "(sin nombre)")
+			var nombre: String = info.get("nombre", Localization.t("game.sea"))
 			# Seleccion visual + nombre en UI.
 			_set_selected_province(gid, nombre)
 			print("(R:%d, G:%d, B:%d) -- Provincia: %s (%s)" % [rgb[0], rgb[1], rgb[2], nombre, gid])
@@ -1025,3 +1032,36 @@ func set_province_owner_by_gid(gid: String, owner_id: String) -> void:
 		var save_ok: bool = nation_manager.save_to_file("res://data/countries.json")
 		if not save_ok:
 			push_warning("No se pudo guardar el estado de paises en JSON")
+
+func _get_display_name_for_gid(gid: String) -> String:
+	if gid == "SEA":
+		return Localization.t("game.sea")
+	if province_manager != null and province_manager.provinces_by_gid.has(gid):
+		return str(province_manager.provinces_by_gid[gid].get("nombre", gid))
+	return gid
+
+func _apply_language() -> void:
+	if intro_skip != null:
+		intro_skip.text = Localization.t("game.intro_skip")
+	if pause_menu_title_label != null:
+		pause_menu_title_label.text = Localization.t("game.pause_menu")
+	for button in pause_menu_buttons:
+		var key: String = str(button.get_meta("translation_key", ""))
+		if key != "":
+			button.text = Localization.t(key)
+	for i in range(min(side_menu_buttons.size(), side_menu_title_keys.size())):
+		side_menu_buttons[i].tooltip_text = Localization.t(side_menu_title_keys[i])
+	if terrain_title_label != null:
+		terrain_title_label.text = Localization.t("game.province.terrain")
+	if terrain_placeholder_label != null:
+		terrain_placeholder_label.text = Localization.t("game.province.wip")
+	if municipalities_title_label != null:
+		municipalities_title_label.text = Localization.t("game.province.municipalities")
+	if municipalities_placeholder_label != null:
+		municipalities_placeholder_label.text = Localization.t("game.province.wip")
+	_refresh_top_bar()
+	if province_info_panel != null and province_info_panel.visible and selected_province_gid != "":
+		_show_province_info(selected_province_gid, _get_display_name_for_gid(selected_province_gid))
+
+func _on_language_changed(_language_code: String) -> void:
+	_apply_language()

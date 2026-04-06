@@ -168,9 +168,10 @@ func _test_nation_manager_save_roundtrip() -> void:
 func _test_loading_tips_loader() -> void:
 	var loading_script: GDScript = load("res://scripts/loading_screen.gd")
 	var loading_screen: Control = loading_script.new()
-	var tips: Array[String] = loading_screen._load_tips()
+	var tips: Array = loading_screen._load_tips()
 	_assert_true(tips.size() > 0, "LoadingScreen carga consejos desde JSON")
-	_assert_true(tips[0].begins_with("Consejo:"), "LoadingScreen devuelve consejos validos")
+	_assert_true(typeof(tips[0]) == TYPE_DICTIONARY, "LoadingScreen devuelve consejos bilingues")
+	_assert_true(str(Localization.translate_tip(tips[0])).length() > 0, "LoadingScreen puede traducir un consejo cargado")
 	loading_screen.queue_free()
 
 func _test_textures_helpers() -> void:

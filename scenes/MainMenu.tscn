@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_x6r4b"]
+[ext_resource type="Texture2D" path="res://assets/ui/translator.svg" id="2_1m0ts"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h9v3o"]
 bg_color = Color(0.121569, 0.145098, 0.180392, 0.941176)
@@ -175,6 +176,31 @@ title = "Proximamente"
 dialog_text = "Proximamente"
 ok_button_text = "Aceptar"
 
+[node name="LanguageButton" type="MenuButton" parent="."]
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 74.0
+icon = ExtResource("2_1m0ts")
+flat = true
+
+[node name="DebuggerButton" type="Button" parent="."]
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -74.0
+offset_right = 74.0
+offset_bottom = -16.0
+theme_override_font_sizes/font_size = 28
+tooltip_text = "Modo debugger"
+text = "⚙"
+
 [connection signal="pressed" from="MainLayout/CenterWrap/MainMenuPanel/MainMenuButtons/Singleplayer" to="." method="_on_singleplayer_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/MainMenuPanel/MainMenuButtons/Multiplayer" to="." method="_on_multiplayer_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/MainMenuPanel/MainMenuButtons/Options" to="." method="_on_options_pressed"]
@@ -187,3 +213,4 @@ ok_button_text = "Aceptar"
 [connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/Accessibility" to="." method="_on_accessibility_pressed"]
 [connection signal="pressed" from="MainLayout/CenterWrap/OptionsPanel/OptionsButtons/OptionsBack" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="DebuggerButton" to="." method="_on_debugger_pressed"]

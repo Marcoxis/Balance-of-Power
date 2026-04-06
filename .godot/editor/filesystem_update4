@@ -1,2 +1,4 @@
 res://scripts/camera_2d.gd
 res://scripts/textures.gd
+res://scripts/main_menu.gd
+res://scripts/test_runner.gd
