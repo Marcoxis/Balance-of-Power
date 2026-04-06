@@ -21,6 +21,10 @@ var pause_menu_panel: PanelContainer = null
 var hover_name_panel: PanelContainer = null
 var hover_name_label: Label = null
 var side_menu_panel: PanelContainer = null
+var top_bar_panel: PanelContainer = null
+var date_label: Label = null
+var speed_buttons: Array[Button] = []
+var pause_toggle_button: Button = null
 var intro_overlay: Control = null
 var intro_skip: Label = null
 var intro_fade_rect: ColorRect = null
@@ -47,6 +51,9 @@ var selection_overlay_image: Image = null
 var previous_selected_gid: String = ""
 var selected_province_gid: String = ""
 var blink_time: float = 0.0
+var game_date: Dictionary = {"day": 1, "month": 1, "year": 1836}
+var game_speed: int = 3
+var time_accumulator: float = 0.0
 
 # Ajustes visuales del parpadeo de la provincia seleccionada.
 const SELECTION_BLINK_SPEED: float = 3.2
@@ -55,6 +62,11 @@ const SELECTION_MAX_ALPHA: float = 0.62
 const SEA_RGB_KEY: int = (172 << 16) | (201 << 8) | 233
 const CUSTOM_CURSOR_PATH: String = "res://assets/ui/cursor.svg"
 const INTRO_ANIMATION_DURATION: float = 3.8
+const SPEED_TO_SECONDS: Dictionary = {1: 1.6, 2: 1.0, 3: 0.6, 4: 0.3, 5: 0.12}
+const MONTH_NAMES: Array[String] = [
+	"January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"
+]
 
 func _rgb_key(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
@@ -208,6 +220,7 @@ func _process(delta: float) -> void:
 			_end_intro_cinematic()
 	else:
 		_update_hover_name()
+		_update_game_clock(delta)
 
 	if selection_overlay == null or selected_province_gid == "":
 		return
@@ -325,7 +338,133 @@ func _create_selection_ui() -> void:
 	_create_pause_menu()
 	_create_hover_name_panel()
 	_create_side_menu()
+	_create_top_bar()
 	_create_intro_overlay()
+
+func _create_top_bar() -> void:
+	top_bar_panel = PanelContainer.new()
+	top_bar_panel.name = "topBarPanel"
+	top_bar_panel.anchor_left = 1.0
+	top_bar_panel.anchor_top = 0.0
+	top_bar_panel.anchor_right = 1.0
+	top_bar_panel.anchor_bottom = 0.0
+	top_bar_panel.offset_left = -420
+	top_bar_panel.offset_top = 16
+	top_bar_panel.offset_right = -16
+	top_bar_panel.offset_bottom = 86
+	ui_layer.add_child(top_bar_panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.1, 0.14, 0.94)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.58, 0.63, 0.72, 0.88)
+	panel_style.corner_radius_top_left = 12
+	panel_style.corner_radius_top_right = 12
+	panel_style.corner_radius_bottom_left = 12
+	panel_style.corner_radius_bottom_right = 12
+	panel_style.content_margin_left = 14
+	panel_style.content_margin_top = 10
+	panel_style.content_margin_right = 14
+	panel_style.content_margin_bottom = 10
+	top_bar_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var layout: VBoxContainer = VBoxContainer.new()
+	layout.add_theme_constant_override("separation", 10)
+	top_bar_panel.add_child(layout)
+
+	var top_row: HBoxContainer = HBoxContainer.new()
+	top_row.alignment = BoxContainer.ALIGNMENT_END
+	top_row.add_theme_constant_override("separation", 12)
+	layout.add_child(top_row)
+
+	date_label = Label.new()
+	date_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	date_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	date_label.add_theme_font_size_override("font_size", 24)
+	date_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
+	top_row.add_child(date_label)
+
+	pause_toggle_button = Button.new()
+	pause_toggle_button.custom_minimum_size = Vector2(52, 34)
+	pause_toggle_button.text = "||"
+	pause_toggle_button.tooltip_text = "Pausar tiempo"
+	pause_toggle_button.pressed.connect(_toggle_time_pause)
+	top_row.add_child(pause_toggle_button)
+
+	var speed_row: HBoxContainer = HBoxContainer.new()
+	speed_row.alignment = BoxContainer.ALIGNMENT_END
+	speed_row.add_theme_constant_override("separation", 8)
+	layout.add_child(speed_row)
+
+	speed_buttons.clear()
+	for speed_value in [1, 2, 3, 4, 5]:
+		var button: Button = Button.new()
+		button.custom_minimum_size = Vector2(44, 32)
+		button.text = str(speed_value)
+		button.pressed.connect(func(value: int = speed_value) -> void:
+			_set_game_speed(value)
+		)
+		speed_row.add_child(button)
+		speed_buttons.append(button)
+
+	_refresh_top_bar()
+
+func _refresh_top_bar() -> void:
+	if date_label != null:
+		date_label.text = _format_game_date()
+
+	if pause_toggle_button != null:
+		if get_tree().paused and (pause_menu_panel == null or not pause_menu_panel.visible):
+			pause_toggle_button.text = ">"
+			pause_toggle_button.tooltip_text = "Reanudar tiempo"
+		else:
+			pause_toggle_button.text = "||"
+			pause_toggle_button.tooltip_text = "Pausar tiempo"
+
+	for i in range(speed_buttons.size()):
+		var button: Button = speed_buttons[i]
+		var is_selected: bool = (i + 1) == game_speed
+		button.disabled = is_selected
+
+func _format_game_date() -> String:
+	var month_index: int = clampi(int(game_date.get("month", 1)) - 1, 0, MONTH_NAMES.size() - 1)
+	return "%d %s %d" % [int(game_date.get("day", 1)), MONTH_NAMES[month_index], int(game_date.get("year", 1836))]
+
+func _update_game_clock(delta: float) -> void:
+	if get_tree().paused:
+		_refresh_top_bar()
+		return
+
+	time_accumulator += delta
+	var seconds_per_day: float = float(SPEED_TO_SECONDS.get(game_speed, 0.6))
+	while time_accumulator >= seconds_per_day:
+		time_accumulator -= seconds_per_day
+		_advance_game_day()
+
+func _advance_game_day() -> void:
+	game_date["day"] = int(game_date.get("day", 1)) + 1
+	if int(game_date["day"]) > 30:
+		game_date["day"] = 1
+		game_date["month"] = int(game_date.get("month", 1)) + 1
+		if int(game_date["month"]) > 12:
+			game_date["month"] = 1
+			game_date["year"] = int(game_date.get("year", 1836)) + 1
+	_refresh_top_bar()
+
+func _set_game_speed(speed_value: int) -> void:
+	game_speed = clampi(speed_value, 1, 5)
+	_refresh_top_bar()
+
+func _toggle_time_pause() -> void:
+	if pause_menu_panel != null and pause_menu_panel.visible:
+		_resume_game()
+		return
+
+	get_tree().paused = not get_tree().paused
+	_refresh_top_bar()
 
 func _create_side_menu() -> void:
 	side_menu_panel = PanelContainer.new()
@@ -753,6 +892,7 @@ func _resume_game() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = false
 	get_tree().paused = false
+	_refresh_top_bar()
 
 func _show_pause_options_placeholder() -> void:
 	if get_tree().paused:
@@ -830,6 +970,7 @@ func _unhandled_input(event):
 					hover_name_panel.visible = false
 				_center_pause_menu()
 			get_tree().paused = not is_open
+			_refresh_top_bar()
 		return
 
 	if event is InputEventMouseButton \
