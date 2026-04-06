@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var white_map: TextureRect = $whiteMap
 @onready var color_map: TextureRect = $colorMap
+@onready var game_camera: Camera2D = $Camera2D
 
 # Overlay donde pintaremos colores por propietario
 var owner_overlay: TextureRect = null
@@ -19,8 +20,19 @@ var province_info_extra: Label = null
 var pause_menu_panel: PanelContainer = null
 var hover_name_panel: PanelContainer = null
 var hover_name_label: Label = null
+var side_menu_panel: PanelContainer = null
+var intro_overlay: Control = null
+var intro_skip: Label = null
+var intro_fade_rect: ColorRect = null
+var intro_top_bar: ColorRect = null
+var intro_bottom_bar: ColorRect = null
+var intro_tween: Tween = null
 var province_info_dragging: bool = false
 var province_info_drag_offset: Vector2 = Vector2.ZERO
+var intro_cinematic_active: bool = false
+var intro_skip_requested: bool = false
+var intro_original_camera_position: Vector2 = Vector2.ZERO
+var intro_original_camera_zoom: Vector2 = Vector2.ONE
 
 # Managers (se crearan en tiempo de ejecucion)
 var province_manager: ProvinceManager = null
@@ -42,6 +54,7 @@ const SELECTION_MIN_ALPHA: float = 0.38
 const SELECTION_MAX_ALPHA: float = 0.62
 const SEA_RGB_KEY: int = (172 << 16) | (201 << 8) | 233
 const CUSTOM_CURSOR_PATH: String = "res://assets/ui/cursor.svg"
+const INTRO_ANIMATION_DURATION: float = 3.8
 
 func _rgb_key(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
@@ -186,9 +199,15 @@ func _ready():
 	_create_selection_ui()
 
 	call_deferred("_refresh_owner_overlay")
+	call_deferred("_start_intro_cinematic")
 
 func _process(delta: float) -> void:
-	_update_hover_name()
+	if intro_cinematic_active:
+		_update_intro_skip_hint()
+		if intro_skip_requested:
+			_end_intro_cinematic()
+	else:
+		_update_hover_name()
 
 	if selection_overlay == null or selected_province_gid == "":
 		return
@@ -305,6 +324,153 @@ func _create_selection_ui() -> void:
 	_create_province_info_panel()
 	_create_pause_menu()
 	_create_hover_name_panel()
+	_create_side_menu()
+	_create_intro_overlay()
+
+func _create_side_menu() -> void:
+	side_menu_panel = PanelContainer.new()
+	side_menu_panel.name = "sideMenuPanel"
+	side_menu_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	side_menu_panel.anchor_left = 0.0
+	side_menu_panel.anchor_top = 0.5
+	side_menu_panel.anchor_right = 0.0
+	side_menu_panel.anchor_bottom = 0.5
+	side_menu_panel.offset_left = 16
+	side_menu_panel.offset_top = -252
+	side_menu_panel.offset_right = 80
+	side_menu_panel.offset_bottom = 252
+	ui_layer.add_child(side_menu_panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.1, 0.14, 0.92)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.55, 0.6, 0.7, 0.85)
+	panel_style.corner_radius_top_left = 12
+	panel_style.corner_radius_top_right = 12
+	panel_style.corner_radius_bottom_left = 12
+	panel_style.corner_radius_bottom_right = 12
+	panel_style.content_margin_left = 10
+	panel_style.content_margin_top = 12
+	panel_style.content_margin_right = 10
+	panel_style.content_margin_bottom = 12
+	side_menu_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var buttons_box: VBoxContainer = VBoxContainer.new()
+	buttons_box.add_theme_constant_override("separation", 10)
+	side_menu_panel.add_child(buttons_box)
+
+	var menu_buttons: Array = [
+		{"icon": "G", "title": "Gobierno"},
+		{"icon": "D", "title": "Diplomacia"},
+		{"icon": "C", "title": "Comercio"},
+		{"icon": "M", "title": "Militar"},
+		{"icon": "P", "title": "Poblacion"},
+		{"icon": "E", "title": "Economia"},
+		{"icon": "T", "title": "Tecnologia"}
+	]
+
+	for button_data in menu_buttons:
+		var button: Button = Button.new()
+		button.custom_minimum_size = Vector2(56, 56)
+		button.text = str(button_data["icon"])
+		button.tooltip_text = str(button_data["title"])
+		button.add_theme_font_size_override("font_size", 26)
+		button.pressed.connect(func(menu_title: String = str(button_data["title"]), menu_icon: String = str(button_data["icon"])) -> void:
+			_show_coming_soon_popup(menu_title, menu_icon)
+		)
+		buttons_box.add_child(button)
+
+func _create_intro_overlay() -> void:
+	intro_overlay = Control.new()
+	intro_overlay.name = "introOverlay"
+	intro_overlay.visible = false
+	intro_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	intro_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	ui_layer.add_child(intro_overlay)
+
+	intro_fade_rect = ColorRect.new()
+	intro_fade_rect.color = Color(0.01, 0.02, 0.04, 0.68)
+	intro_fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	intro_overlay.add_child(intro_fade_rect)
+
+	intro_top_bar = ColorRect.new()
+	intro_top_bar.color = Color.BLACK
+	intro_top_bar.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	intro_top_bar.custom_minimum_size = Vector2(0, 110)
+	intro_overlay.add_child(intro_top_bar)
+
+	intro_bottom_bar = ColorRect.new()
+	intro_bottom_bar.color = Color.BLACK
+	intro_bottom_bar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
+	intro_bottom_bar.custom_minimum_size = Vector2(0, 110)
+	intro_overlay.add_child(intro_bottom_bar)
+
+	intro_skip = Label.new()
+	intro_skip.text = "Pulsa clic, Enter o Esc para saltar"
+	intro_skip.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	intro_skip.add_theme_font_size_override("font_size", 16)
+	intro_skip.add_theme_color_override("font_color", Color(0.72, 0.76, 0.82, 0.85))
+	intro_skip.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	intro_skip.position = Vector2(0, -52)
+	intro_overlay.add_child(intro_skip)
+
+func _update_intro_skip_hint() -> void:
+	if intro_skip == null:
+		return
+	intro_skip.modulate.a = 0.55 + (sin(Time.get_ticks_msec() / 180.0) + 1.0) * 0.18
+
+func _start_intro_cinematic() -> void:
+	if intro_overlay == null or game_camera == null:
+		return
+
+	intro_cinematic_active = true
+	intro_skip_requested = false
+	intro_overlay.visible = true
+	hover_name_panel.visible = false
+	if pause_menu_panel != null:
+		pause_menu_panel.visible = false
+	if province_info_panel != null:
+		province_info_panel.visible = false
+
+	game_camera.input_enabled = false
+	intro_original_camera_position = game_camera.position
+	intro_original_camera_zoom = game_camera.zoom
+	game_camera.position = intro_original_camera_position + Vector2(260, -160)
+	game_camera.zoom = intro_original_camera_zoom + Vector2(0.35, 0.35)
+	intro_fade_rect.color = Color(0.01, 0.02, 0.04, 0.68)
+	intro_top_bar.color = Color.BLACK
+	intro_bottom_bar.color = Color.BLACK
+
+	intro_tween = create_tween()
+	intro_tween.set_parallel(true)
+	intro_tween.tween_property(game_camera, "position", intro_original_camera_position, INTRO_ANIMATION_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property(game_camera, "zoom", intro_original_camera_zoom, INTRO_ANIMATION_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property(intro_fade_rect, "color:a", 0.0, INTRO_ANIMATION_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property(intro_top_bar, "color:a", 0.0, INTRO_ANIMATION_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_property(intro_bottom_bar, "color:a", 0.0, INTRO_ANIMATION_DURATION).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await intro_tween.finished
+	if not intro_cinematic_active:
+		return
+	_end_intro_cinematic()
+
+func _end_intro_cinematic() -> void:
+	if not intro_cinematic_active and intro_tween == null:
+		return
+
+	if intro_tween != null:
+		intro_tween.kill()
+		intro_tween = null
+
+	intro_cinematic_active = false
+	intro_skip_requested = false
+	if intro_overlay != null:
+		intro_overlay.visible = false
+	game_camera.position = intro_original_camera_position
+	game_camera.zoom = intro_original_camera_zoom
+	game_camera.input_enabled = true
 
 func _create_hover_name_panel() -> void:
 	hover_name_panel = PanelContainer.new()
@@ -338,11 +504,16 @@ func _update_hover_name() -> void:
 	if hover_name_panel == null or color_map_image == null or white_map.size == Vector2.ZERO:
 		return
 
-	if get_tree().paused:
+	if get_tree().paused or intro_cinematic_active:
 		hover_name_panel.visible = false
 		return
 
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	if side_menu_panel != null:
+		var side_menu_rect: Rect2 = Rect2(side_menu_panel.global_position, side_menu_panel.size)
+		if side_menu_rect.has_point(mouse_pos):
+			hover_name_panel.visible = false
+			return
 	var white_rect: Rect2 = Rect2(white_map.global_position, white_map.size)
 	if not white_rect.has_point(mouse_pos):
 		hover_name_panel.visible = false
@@ -596,10 +767,13 @@ func _return_to_main_menu() -> void:
 func _quit_game() -> void:
 	get_tree().quit()
 
-func _show_coming_soon_popup(title: String) -> void:
+func _show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	var dialog: AcceptDialog = AcceptDialog.new()
 	dialog.title = title
-	dialog.dialog_text = "Proximamente"
+	if icon_label == "":
+		dialog.dialog_text = "Proximamente"
+	else:
+		dialog.dialog_text = "Proximamente\nIcono temporal asignado: %s" % icon_label
 	dialog.ok_button_text = "Aceptar"
 	ui_layer.add_child(dialog)
 	dialog.popup_centered()
@@ -633,6 +807,15 @@ func _set_selected_province(gid: String, nombre: String) -> void:
 	previous_selected_gid = gid
 
 func _unhandled_input(event):
+	if intro_cinematic_active:
+		if event is InputEventKey and event.pressed:
+			if event.keycode == KEY_ESCAPE or event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER or event.keycode == KEY_SPACE:
+				intro_skip_requested = true
+				return
+		if event is InputEventMouseButton and event.pressed:
+			intro_skip_requested = true
+			return
+
 	if event.is_action_pressed("ui_cancel"):
 		if province_info_panel != null and province_info_panel.visible:
 			province_info_dragging = false

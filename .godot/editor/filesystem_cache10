@@ -19,6 +19,7 @@ LoadingScreen.tscn::PackedScene::-1::1775224608::0::1::::<><><>0<>0<><>::res://s
 Main.tscn::PackedScene::7606133450298432658::1774982742::0::1::::<><><>0<>0<><>::uid://cwd8shnyh0uer::::res://assets/maps/color_map.png<>uid://cpk4t0fqm18vs::::res://scripts/camera_2d.gd<>uid://djt2g27m2dq1g::::res://assets/maps/white_map.png<>uid://8millgk5ysww::::res://scripts/textures.gd
 MainMenu.tscn::PackedScene::-1::1775210546::0::1::::<><><>0<>0<><>::res://scripts/main_menu.gd
 main_menu.tscn::PackedScene::5871084023858245024::1775065860::0::1::::<><><>0<>0<><>::res://scenes/MainMenu.tscn
+TestRunner.tscn::PackedScene::-1::1775246692::0::1::::<><><>0<>0<><>::res://scripts/test_runner.gd
 ::res://scenes/camara_zoom/::1684864448
 camara_zoom.gd::GDScript::1144608017182260973::1765732592::0::1::::<>Camera2D<><>0<>0<><>::
 camara_zoom.tscn::PackedScene::7111057828171611309::1684864736::0::1::::<><><>0<>0<><>::
@@ -28,4 +29,5 @@ loading_screen.gd::GDScript::7358524950207800263::1775225288::0::1::::<>Control<
 main_menu.gd::GDScript::1329178350156005572::1775210546::0::1::::<>Control<><>0<>0<><>::
 nation_manager.gd::GDScript::4654232358980417587::1775224584::0::1::::NationManager<>Node<><>0<>0<><>::
 province_manager.gd::GDScript::2177318449371377632::1775211486::0::1::::ProvinceManager<>Node<><>0<>0<><>::
-textures.gd::GDScript::2341510340299958826::1775225934::0::1::::<>Node2D<><>0<>0<><>::
+test_runner.gd::GDScript::755773934363804497::1775246690::0::1::::<>Node<><>0<>0<><>::
+textures.gd::GDScript::2341510340299958826::1775247110::0::1::::<>Node2D<><>0<>0<><>::

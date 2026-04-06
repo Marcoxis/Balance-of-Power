@@ -10,8 +10,12 @@ extends Camera2D
 
 var arrastrando: bool = false
 var ultima_pos_raton: Vector2 = Vector2.ZERO
+var input_enabled: bool = true
 
 func _process(delta: float) -> void:
+	if not input_enabled:
+		return
+
 	var direccion: Vector2 = Vector2.ZERO
 
 	if Input.is_key_pressed(KEY_D):
@@ -27,6 +31,9 @@ func _process(delta: float) -> void:
 		position += direccion.normalized() * velocidad_teclado * delta
 
 func _input(event: InputEvent) -> void:
+	if not input_enabled:
+		return
+
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			arrastrando = event.pressed
