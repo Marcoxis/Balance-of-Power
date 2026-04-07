@@ -3,138 +3,32 @@ extends Node
 signal language_changed(language_code: String)
 
 const DEFAULT_LANGUAGE: String = "en"
+const LOCALIZATION_PATH: String = "res://data/localization.json"
 
 var current_language: String = DEFAULT_LANGUAGE
-
-var translations: Dictionary = {
-	"en": {
-		"menu.main_title": "Balance of Power",
-		"menu.main_subtitle": "Main menu",
-		"menu.singleplayer": "Singleplayer",
-		"menu.multiplayer": "Multiplayer",
-		"menu.options": "Options",
-		"menu.quit": "Quit",
-		"menu.new_game": "New game",
-		"menu.load_game": "Load game",
-		"menu.back": "Back",
-		"menu.graphics": "Graphics",
-		"menu.sound": "Sound",
-		"menu.controls": "Controls",
-		"menu.accessibility": "Accessibility",
-		"menu.debugger": "Debugger mode",
-		"menu.translate": "Language",
-		"ui.coming_soon": "Work in progress",
-		"ui.ok": "OK",
-		"loading.resources": "Loading resources... %d%%",
-		"loading.title": "Loading",
-		"loading.entering": "Entering game...",
-		"loading.error": "Failed to load the game",
-		"loading.preparing": "Preparing resources...",
-		"loading.fallback_tip": "Tip: govern patiently and keep a close eye on the map.",
-		"game.pause_menu": "Pause menu",
-		"game.resume": "Resume",
-		"game.quit_to_menu": "Exit to main menu",
-		"game.quit_game": "Exit game",
-		"game.pause_time": "Pause time",
-		"game.resume_time": "Resume time",
-		"game.province.population": "Population: %s",
-		"game.province.country": "Country: %s",
-		"game.province.buildings": "Buildings: %s",
-		"game.province.resources": "Available resources: %s",
-		"game.province.terrain": "Terrain image",
-		"game.province.municipalities": "Municipalities image",
-		"game.province.wip": "Work in progress",
-		"game.country.none": "None",
-		"game.country.unknown": "Unknown",
-		"game.sea": "Sea",
-		"game.side.government": "Government",
-		"game.side.diplomacy": "Diplomacy",
-		"game.side.trade": "Trade",
-		"game.side.military": "Military",
-		"game.side.population": "Population",
-		"game.side.economy": "Economy",
-		"game.side.technology": "Technology",
-		"game.temp_icon": "Temporary icon assigned: %s",
-		"game.intro_skip": "Click, Enter or Esc to skip",
-		"months.1": "January",
-		"months.2": "February",
-		"months.3": "March",
-		"months.4": "April",
-		"months.5": "May",
-		"months.6": "June",
-		"months.7": "July",
-		"months.8": "August",
-		"months.9": "September",
-		"months.10": "October",
-		"months.11": "November",
-		"months.12": "December"
-	},
-	"es": {
-		"menu.main_title": "Balance of Power",
-		"menu.main_subtitle": "Menu principal",
-		"menu.singleplayer": "Un jugador",
-		"menu.multiplayer": "Multijugador",
-		"menu.options": "Opciones",
-		"menu.quit": "Salir",
-		"menu.new_game": "Nueva partida",
-		"menu.load_game": "Cargar partida",
-		"menu.back": "Atras",
-		"menu.graphics": "Graficos",
-		"menu.sound": "Sonido",
-		"menu.controls": "Controles",
-		"menu.accessibility": "Accesibilidad",
-		"menu.debugger": "Modo debugger",
-		"menu.translate": "Idioma",
-		"ui.coming_soon": "Se esta trabajando en ello",
-		"ui.ok": "Aceptar",
-		"loading.resources": "Cargando recursos... %d%%",
-		"loading.title": "Cargando",
-		"loading.entering": "Entrando en partida...",
-		"loading.error": "Error al cargar la partida",
-		"loading.preparing": "Preparando recursos...",
-		"loading.fallback_tip": "Consejo: preparate para gobernar con paciencia y observa el mapa con atencion.",
-		"game.pause_menu": "Menu de pausa",
-		"game.resume": "Volver",
-		"game.quit_to_menu": "Salir al menu principal",
-		"game.quit_game": "Salir del juego",
-		"game.pause_time": "Pausar tiempo",
-		"game.resume_time": "Reanudar tiempo",
-		"game.province.population": "Poblacion: %s",
-		"game.province.country": "Pais: %s",
-		"game.province.buildings": "Edificios: %s",
-		"game.province.resources": "Recursos disponibles: %s",
-		"game.province.terrain": "Foto del terreno",
-		"game.province.municipalities": "Foto de los municipios",
-		"game.province.wip": "Se esta trabajando en ello",
-		"game.country.none": "Ninguno",
-		"game.country.unknown": "Desconocido",
-		"game.sea": "Mar",
-		"game.side.government": "Gobierno",
-		"game.side.diplomacy": "Diplomacia",
-		"game.side.trade": "Comercio",
-		"game.side.military": "Militar",
-		"game.side.population": "Poblacion",
-		"game.side.economy": "Economia",
-		"game.side.technology": "Tecnologia",
-		"game.temp_icon": "Icono temporal asignado: %s",
-		"game.intro_skip": "Pulsa clic, Enter o Esc para saltar",
-		"months.1": "Enero",
-		"months.2": "Febrero",
-		"months.3": "Marzo",
-		"months.4": "Abril",
-		"months.5": "Mayo",
-		"months.6": "Junio",
-		"months.7": "Julio",
-		"months.8": "Agosto",
-		"months.9": "Septiembre",
-		"months.10": "Octubre",
-		"months.11": "Noviembre",
-		"months.12": "Diciembre"
-	}
-}
+var translations: Dictionary = {}
 
 func _ready() -> void:
+	_load_translations()
 	current_language = DEFAULT_LANGUAGE
+
+func _load_translations() -> void:
+	var file: FileAccess = FileAccess.open(LOCALIZATION_PATH, FileAccess.READ)
+	if not file:
+		push_error("No se pudo abrir %s" % LOCALIZATION_PATH)
+		translations = {}
+		return
+
+	var text: String = file.get_as_text()
+	file.close()
+
+	var parsed: Variant = JSON.parse_string(text)
+	if typeof(parsed) != TYPE_DICTIONARY:
+		push_error("Formato invalido en %s" % LOCALIZATION_PATH)
+		translations = {}
+		return
+
+	translations = parsed
 
 func set_language(language_code: String) -> void:
 	if not translations.has(language_code):
@@ -148,10 +42,14 @@ func get_language() -> String:
 	return current_language
 
 func get_available_languages() -> Array[String]:
-	return ["en", "es"]
+	var languages: Array[String] = []
+	for key in translations.keys():
+		languages.append(str(key))
+	languages.sort()
+	return languages
 
 func t(key: String, args: Array = []) -> String:
-	var language_table: Dictionary = translations.get(current_language, translations[DEFAULT_LANGUAGE])
+	var language_table: Dictionary = translations.get(current_language, translations.get(DEFAULT_LANGUAGE, {}))
 	var fallback_table: Dictionary = translations.get(DEFAULT_LANGUAGE, {})
 	var value: String = str(language_table.get(key, fallback_table.get(key, key)))
 	if not args.is_empty():

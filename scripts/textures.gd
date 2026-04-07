@@ -62,6 +62,7 @@ var blink_time: float = 0.0
 var game_date: Dictionary = {"day": 1, "month": 1, "year": 1836}
 var game_speed: int = 3
 var time_accumulator: float = 0.0
+var time_paused: bool = true
 
 # Ajustes visuales del parpadeo de la provincia seleccionada.
 const SELECTION_BLINK_SPEED: float = 3.2
@@ -425,7 +426,7 @@ func _refresh_top_bar() -> void:
 		date_label.text = _format_game_date()
 
 	if pause_toggle_button != null:
-		if get_tree().paused and (pause_menu_panel == null or not pause_menu_panel.visible):
+		if time_paused and (pause_menu_panel == null or not pause_menu_panel.visible):
 			pause_toggle_button.text = ">"
 			pause_toggle_button.tooltip_text = Localization.t("game.resume_time")
 		else:
@@ -442,7 +443,7 @@ func _format_game_date() -> String:
 	return "%d %s %d" % [int(game_date.get("day", 1)), month_name, int(game_date.get("year", 1836))]
 
 func _update_game_clock(delta: float) -> void:
-	if get_tree().paused:
+	if get_tree().paused or time_paused:
 		_refresh_top_bar()
 		return
 
@@ -471,7 +472,7 @@ func _toggle_time_pause() -> void:
 		_resume_game()
 		return
 
-	get_tree().paused = not get_tree().paused
+	time_paused = not time_paused
 	_refresh_top_bar()
 
 func _create_side_menu() -> void:
@@ -479,13 +480,13 @@ func _create_side_menu() -> void:
 	side_menu_panel.name = "sideMenuPanel"
 	side_menu_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	side_menu_panel.anchor_left = 0.0
-	side_menu_panel.anchor_top = 0.5
+	side_menu_panel.anchor_top = 0.0
 	side_menu_panel.anchor_right = 0.0
-	side_menu_panel.anchor_bottom = 0.5
+	side_menu_panel.anchor_bottom = 0.0
 	side_menu_panel.offset_left = 16
-	side_menu_panel.offset_top = -252
-	side_menu_panel.offset_right = 80
-	side_menu_panel.offset_bottom = 252
+	side_menu_panel.offset_top = 16
+	side_menu_panel.offset_right = 336
+	side_menu_panel.offset_bottom = 88
 	ui_layer.add_child(side_menu_panel)
 
 	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
@@ -505,7 +506,7 @@ func _create_side_menu() -> void:
 	panel_style.content_margin_bottom = 12
 	side_menu_panel.add_theme_stylebox_override("panel", panel_style)
 
-	var buttons_box: VBoxContainer = VBoxContainer.new()
+	var buttons_box: HBoxContainer = HBoxContainer.new()
 	buttons_box.add_theme_constant_override("separation", 10)
 	side_menu_panel.add_child(buttons_box)
 
@@ -620,6 +621,8 @@ func _end_intro_cinematic() -> void:
 	game_camera.position = intro_original_camera_position
 	game_camera.zoom = intro_original_camera_zoom
 	game_camera.input_enabled = true
+	time_paused = true
+	_refresh_top_bar()
 
 func _create_hover_name_panel() -> void:
 	hover_name_panel = PanelContainer.new()
@@ -899,6 +902,7 @@ func _resume_game() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = false
 	get_tree().paused = false
+	time_paused = false
 	_refresh_top_bar()
 
 func _show_pause_options_placeholder() -> void:
@@ -976,7 +980,10 @@ func _unhandled_input(event):
 				if hover_name_panel != null:
 					hover_name_panel.visible = false
 				_center_pause_menu()
+				time_paused = true
 			get_tree().paused = not is_open
+			if is_open:
+				time_paused = false
 			_refresh_top_bar()
 		return
 
