@@ -1,136 +1,90 @@
 # ToDo list
 
-## Prioridad alta
-
-- Reutilizar `ImageTexture` para `owner_overlay` y `selection_overlay` en lugar de recrearlas con `ImageTexture.create_from_image(...)` cada vez que cambian.
-- Mover el guardado de datos persistentes desde `res://data/provinces_with_gid.json` a `user://` para que funcione tambien en builds exportadas.
-- Separar responsabilidades de `scripts/textures.gd` en varios scripts:
-  - render del mapa
-  - seleccion de provincias
-  - panel de informacion
-  - menu de pausa
-- Reducir el coste de memoria de `province_pixels_by_gid`; evitar guardar un `Vector2i` por pixel en mapas grandes.
-- Crear una estrategia de cache compacta por filas o por regiones para las provincias del mapa.
-- Evitar recorrer la imagen completa de `4000x4000` en cada operacion que pueda resolverse con cache o actualizacion incremental.
-- Añadir un sistema de guardado/carga de partida que persista propietarios, estado visual y datos jugables.
-- Evitar escribir el mismo JSON completo cada vez que cambia una sola provincia; introducir guardado diferido o por lotes.
-- Añadir validacion del contenido de `provinces_with_gid.json` antes de usarlo en runtime.
-- Manejar errores de parseo JSON con mensajes mas utiles y una ruta de recuperacion visible para el usuario.
-
-## Rendimiento
-
-- Medir el tiempo de `_build_province_pixel_cache()` y registrar cuanto tarda en mapas reales.
-- Convertir la construccion de caches pesadas en un paso asincrono o repartido en varios frames.
-- Investigar si conviene usar shader, atlas o mask textures para overlays en lugar de pintar pixel a pixel desde GDScript.
-- Evitar `get_pixel()` repetido dentro de bucles enormes cuando se pueda precalcular una tabla RGB -> gid.
-- Conservar una cache global de `rgb_key -> gid` ya resuelta y reutilizarla entre sistemas.
-- Reducir la cantidad de `Color` y `Vector2i` temporales creados en bucles criticos.
-- Revisar si `selection_overlay_image` puede actualizarse solo en el bounding box de la provincia seleccionada.
-- Evitar `owner_overlay_image.fill(...)` completo cuando solo cambian unas pocas provincias.
-- Implementar actualizaciones parciales del overlay por `gid`.
-- Medir uso de RAM durante el arranque con el mapa actual.
-- Añadir un modo debug con estadisticas de tiempo de carga, memoria estimada y provincias cacheadas.
-
-## Arquitectura
-
-- Crear un `GameState` o `WorldState` central para datos de partida.
-- Convertir `ProvinceManager` y `NationManager` en nodos claramente inicializados desde la escena principal o como autoloads si aplica.
-- Eliminar duplicacion entre `ProvinceManager` y `textures.gd` para calcular `rgb_key`.
-- Centralizar la resolucion `color -> gid` en una sola API.
-- Tipar mejor los diccionarios o migrar parte de los datos a recursos o clases dedicadas.
-- Crear una clase o recurso `ProvinceData` con campos bien definidos.
-- Crear una clase o recurso `NationData` con nombre, color, bandera y metadatos.
-- Sustituir strings magicas como `"SEA"` por constantes compartidas.
-- Extraer constantes de rutas como `res://scenes/MainMenu.tscn` y `res://scenes/Main.tscn`.
-- Añadir señales para eventos como:
-  - provincia seleccionada
-  - propietario cambiado
-  - carga completada
-  - pausa abierta/cerrada
-- Desacoplar el panel de provincia del script de render del mapa.
-- Desacoplar el menu de pausa del sistema de seleccion.
-
-## UI y UX
-
-- Mostrar una barra de progreso real en `LoadingScreen`.
-- Desactivar `_process` en la pantalla de carga cuando termine o falle la carga.
-- Evitar spamear `push_error(...)` cada frame si la carga falla.
-- Mostrar un mensaje visible al usuario cuando la escena principal no pueda cargarse.
-- Añadir un boton para volver al menu principal desde el error de carga.
-- Revisar el texto del menu principal: `Singelplayer` tiene una errata.
-- Uniformar textos como `Atras`, `Graficos`, `Menu` y `Proximamente` con tildes o una decision consistente.
-- Preparar localizacion futura de todos los strings visibles en UI.
-- Añadir hover, foco visual y navegacion por teclado en menus.
-- Permitir cerrar el panel de provincia con `Esc` o clic fuera, segun la UX deseada.
-- Añadir feedback visual al seleccionar mar vs provincia.
-- Mostrar datos placeholder de forma menos invasiva cuando aun no exista contenido real.
-- Añadir iconos o separadores visuales en el panel de provincia para mejorar legibilidad.
-- Hacer responsive el panel de provincia para resoluciones mas bajas.
-- Recolocar el panel de provincia si cambia el tamaño de ventana.
-- Revisar contraste y consistencia visual entre menu principal, popup y paneles ingame.
-
-## Input y camara
-
-- Reemplazar `Input.is_key_pressed(KEY_W/A/S/D)` por acciones de input configurables.
-- Añadir soporte para remapeo de controles.
-- Añadir soporte opcional para teclado en flechas.
-- Revisar la direccion del zoom para que coincida con la expectativa habitual del jugador.
-- Añadir suavizado opcional de movimiento y zoom.
-- Ajustar el arrastre para que no dependa solo de `zoom.x`.
-- Bloquear input de mapa mientras el juego esta pausado si eso es lo esperado.
-- Evitar conflictos entre drag de panel UI y drag/click del mapa.
-
-## Datos y dominio
-
-- Definir claramente que campos son obligatorios y cuales opcionales en los datos de provincia.
-- Añadir versionado de formato al JSON para facilitar migraciones futuras.
-- Añadir pruebas de integridad para detectar colores duplicados o `gid` repetidos.
-- Validar que cada color del mapa tenga provincia asociada, salvo mar u otras excepciones conocidas.
-- Crear soporte para provincias neutrales y estados especiales con semantica explicita.
-- Separar datos editables por diseño de los datos persistidos por partida.
-- Evitar mezclar metadatos de definicion y estado mutable en el mismo archivo.
-
-## Calidad de codigo
-
-- Revisar comentarios temporales como `patch: force reload timestamp`.
-- Homogeneizar idioma de nombres de variables, funciones y comentarios.
-- Añadir tipado a funciones como `_input(event)` y `_unhandled_input(event)`.
-- Crear helpers para construir estilos de panel y evitar duplicacion.
-- Reducir el tamaño de `textures.gd`; ahora concentra demasiadas tareas.
-- Sustituir `print(...)` de debug por logging controlado con flag de depuracion.
-- Añadir asserts o warnings cuando falten nodos requeridos como `whiteMap` o `colorMap`.
-- Revisar nombres de archivo para mantener consistencia entre `main_menu.tscn` y `MainMenu.tscn`.
-- Limpiar recursos o escenas posiblemente obsoletas/duplicadas.
-
-## Testing
-
-- Añadir pruebas de carga del JSON de provincias.
-- Añadir pruebas de `get_gid_by_color()` con coincidencia exacta y con tolerancia.
-- Añadir pruebas para colores de mar y excepciones especiales.
-- Añadir pruebas de guardado/carga de propietarios.
-- Añadir una prueba que detecte si dos provincias comparten el mismo color.
-- Añadir pruebas para que la seleccion siga funcionando cerca de bordes.
-- Añadir pruebas manuales guiadas para camara, zoom, pausa y menu principal.
-- Crear una checklist corta de smoke test para antes de exportar.
-
-## Build y proyecto
-
-- Ignorar archivos temporales como `*.tmp` en `.gitignore`.
-- Revisar por que hay escenas temporales `Main.tscn*.tmp` en la raiz del proyecto.
-- Limpiar archivos import o recursos duplicados en la raiz si ya existen bajo `assets/maps/`.
-- Revisar si sobran escenas antiguas como `scenes/main_menu.tscn` frente a `scenes/MainMenu.tscn`.
-- Añadir una carpeta `docs/` con arquitectura basica, flujo de datos y roadmap.
-- Documentar el pipeline para actualizar mapas e importar nuevas provincias.
-- Definir convenciones de nombres para escenas, scripts, recursos y nodos.
-
-## Contenido futuro
-
-- Añadir imagen real de terreno por provincia.
-- Añadir imagen o listado real de municipios por provincia.
-- Añadir mas naciones cargadas desde datos externos.
-- Añadir colores, banderas y nombres historicos por periodo.
-- Añadir estadisticas historicas por provincia.
-- Añadir capas del mapa activables: propietarios, recursos, poblacion, infraestructura.
-- Añadir sistema de seleccion multiple o resaltado contextual.
+-cambiar el cursor
+-quitar foto del terreno en el menu de la provicnia
+-añadir base sistema economico
+-espacir recursos por provincias
+-cambiar posicion de menu de ventanas 
+-añadir overlay a la pantalla de tal manera que cubra los bordes
+-separar textures.gd en diferentes scripts
+-cambiar el idioma interno de programacion al ingles
+-Añadir comentarios cortos.
+-crear mas carpetas para tener mejor organizado cada parte del juego.
+- Hacer zoom hacia la posicion del cursor en lugar de hacerlo al centro de la camara.
+- Añadir limites de camara para no salir del mapa.
 - Añadir buscador de provincias.
 - Añadir minimapa.
+- Añadir imagen real de terreno por provincia.
+-añadir naciones
+-diseñar pop-up de eventos
+-DiseÃ±ar una jerarquia UI
+
+# planificar como va a ir el juego
+
+-crear hoja de ruta
+
+-diseñar prototipo de diplomacia y sistema diplomatico
+-prototipo visual
+-crear sistema de guardado
+-planificar sistema de combate
+-planificar impuestos
+-planificar tecnologia
+-definir ideologia
+-definir sistema de poblacion
+-añadir graficos de crecimiento de pib
+-añadir un ranking de paises en funcion de cierta variable
+-añadir sistema de prestigio
+-definir sistema religioso
+-definir rebeldes
+-diseñar guerras
+-añadir niebla de guerra
+
+# muy a futuro
+-diseñar arte visual caracteristico
+-añadir ia
+-añadir soporte para mods
+-añadir multiplayes
+
+# hecho por ia 
+
+
+
+- Crear una roadmap por fases: mapa interactivo, estado de partida, economia basica, diplomacia, guerra, contenido historico.
+
+- Definir que hace exactamente el jugador con el dinero del pais: construccion, ejercito, subsidios, administracion o deuda.
+- DiseÃ±ar una version 1 del sistema de construccion: cola de edificios, costes, tiempo y requisitos.
+
+
+- Decidir si la infraestructura y el transporte seran un recurso abstracto o un sistema real del mapa.
+- DiseÃ±ar un primer sistema de recursos con entradas, salidas y dependencias.
+
+
+- Determinar si la diplomacia se basara en acciones discretas o en valores continuos de opinion e interes.
+- DiseÃ±ar el primer modelo militar: unidades abstractas, ejercitos sobre mapa o frentes tipo Victoria 3.
+- Decidir si la guerra se controla provincia a provincia, por frentes o por ordenes generales.
+- DiseÃ±ar una paz minima viable: objetivos de guerra, coste de paz y transferencia de territorio.
+- Definir un primer sistema politico interno: leyes, gobierno, legitimidad, estabilidad o facciones.
+- Determinar si el jugador controla directamente el gobierno o si debe negociar con grupos de interes.
+- DiseÃ±ar una primera lista de leyes relevantes para el arranque del juego.
+- Elegir si cultura y religion seran sistemas profundos desde el inicio o capas posteriores.
+- Decidir como influiran cultura y religion en pops, estabilidad, asimilacion y diplomacia.
+- DiseÃ±ar un primer sistema tecnologico con pocos nodos pero impacto claro en el gameplay.
+
+- Crear una lista de decisiones nacionales para EspaÃ±a y Portugal como contenido inicial con personalidad.
+- DiseÃ±ar el tono visual final: sobrio, militar, institucional, cartografico o mezcla de todos.
+- Establecer una guia visual minima para evitar que cada pantalla tenga un estilo distinto.
+- Definir un lenguaje comun de iconos para menus, recursos, poblacion, guerra y diplomacia.
+
+- Decidir si las ventanas ingame se cierran, se acoplan, se fijan o se recuerdan entre sesiones.
+
+
+- DiseÃ±ar una pantalla de pais al iniciar nueva partida si en el futuro hay mas de uno seleccionable.
+- Pensar desde ya en mod support basico si quieres que el proyecto crezca con datos externos faciles de tocar.
+- Determinar convenciones de IDs estables para provincias, paises, edificios, pops, eventos y tecnologias.
+- DiseÃ±ar una estrategia de guardado robusta antes de que existan demasiados sistemas acoplados.
+- Separar que datos deben cargarse al inicio y que datos pueden cargarse bajo demanda.
+- Definir una politica de versiones y migraciones para saves y JSON antes de cambiar muchas estructuras otra vez.
+- AÃ±adir un documento de riesgos tecnicos: mapa grande, overlays, rendimiento UI, persistencia y localizacion.
+- Hacer una auditoria de que partes del proyecto ya parecen definitivas y cuales deberian seguir en modo experimental.
+- Elegir una prioridad emocional del juego: sensacion de imperio, gestion fria, narrativa historica o caos politico.
+- Definir una primera campaÃ±a de prueba interna de 30 minutos que permita validar si el juego ya tiene alma.
