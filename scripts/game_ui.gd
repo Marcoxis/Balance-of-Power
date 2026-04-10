@@ -12,6 +12,7 @@ var province_info_panel: PanelContainer = null
 var province_info_title: Label = null
 var province_info_population: Label = null
 var province_info_owner: Label = null
+var province_info_cultivable_land: Label = null
 var province_info_buildings: Label = null
 var province_info_resources: Label = null
 var province_info_extra: Label = null
@@ -137,6 +138,8 @@ func _create_province_info_panel() -> void:
 	content.add_child(province_info_population)
 	province_info_owner = Label.new()
 	content.add_child(province_info_owner)
+	province_info_cultivable_land = Label.new()
+	content.add_child(province_info_cultivable_land)
 	province_info_buildings = Label.new()
 	province_info_buildings.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	content.add_child(province_info_buildings)
@@ -450,6 +453,7 @@ func _show_selected_payload() -> void:
 	province_info_title.text = current_selected_name
 	province_info_population.text = Localization.t("game.province.population", [str(current_selected_payload.get("population", "0"))])
 	province_info_owner.text = Localization.t("game.province.country", [str(current_selected_payload.get("owner_name", Localization.t("game.country.unknown")))])
+	province_info_cultivable_land.text = Localization.t("game.province.cultivable_land", [str(current_selected_payload.get("cultivable_land", "0"))])
 	province_info_buildings.text = Localization.t("game.province.buildings", [str(current_selected_payload.get("buildings", Localization.t("game.province.wip")))])
 	province_info_resources.text = Localization.t("game.province.resources", [str(current_selected_payload.get("resources", Localization.t("game.province.wip")))])
 	var extra_text: String = str(current_selected_payload.get("extra", Localization.t("game.province.wip")))

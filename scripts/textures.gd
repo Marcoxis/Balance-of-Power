@@ -337,6 +337,35 @@ func _format_status_list_field(field_value: Variant) -> String:
 		return ", ".join(values)
 	return str(field_value)
 
+func _get_building_count(province_data: Dictionary) -> int:
+	var buildings_data: Variant = province_data.get("buildings", {})
+	if typeof(buildings_data) == TYPE_DICTIONARY:
+		var entries: Variant = buildings_data.get("entries", [])
+		if typeof(entries) == TYPE_ARRAY:
+			var mining_limits: Dictionary = buildings_data.get("mining_limits", {})
+			var count: int = 0
+			for entry in entries:
+				if typeof(entry) == TYPE_DICTIONARY:
+					if str(entry.get("category", "")) == "mining":
+						continue
+					count += 1
+					continue
+				var building_id: String = str(entry)
+				if mining_limits.has(building_id):
+					continue
+				count += 1
+			return count
+	return 0
+
+func _format_cultivable_land(province_data: Dictionary) -> String:
+	var cultivable_data: Variant = province_data.get("cultivable_land", 0)
+	var base_value: int = 0
+	if typeof(cultivable_data) == TYPE_DICTIONARY:
+		base_value = int(cultivable_data.get("base", 0))
+	else:
+		base_value = int(cultivable_data)
+	return str(maxi(0, base_value - _get_building_count(province_data)))
+
 func _build_province_ui_payload(gid: String, nombre: String) -> Dictionary:
 	var province_data: Dictionary = {}
 	if gid != SEA_GID:
@@ -354,6 +383,7 @@ func _build_province_ui_payload(gid: String, nombre: String) -> Dictionary:
 		"name": nombre,
 		"population": _format_population(population),
 		"owner_name": owner_name,
+		"cultivable_land": "0" if gid == SEA_GID else _format_cultivable_land(province_data),
 		"buildings": _format_status_list_field(province_data.get("buildings", Localization.t("game.province.wip"))),
 		"resources": _format_status_list_field(province_data.get("resources", Localization.t("game.province.wip"))),
 		"terrain": str(province_data.get("terrain_image", Localization.t("game.province.wip"))),

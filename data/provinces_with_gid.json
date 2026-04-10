@@ -9,11 +9,18 @@
     "nombre": "Valladolid",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -46,6 +53,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -58,11 +69,31 @@
     "nombre": "La Coruña",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "otros minerales",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -95,6 +126,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -107,11 +142,31 @@
     "nombre": "Pontevedra",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "otros minerales",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -144,6 +199,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -156,11 +215,28 @@
     "nombre": "Orense",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "otros minerales",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -193,6 +269,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -205,11 +285,33 @@
     "nombre": "Lugo",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "otros minerales",
+        "industria pesquera",
+        "patatas",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -242,6 +344,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -254,11 +360,31 @@
     "nombre": "Asturias",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "hierro": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "hierro",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "carbon",
+        "hierro",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -291,6 +417,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 4,
+      "status": "mapped"
     }
   },
   {
@@ -303,11 +433,29 @@
     "nombre": "Cantabria",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "otros minerales",
+        "industria pesquera",
+        "patatas"
+      ],
+      "mining": [
+        "hierro",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -340,6 +488,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 4,
+      "status": "mapped"
     }
   },
   {
@@ -352,11 +504,31 @@
     "nombre": "Vizcaya",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "carbon": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "carbon",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "hierro",
+        "carbon",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -389,6 +561,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 4,
+      "status": "mapped"
     }
   },
   {
@@ -401,11 +577,28 @@
     "nombre": "Alava",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "otros minerales",
+        "trigo",
+        "patatas"
+      ],
+      "mining": [
+        "hierro",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -438,6 +631,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -450,11 +647,28 @@
     "nombre": "Guipúzcoa",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "hierro",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -487,6 +701,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 4,
+      "status": "mapped"
     }
   },
   {
@@ -499,11 +717,28 @@
     "nombre": "Navarra",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "cobre",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -536,6 +771,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -548,11 +787,31 @@
     "nombre": "Huesca",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "plomo": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "plomo",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "plomo",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -585,6 +844,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -597,11 +860,28 @@
     "nombre": "Lérida",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "carbon",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -634,6 +914,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -646,11 +930,29 @@
     "nombre": "Barcelona",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "caucho": 2,
+        "petroleo": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "caucho",
+        "petroleo",
+        "industria pesquera",
+        "frutas"
+      ],
+      "mining": [
+        "caucho",
+        "petroleo",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -683,6 +985,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -695,11 +1001,29 @@
     "nombre": "Gerona",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "otros minerales",
+        "industria pesquera",
+        "frutas"
+      ],
+      "mining": [
+        "hierro",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -732,6 +1056,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -744,11 +1072,33 @@
     "nombre": "Tarragona",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "azufre": 2,
+        "petroleo": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "azufre",
+        "petroleo",
+        "industria pesquera",
+        "trigo",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [
+        "azufre",
+        "petroleo",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "trigo",
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -781,6 +1131,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -793,11 +1147,26 @@
     "nombre": "Zaragoza",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "plomo",
+        "trigo"
+      ],
+      "mining": [
+        "carbon",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -830,6 +1199,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -842,11 +1215,26 @@
     "nombre": "Teruel",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "plomo",
+        "trigo"
+      ],
+      "mining": [
+        "carbon",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -879,6 +1267,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -891,11 +1283,31 @@
     "nombre": "León",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "hierro": 2,
+        "oro": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "hierro",
+        "oro",
+        "trigo",
+        "patatas"
+      ],
+      "mining": [
+        "carbon",
+        "hierro",
+        "oro"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -928,6 +1340,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -940,11 +1356,18 @@
     "nombre": "Zamora",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -977,6 +1400,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -989,11 +1416,18 @@
     "nombre": "Salamanca",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1026,6 +1460,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -1038,11 +1476,23 @@
     "nombre": "Palencia",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "trigo"
+      ],
+      "mining": [
+        "carbon"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1075,6 +1525,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -1087,11 +1541,28 @@
     "nombre": "Burgos",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "petroleo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "petroleo",
+        "trigo",
+        "patatas"
+      ],
+      "mining": [
+        "hierro",
+        "petroleo"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1124,6 +1595,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1136,11 +1611,20 @@
     "nombre": "Ávila",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo",
+        "patatas"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1173,6 +1657,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -1185,11 +1673,18 @@
     "nombre": "Segovia",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1222,6 +1717,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -1234,11 +1733,28 @@
     "nombre": "Logroño",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "plomo": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "plomo",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "plomo",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1271,6 +1787,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -1283,11 +1803,20 @@
     "nombre": "Madrid",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo",
+        "frutas"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1320,6 +1849,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -1332,11 +1865,31 @@
     "nombre": "Cáceres",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "plomo": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "plomo",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "plomo",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1369,6 +1922,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1381,11 +1938,31 @@
     "nombre": "Badajoz",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "plomo": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "plomo",
+        "otros minerales",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "cobre",
+        "plomo",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1418,6 +1995,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -1430,11 +2011,18 @@
     "nombre": "Toledo",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1467,6 +2055,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -1479,11 +2071,23 @@
     "nombre": "Guadalajara",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "otros minerales",
+        "trigo"
+      ],
+      "mining": [
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1516,6 +2120,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1528,11 +2136,26 @@
     "nombre": "Cuenca",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "otros minerales",
+        "trigo"
+      ],
+      "mining": [
+        "cobre",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1565,6 +2188,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1577,11 +2204,29 @@
     "nombre": "Ciudad Real",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "azufre": 2,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "azufre",
+        "plomo",
+        "trigo"
+      ],
+      "mining": [
+        "carbon",
+        "azufre",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1614,6 +2259,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -1626,11 +2275,18 @@
     "nombre": "Albacete",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1663,6 +2319,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -1675,11 +2335,25 @@
     "nombre": "Castellón",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "industria pesquera",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1712,6 +2386,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -1724,11 +2402,29 @@
     "nombre": "Valencia",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "industria pesquera",
+        "arroz",
+        "seda",
+        "frutas",
+        "algodon"
+      ],
+      "mining": [
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "arroz",
+        "seda",
+        "frutas",
+        "algodon"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1761,6 +2457,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -1773,11 +2473,25 @@
     "nombre": "Alicante",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "industria pesquera",
+        "frutas",
+        "algodon"
+      ],
+      "mining": [
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas",
+        "algodon"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1810,6 +2524,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -1822,11 +2540,38 @@
     "nombre": "Murcia",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "azufre": 2,
+        "plomo": 2,
+        "hierro": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "azufre",
+        "plomo",
+        "hierro",
+        "industria pesquera",
+        "frutas",
+        "seda",
+        "algodon",
+        "opio"
+      ],
+      "mining": [
+        "azufre",
+        "plomo",
+        "hierro",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas",
+        "seda",
+        "algodon",
+        "opio"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1859,6 +2604,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1871,11 +2620,34 @@
     "nombre": "Huelva",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "azufre": 2,
+        "oro": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "azufre",
+        "oro",
+        "industria pesquera",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "cobre",
+        "azufre",
+        "oro",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1908,6 +2680,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -1920,11 +2696,32 @@
     "nombre": "Sevilla",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "caucho": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "caucho",
+        "otros minerales",
+        "trigo",
+        "arroz",
+        "algodon",
+        "frutas"
+      ],
+      "mining": [
+        "caucho",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "arroz",
+        "algodon",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -1957,6 +2754,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -1969,11 +2770,22 @@
     "nombre": "Sevilla",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo",
+        "algodon",
+        "frutas"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo",
+        "algodon",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2006,6 +2818,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 9,
+      "status": "mapped"
     }
   },
   {
@@ -2018,11 +2834,31 @@
     "nombre": "Cádiz",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "caucho": 2,
+        "petroleo": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "caucho",
+        "petroleo",
+        "industria pesquera",
+        "algodon",
+        "frutas"
+      ],
+      "mining": [
+        "caucho",
+        "petroleo",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "algodon",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2055,6 +2891,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2067,11 +2907,27 @@
     "nombre": "Málaga",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "industria pesquera",
+        "frutas",
+        "seda",
+        "algodon"
+      ],
+      "mining": [
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas",
+        "seda",
+        "algodon"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2104,6 +2960,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -2116,11 +2976,33 @@
     "nombre": "Córdoba",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "cobre": 2,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "cobre",
+        "plomo",
+        "trigo",
+        "algodon",
+        "frutas"
+      ],
+      "mining": [
+        "carbon",
+        "cobre",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo",
+        "algodon",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2153,6 +3035,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -2165,11 +3051,30 @@
     "nombre": "Granada",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "plomo": 2,
+        "hierro": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "plomo",
+        "hierro",
+        "frutas",
+        "seda",
+        "opio"
+      ],
+      "mining": [
+        "plomo",
+        "hierro"
+      ],
+      "agricultural": [
+        "frutas",
+        "seda",
+        "opio"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2202,6 +3107,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2214,11 +3123,36 @@
     "nombre": "Almería",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "plomo": 2,
+        "azufre": 2,
+        "oro": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "plomo",
+        "azufre",
+        "oro",
+        "industria pesquera",
+        "frutas",
+        "algodon",
+        "opio"
+      ],
+      "mining": [
+        "plomo",
+        "azufre",
+        "oro",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas",
+        "algodon",
+        "opio"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2251,6 +3185,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -2263,11 +3201,26 @@
     "nombre": "Soria",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "hierro": 2,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "hierro",
+        "otros minerales",
+        "trigo"
+      ],
+      "mining": [
+        "hierro",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2300,6 +3253,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2312,11 +3269,28 @@
     "nombre": "Viana do Castelo",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "otros minerales",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2349,6 +3323,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -2361,11 +3339,28 @@
     "nombre": "Braga",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "otros minerales",
+        "industria pesquera",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2398,6 +3393,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -2410,11 +3409,30 @@
     "nombre": "Vila Real",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "otros minerales",
+        "trigo",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "oro",
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2447,6 +3465,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -2459,11 +3481,28 @@
     "nombre": "Bragança",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "hierro": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "hierro",
+        "trigo",
+        "patatas"
+      ],
+      "mining": [
+        "oro",
+        "hierro"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2496,6 +3535,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -2508,11 +3551,29 @@
     "nombre": "Porto",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "caucho": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "caucho",
+        "industria pesquera",
+        "frutas"
+      ],
+      "mining": [
+        "carbon",
+        "caucho",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2545,6 +3606,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   },
   {
@@ -2557,11 +3622,30 @@
     "nombre": "Aveiro",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "otros minerales",
+        "industria pesquera",
+        "trigo",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "trigo",
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2594,6 +3678,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2606,11 +3694,27 @@
     "nombre": "Viseu",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "otros minerales": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "otros minerales",
+        "trigo",
+        "patatas",
+        "frutas"
+      ],
+      "mining": [
+        "otros minerales"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2643,6 +3747,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2655,11 +3763,28 @@
     "nombre": "Guarda",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "oro": 1,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "oro",
+        "plomo",
+        "trigo",
+        "patatas"
+      ],
+      "mining": [
+        "oro",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo",
+        "patatas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2692,6 +3817,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -2704,11 +3833,33 @@
     "nombre": "Coimbra",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "carbon": 2,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "carbon",
+        "otros minerales",
+        "industria pesquera",
+        "trigo",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [
+        "carbon",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "trigo",
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2741,6 +3892,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -2753,11 +3908,31 @@
     "nombre": "Castelo Branco",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "plomo": 2,
+        "oro": 1
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "plomo",
+        "oro",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "cobre",
+        "plomo",
+        "oro"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2790,6 +3965,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2802,11 +3981,31 @@
     "nombre": "Leiria",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "petroleo": 2,
+        "otros minerales": 1,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "petroleo",
+        "otros minerales",
+        "industria pesquera",
+        "trigo",
+        "frutas"
+      ],
+      "mining": [
+        "petroleo",
+        "otros minerales",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2839,6 +4038,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 7,
+      "status": "mapped"
     }
   },
   {
@@ -2851,11 +4054,22 @@
     "nombre": "Santarém",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo",
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2888,6 +4102,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -2900,11 +4118,26 @@
     "nombre": "Portalegre",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "plomo": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "plomo",
+        "trigo"
+      ],
+      "mining": [
+        "cobre",
+        "plomo"
+      ],
+      "agricultural": [
+        "trigo"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2937,6 +4170,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 8,
+      "status": "mapped"
     }
   },
   {
@@ -2949,11 +4186,20 @@
     "nombre": "Évora",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {}
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "trigo",
+        "frutas"
+      ],
+      "mining": [],
+      "agricultural": [
+        "trigo",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -2986,6 +4232,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 10,
+      "status": "mapped"
     }
   },
   {
@@ -2998,11 +4248,31 @@
     "nombre": "Setúbal",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "petroleo": 2,
+        "caucho": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "petroleo",
+        "caucho",
+        "industria pesquera",
+        "arroz",
+        "frutas"
+      ],
+      "mining": [
+        "petroleo",
+        "caucho",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "arroz",
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -3035,6 +4305,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -3047,11 +4321,30 @@
     "nombre": "Beja",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "azufre": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "azufre",
+        "trigo",
+        "frutas",
+        "algodon"
+      ],
+      "mining": [
+        "cobre",
+        "azufre"
+      ],
+      "agricultural": [
+        "trigo",
+        "frutas",
+        "algodon"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -3084,6 +4377,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 11,
+      "status": "mapped"
     }
   },
   {
@@ -3096,11 +4393,34 @@
     "nombre": "Faro",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "cobre": 2,
+        "azufre": 2,
+        "petroleo": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "cobre",
+        "azufre",
+        "petroleo",
+        "industria pesquera",
+        "frutas",
+        "algodon"
+      ],
+      "mining": [
+        "cobre",
+        "azufre",
+        "petroleo",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas",
+        "algodon"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -3133,6 +4453,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 6,
+      "status": "mapped"
     }
   },
   {
@@ -3145,11 +4469,29 @@
     "nombre": "Lisboa",
     "buildings": {
       "status": "work in progress",
-      "entries": []
+      "entries": [],
+      "mining_limits": {
+        "caucho": 2,
+        "petroleo": 2,
+        "industria pesquera": 2
+      }
     },
     "resources": {
-      "status": "work in progress",
-      "entries": []
+      "status": "mapped",
+      "entries": [
+        "caucho",
+        "petroleo",
+        "industria pesquera",
+        "frutas"
+      ],
+      "mining": [
+        "caucho",
+        "petroleo",
+        "industria pesquera"
+      ],
+      "agricultural": [
+        "frutas"
+      ]
     },
     "terrain_image": "work in progress",
     "municipalities_image": "work in progress",
@@ -3182,6 +4524,10 @@
         "intellectuals": 0,
         "aristocrats": 0
       }
+    },
+    "cultivable_land": {
+      "base": 5,
+      "status": "mapped"
     }
   }
 ]

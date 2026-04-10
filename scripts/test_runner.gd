@@ -20,6 +20,7 @@ func _run_all_tests() -> void:
 	_test_province_manager_color_resolution()
 	_test_province_manager_owner_set_get()
 	_test_province_manager_save_roundtrip()
+	_test_province_manager_mining_limits()
 	_test_province_manager_overlay_builders()
 	_test_nation_manager_load_and_lookup()
 	_test_nation_manager_owner_transfer()
@@ -69,6 +70,10 @@ func _test_province_data_schema() -> void:
 	_assert_true(first.has("population"), "Cada provincia tiene bloque population")
 	_assert_true(first.has("buildings"), "Cada provincia tiene bloque buildings")
 	_assert_true(first.has("resources"), "Cada provincia tiene bloque resources")
+	_assert_true(first.has("cultivable_land"), "Cada provincia tiene bloque cultivable_land")
+	_assert_true(typeof(first["buildings"]) == TYPE_DICTIONARY and first["buildings"].has("mining_limits"), "Cada provincia tiene mining_limits provisionales")
+	_assert_true(typeof(first["resources"]) == TYPE_DICTIONARY and first["resources"].has("mining"), "Cada provincia tiene bloque resources.mining")
+	_assert_true(typeof(first["resources"]) == TYPE_DICTIONARY and first["resources"].has("agricultural"), "Cada provincia tiene bloque resources.agricultural")
 
 func _test_country_data_schema() -> void:
 	var data: Variant = _load_json(COUNTRIES_PATH)
@@ -106,6 +111,18 @@ func _test_province_manager_save_roundtrip() -> void:
 	reloaded.load_from_file(temp_path)
 	_assert_equal(reloaded.get_province_owner("ES-0001"), "ES", "ProvinceManager recupera owner tras guardar/cargar")
 	_assert_true(reloaded.provinces_by_gid["ES-0001"].has("population"), "ProvinceManager conserva estructura population")
+
+func _test_province_manager_mining_limits() -> void:
+	var manager: ProvinceManager = ProvinceManager.new()
+	manager.load_from_file(PROVINCES_PATH)
+	_assert_true(manager.get_mining_building_limit("ES-0006", "carbon") > 0, "ProvinceManager expone limite para edificios mineros")
+	_assert_true(manager.can_build_mining_building("ES-0006", "carbon"), "ProvinceManager permite construir si hay hueco")
+	var first_build_ok: bool = manager.add_mining_building("ES-0006", "carbon")
+	var second_build_ok: bool = manager.add_mining_building("ES-0006", "carbon")
+	var third_build_ok: bool = manager.add_mining_building("ES-0006", "carbon")
+	_assert_true(first_build_ok, "ProvinceManager construye primer edificio minero")
+	_assert_true(second_build_ok, "ProvinceManager construye hasta el limite provisional")
+	_assert_true(not third_build_ok, "ProvinceManager bloquea construccion por encima del limite")
 
 func _test_province_manager_overlay_builders() -> void:
 	var manager: ProvinceManager = ProvinceManager.new()

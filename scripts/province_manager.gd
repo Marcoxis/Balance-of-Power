@@ -110,6 +110,57 @@ func get_province_owner(gid: String) -> Variant:
 		return provinces_by_gid[gid].get("owner", null)
 	return null
 
+func get_mining_building_limit(gid: String, building_id: String) -> int:
+	if not provinces_by_gid.has(gid):
+		return 0
+	var buildings_data: Variant = provinces_by_gid[gid].get("buildings", {})
+	if typeof(buildings_data) != TYPE_DICTIONARY:
+		return 0
+	var mining_limits: Variant = buildings_data.get("mining_limits", {})
+	if typeof(mining_limits) != TYPE_DICTIONARY:
+		return 0
+	return int(mining_limits.get(building_id, 0))
+
+func get_mining_building_count(gid: String, building_id: String) -> int:
+	if not provinces_by_gid.has(gid):
+		return 0
+	var buildings_data: Variant = provinces_by_gid[gid].get("buildings", {})
+	if typeof(buildings_data) != TYPE_DICTIONARY:
+		return 0
+	var entries: Variant = buildings_data.get("entries", [])
+	if typeof(entries) != TYPE_ARRAY:
+		return 0
+	var count: int = 0
+	for entry in entries:
+		if typeof(entry) == TYPE_DICTIONARY:
+			if str(entry.get("id", "")) == building_id and str(entry.get("category", "")) == "mining":
+				count += 1
+		elif str(entry) == building_id:
+			count += 1
+	return count
+
+func can_build_mining_building(gid: String, building_id: String) -> bool:
+	return get_mining_building_count(gid, building_id) < get_mining_building_limit(gid, building_id)
+
+func add_mining_building(gid: String, building_id: String) -> bool:
+	if not provinces_by_gid.has(gid):
+		return false
+	if not can_build_mining_building(gid, building_id):
+		return false
+	var buildings_data: Variant = provinces_by_gid[gid].get("buildings", {})
+	if typeof(buildings_data) != TYPE_DICTIONARY:
+		buildings_data = {}
+	if not buildings_data.has("entries") or typeof(buildings_data.get("entries")) != TYPE_ARRAY:
+		buildings_data["entries"] = []
+	var entries: Array = buildings_data["entries"]
+	entries.append({
+		"id": building_id,
+		"category": "mining"
+	})
+	buildings_data["entries"] = entries
+	provinces_by_gid[gid]["buildings"] = buildings_data
+	return true
+
 func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) -> Image:
 	# Crea un Image donde cada pixel de la color_map se reemplaza por el color de la nacion propietaria.
 	var img: Image = color_map.get_image()
