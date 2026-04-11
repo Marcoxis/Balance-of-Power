@@ -13,10 +13,10 @@ offset = Vector2(960, 480)
 script = ExtResource("2_uu6xs")
 
 [node name="whiteMap" type="TextureRect" parent="." unique_id=32087908]
-offset_left = -2100.0
-offset_top = -2000.0
-offset_right = 1900.0
-offset_bottom = 2000.0
+offset_left = -1757.0
+offset_top = -1761.0
+offset_right = 2243.0
+offset_bottom = 2239.0
 texture = ExtResource("3_cm0pq")
 
 [node name="colorMap" type="TextureRect" parent="." unique_id=1919895736]

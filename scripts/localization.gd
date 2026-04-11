@@ -3,7 +3,8 @@ extends Node
 signal language_changed(language_code: String)
 
 const DEFAULT_LANGUAGE: String = "en"
-const LOCALIZATION_PATH: String = "res://data/localization.json"
+const LOCALIZATION_PATH: String = "res://data/lenguages.json"
+const LEGACY_LOCALIZATION_PATH: String = "res://data/localization.json"
 
 var current_language: String = DEFAULT_LANGUAGE
 var translations: Dictionary = {}
@@ -14,8 +15,12 @@ func _ready() -> void:
 
 func _load_translations() -> void:
 	var file: FileAccess = FileAccess.open(LOCALIZATION_PATH, FileAccess.READ)
+	var resolved_path: String = LOCALIZATION_PATH
 	if not file:
-		push_error("No se pudo abrir %s" % LOCALIZATION_PATH)
+		file = FileAccess.open(LEGACY_LOCALIZATION_PATH, FileAccess.READ)
+		resolved_path = LEGACY_LOCALIZATION_PATH
+	if not file:
+		push_error("No se pudo abrir %s ni %s" % [LOCALIZATION_PATH, LEGACY_LOCALIZATION_PATH])
 		translations = {}
 		return
 
@@ -24,7 +29,7 @@ func _load_translations() -> void:
 
 	var parsed: Variant = JSON.parse_string(text)
 	if typeof(parsed) != TYPE_DICTIONARY:
-		push_error("Formato invalido en %s" % LOCALIZATION_PATH)
+		push_error("Formato invalido en %s" % resolved_path)
 		translations = {}
 		return
 

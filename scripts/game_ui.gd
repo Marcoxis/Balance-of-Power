@@ -32,6 +32,13 @@ var top_menu_panel: PanelContainer = null
 var top_menu_buttons: Array[Button] = []
 var top_menu_title_keys: Array[String] = []
 
+var technology_panel: PanelContainer = null
+var technology_title_label: Label = null
+var technology_tab_container: TabContainer = null
+var technology_section_labels: Array[Label] = []
+var technology_tab_labels: Array[Label] = []
+var technology_tab_title_keys: Array[String] = []
+
 var top_bar_panel: PanelContainer = null
 var date_label: Label = null
 var speed_buttons: Array[Button] = []
@@ -72,11 +79,24 @@ func _process(_delta: float) -> void:
 		if intro_skip_requested:
 			_end_intro_animation()
 
+func _get_viewport_size() -> Vector2:
+	var viewport: Viewport = get_viewport()
+	if viewport == null:
+		return Vector2.ZERO
+	return viewport.get_visible_rect().size
+
+func _get_mouse_position() -> Vector2:
+	var viewport: Viewport = get_viewport()
+	if viewport == null:
+		return Vector2.ZERO
+	return viewport.get_mouse_position()
+
 func _create_ui() -> void:
 	_create_province_info_panel()
 	_create_pause_menu()
 	_create_hover_name_panel()
 	_create_top_menu()
+	_create_technology_panel()
 	_create_top_bar()
 	_create_intro_overlay()
 
@@ -177,7 +197,7 @@ func _create_province_info_panel() -> void:
 	province_info_extra.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	content.add_child(province_info_extra)
 
-	province_info_panel.position = _clamp_panel_to_viewport(Vector2(24, get_viewport_rect().size.y - 564), province_info_panel)
+	province_info_panel.position = _clamp_panel_to_viewport(Vector2(24, _get_viewport_size().y - 564), province_info_panel)
 
 func _create_pause_menu() -> void:
 	pause_menu_panel = PanelContainer.new()
@@ -216,6 +236,7 @@ func _create_pause_menu() -> void:
 
 	var button_defs: Array = [
 		{"key": "game.resume", "callback": func() -> void: emit_signal("resume_requested")},
+		{"key": "menu.debugger", "callback": func() -> void: show_coming_soon_popup(Localization.t("menu.debugger"))},
 		{"key": "menu.options", "callback": func() -> void: show_coming_soon_popup(Localization.t("menu.options"))},
 		{"key": "game.quit_to_menu", "callback": func() -> void: emit_signal("return_to_main_menu_requested")},
 		{"key": "game.quit_game", "callback": func() -> void: emit_signal("quit_requested")}
@@ -311,12 +332,140 @@ func _create_top_menu() -> void:
 		button.custom_minimum_size = Vector2(56, 56)
 		button.text = str(button_data["icon"])
 		button.add_theme_font_size_override("font_size", 26)
-		button.pressed.connect(func(title_key: String = str(button_data["key"]), menu_icon: String = str(button_data["icon"])) -> void:
-			show_coming_soon_popup(Localization.t(title_key), menu_icon)
-		)
+		if str(button_data["key"]) == "game.side.technology":
+			button.pressed.connect(func() -> void:
+				toggle_technology_panel()
+			)
+		else:
+			button.pressed.connect(func(title_key: String = str(button_data["key"]), menu_icon: String = str(button_data["icon"])) -> void:
+				show_coming_soon_popup(Localization.t(title_key), menu_icon)
+			)
 		buttons_box.add_child(button)
 		top_menu_buttons.append(button)
 		top_menu_title_keys.append(str(button_data["key"]))
+
+func _create_technology_panel() -> void:
+	technology_panel = PanelContainer.new()
+	technology_panel.name = "technologyPanel"
+	technology_panel.visible = false
+	technology_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	technology_panel.anchor_left = 0.0
+	technology_panel.anchor_top = 0.0
+	technology_panel.anchor_right = 0.0
+	technology_panel.anchor_bottom = 1.0
+	add_child(technology_panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.1, 0.14, 0.96)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.55, 0.6, 0.7, 0.9)
+	panel_style.corner_radius_top_left = 12
+	panel_style.corner_radius_top_right = 12
+	panel_style.corner_radius_bottom_left = 12
+	panel_style.corner_radius_bottom_right = 12
+	panel_style.content_margin_left = 14
+	panel_style.content_margin_top = 14
+	panel_style.content_margin_right = 14
+	panel_style.content_margin_bottom = 14
+	technology_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var content: VBoxContainer = VBoxContainer.new()
+	content.add_theme_constant_override("separation", 10)
+	technology_panel.add_child(content)
+
+	var header: HBoxContainer = HBoxContainer.new()
+	header.add_theme_constant_override("separation", 8)
+	content.add_child(header)
+
+	technology_title_label = Label.new()
+	technology_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	technology_title_label.add_theme_font_size_override("font_size", 26)
+	technology_title_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
+	header.add_child(technology_title_label)
+
+	var close_button: Button = Button.new()
+	close_button.text = "X"
+	close_button.custom_minimum_size = Vector2(36, 36)
+	close_button.pressed.connect(func() -> void:
+		hide_technology_panel()
+	)
+	header.add_child(close_button)
+
+	technology_tab_container = TabContainer.new()
+	technology_tab_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	technology_tab_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	content.add_child(technology_tab_container)
+
+	technology_tab_title_keys = [
+		"game.tech.military",
+		"game.tech.economic",
+		"game.tech.civil",
+		"game.tech.diplomatic"
+	]
+	technology_section_labels.clear()
+	technology_tab_labels.clear()
+	for title_key in technology_tab_title_keys:
+		var tab_page: MarginContainer = MarginContainer.new()
+		tab_page.add_theme_constant_override("margin_left", 10)
+		tab_page.add_theme_constant_override("margin_top", 12)
+		tab_page.add_theme_constant_override("margin_right", 10)
+		tab_page.add_theme_constant_override("margin_bottom", 12)
+		technology_tab_container.add_child(tab_page)
+
+		var tab_content: VBoxContainer = VBoxContainer.new()
+		tab_content.add_theme_constant_override("separation", 10)
+		tab_page.add_child(tab_content)
+
+		var section_title: Label = Label.new()
+		section_title.add_theme_font_size_override("font_size", 22)
+		section_title.add_theme_color_override("font_color", Color(0.9, 0.87, 0.76, 1.0))
+		section_title.text = Localization.t(title_key)
+		tab_content.add_child(section_title)
+		technology_section_labels.append(section_title)
+
+		var placeholder: PanelContainer = PanelContainer.new()
+		placeholder.custom_minimum_size = Vector2(0, 180)
+		tab_content.add_child(placeholder)
+
+		var placeholder_style: StyleBoxFlat = StyleBoxFlat.new()
+		placeholder_style.bg_color = Color(0.12, 0.14, 0.18, 0.92)
+		placeholder_style.border_width_left = 1
+		placeholder_style.border_width_top = 1
+		placeholder_style.border_width_right = 1
+		placeholder_style.border_width_bottom = 1
+		placeholder_style.border_color = Color(0.42, 0.48, 0.58, 0.8)
+		placeholder_style.corner_radius_top_left = 10
+		placeholder_style.corner_radius_top_right = 10
+		placeholder_style.corner_radius_bottom_left = 10
+		placeholder_style.corner_radius_bottom_right = 10
+		placeholder_style.content_margin_left = 16
+		placeholder_style.content_margin_top = 16
+		placeholder_style.content_margin_right = 16
+		placeholder_style.content_margin_bottom = 16
+		placeholder.add_theme_stylebox_override("panel", placeholder_style)
+
+		var placeholder_label: Label = Label.new()
+		placeholder_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		placeholder_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		placeholder_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		placeholder_label.set_anchors_preset(Control.PRESET_FULL_RECT)
+		placeholder.add_child(placeholder_label)
+		technology_tab_labels.append(placeholder_label)
+
+	_layout_technology_panel()
+
+func _layout_technology_panel() -> void:
+	if technology_panel == null:
+		return
+	var viewport_size: Vector2 = _get_viewport_size()
+	var panel_width: float = maxf(320.0, floorf(viewport_size.x * 0.25))
+	technology_panel.offset_left = 16
+	technology_panel.offset_top = 104
+	technology_panel.offset_right = 16 + panel_width
+	technology_panel.offset_bottom = -16
 
 func _create_top_bar() -> void:
 	top_bar_panel = PanelContainer.new()
@@ -427,12 +576,12 @@ func _on_province_info_header_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		province_info_dragging = event.pressed
 		if province_info_dragging:
-			province_info_drag_offset = province_info_panel.position - get_global_mouse_position()
+			province_info_drag_offset = province_info_panel.position - _get_mouse_position()
 	elif event is InputEventMouseMotion and province_info_dragging:
-		province_info_panel.position = _clamp_panel_to_viewport(get_global_mouse_position() + province_info_drag_offset, province_info_panel)
+		province_info_panel.position = _clamp_panel_to_viewport(_get_mouse_position() + province_info_drag_offset, province_info_panel)
 
 func _clamp_panel_to_viewport(target_position: Vector2, panel: Control) -> Vector2:
-	var viewport_size: Vector2 = get_viewport_rect().size
+	var viewport_size: Vector2 = _get_viewport_size()
 	var panel_size: Vector2 = panel.size
 	if panel_size == Vector2.ZERO:
 		panel_size = panel.get_combined_minimum_size()
@@ -482,7 +631,7 @@ func show_hover_name(name: String, mouse_pos: Vector2) -> void:
 		return
 	hover_name_label.text = name
 	var panel_size: Vector2 = hover_name_panel.get_combined_minimum_size()
-	var viewport_size: Vector2 = get_viewport_rect().size
+	var viewport_size: Vector2 = _get_viewport_size()
 	var desired_position: Vector2 = mouse_pos + Vector2(20, -6)
 	hover_name_panel.position = Vector2(
 		clampf(desired_position.x, 0.0, maxf(0.0, viewport_size.x - panel_size.x)),
@@ -495,14 +644,36 @@ func hide_hover_name() -> void:
 		hover_name_panel.visible = false
 
 func is_mouse_over_top_menu(mouse_pos: Vector2) -> bool:
-	if top_menu_panel == null:
-		return false
-	return Rect2(top_menu_panel.global_position, top_menu_panel.size).has_point(mouse_pos)
+	if top_menu_panel != null and Rect2(top_menu_panel.global_position, top_menu_panel.size).has_point(mouse_pos):
+		return true
+	if technology_panel != null and technology_panel.visible and Rect2(technology_panel.global_position, technology_panel.size).has_point(mouse_pos):
+		return true
+	return false
+
+func toggle_technology_panel() -> void:
+	if technology_panel == null:
+		return
+	if technology_panel.visible:
+		hide_technology_panel()
+	else:
+		show_technology_panel()
+
+func show_technology_panel() -> void:
+	if technology_panel == null:
+		return
+	_layout_technology_panel()
+	technology_panel.visible = true
+	hide_hover_name()
+
+func hide_technology_panel() -> void:
+	if technology_panel != null:
+		technology_panel.visible = false
 
 func show_pause_menu() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = true
 		center_pause_menu()
+	hide_technology_panel()
 	hide_hover_name()
 
 func hide_pause_menu() -> void:
@@ -515,7 +686,7 @@ func is_pause_menu_visible() -> bool:
 func center_pause_menu() -> void:
 	if pause_menu_panel == null:
 		return
-	var viewport_size: Vector2 = get_viewport_rect().size
+	var viewport_size: Vector2 = _get_viewport_size()
 	var panel_size: Vector2 = pause_menu_panel.size
 	if panel_size == Vector2.ZERO:
 		panel_size = pause_menu_panel.get_combined_minimum_size()
@@ -621,6 +792,17 @@ func _apply_language() -> void:
 			button.text = Localization.t(key)
 	for i in range(min(top_menu_buttons.size(), top_menu_title_keys.size())):
 		top_menu_buttons[i].tooltip_text = Localization.t(top_menu_title_keys[i])
+	if technology_title_label != null:
+		technology_title_label.text = Localization.t("game.tech.title")
+	if technology_tab_container != null:
+		for i in range(min(technology_tab_container.get_tab_count(), technology_tab_title_keys.size())):
+			technology_tab_container.set_tab_title(i, Localization.t(technology_tab_title_keys[i]))
+	if technology_section_labels.size() == technology_tab_title_keys.size():
+		for i in range(technology_section_labels.size()):
+			technology_section_labels[i].text = Localization.t(technology_tab_title_keys[i])
+	if technology_tab_labels.size() == technology_tab_title_keys.size():
+		for i in range(technology_tab_labels.size()):
+			technology_tab_labels[i].text = Localization.t("game.tech.placeholder", [Localization.t(technology_tab_title_keys[i])])
 	if terrain_title_label != null:
 		terrain_title_label.text = Localization.t("game.province.terrain")
 	if terrain_placeholder_label != null:

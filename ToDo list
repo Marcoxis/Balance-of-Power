@@ -1,6 +1,7 @@
 # ToDo list
 
 -cambiar el cursor
+-cambiar que cuando se reduce el zoom se quiten las lineas que dibiden a cada provincia
 -quitar foto del terreno en el menu de la provicnia
 -añadir base sistema economico
 -espacir recursos por provincias
@@ -75,13 +76,10 @@
 - Establecer una guia visual minima para evitar que cada pantalla tenga un estilo distinto.
 - Definir un lenguaje comun de iconos para menus, recursos, poblacion, guerra y diplomacia.
 
-- Decidir si las ventanas ingame se cierran, se acoplan, se fijan o se recuerdan entre sesiones.
+- Decidir si las ventanas ingame se cierran, se acoplan
 
 
-- DiseÃ±ar una pantalla de pais al iniciar nueva partida si en el futuro hay mas de uno seleccionable.
-- Pensar desde ya en mod support basico si quieres que el proyecto crezca con datos externos faciles de tocar.
-- Determinar convenciones de IDs estables para provincias, paises, edificios, pops, eventos y tecnologias.
-- DiseÃ±ar una estrategia de guardado robusta antes de que existan demasiados sistemas acoplados.
+
 - Separar que datos deben cargarse al inicio y que datos pueden cargarse bajo demanda.
 - Definir una politica de versiones y migraciones para saves y JSON antes de cambiar muchas estructuras otra vez.
 - AÃ±adir un documento de riesgos tecnicos: mapa grande, overlays, rendimiento UI, persistencia y localizacion.

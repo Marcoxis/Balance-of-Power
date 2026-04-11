@@ -12,8 +12,8 @@ translator.svg::CompressedTexture2D::7478709030978104365::1775473898::1775474198
 ::res://data/::1774886932
 countries.json::JSON::-1::1775224650::0::1::::<><><>0<>0<><>::
 loading_tips.json::JSON::-1::1775473910::0::1::::<><><>0<>0<><>::
-localization.json::JSON::-1::1775555026::0::1::::<><><>0<>0<><>::
-provinces_with_gid.json::JSON::-1::1775555256::0::1::::<><><>0<>0<><>::
+localization.json::JSON::-1::1775823572::0::1::::<><><>0<>0<><>::
+provinces_with_gid.json::JSON::-1::1775824036::0::1::::<><><>0<>0<><>::
 ::res://docs/::1774886932
 ::res://map/::1774819570
 ::res://scenes/::1774886784
@@ -27,10 +27,11 @@ camara_zoom.gd::GDScript::1144608017182260973::1765732592::0::1::::<>Camera2D<><
 camara_zoom.tscn::PackedScene::7111057828171611309::1684864736::0::1::::<><><>0<>0<><>::
 ::res://scripts/::1774886932
 camera_2d.gd::GDScript::5848113843923545392::1775471722::0::1::::<>Camera2D<><>0<>0<><>::
+game_ui.gd::GDScript::6254102605393222141::1775823482::0::1::::GameUI<>CanvasLayer<><>0<>0<><>::
 loading_screen.gd::GDScript::7358524950207800263::1775474174::0::1::::<>Control<><>0<>0<><>::
 localization.gd::GDScript::2863461064465928234::1775555040::0::1::::<>Node<><>0<>0<><>::
 main_menu.gd::GDScript::1329178350156005572::1775474150::0::1::::<>Control<><>0<>0<><>::
 nation_manager.gd::GDScript::4654232358980417587::1775224584::0::1::::NationManager<>Node<><>0<>0<><>::
-province_manager.gd::GDScript::2177318449371377632::1775211486::0::1::::ProvinceManager<>Node<><>0<>0<><>::
-test_runner.gd::GDScript::755773934363804497::1775474186::0::1::::<>Node<><>0<>0<><>::
-textures.gd::GDScript::2341510340299958826::1775554886::0::1::::<>Node2D<><>0<>0<><>::
+province_manager.gd::GDScript::2177318449371377632::1775824004::0::1::::ProvinceManager<>Node<><>0<>0<><>::
+test_runner.gd::GDScript::755773934363804497::1775824070::0::1::::<>Node<><>0<>0<><>::
+textures.gd::GDScript::2341510340299958826::1775823970::0::1::::<>Node2D<><>0<>0<><>::
