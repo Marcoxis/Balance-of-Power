@@ -1,23 +1,25 @@
 extends Node
 
-# patch: force reload timestamp (2026-03-31)
-
-# ProvinceManager: carga provincias, mantiene mapping color->gid y propietario por gid
+# Handles province data, color lookups, and province ownership helpers.\n# Maneja datos de provincias, búsquedas por color y auxiliares de propiedad de provincias.
 class_name ProvinceManager
 
-var provinces_by_gid: Dictionary = {} # gid -> data (nombre, color, owner)
+# [English comment]
+# [Spanish translation]ionary = {} # gid -> province data
 var color_to_gid: Dictionary = {} # Color -> gid
-var rgb_to_gid: Dictionary = {} # int rgb -> gid
+var rgb_to_gid: Dictionary = {} # Packed RGB int -> gid
 
+# Packs three RGB components into one integer key.\n# Empaqueta tres componentes RGB en una clave entera.
 func _rgb_key_from_ints(r: int, g: int, b: int) -> int:
 	return (r << 16) | (g << 8) | b
 
+# Converts a Color into the packed RGB key used by lookups.\n# Convierte un Color en la clave RGB empaquetada usada por las búsquedas.
 func _rgb_key_from_color(col: Color) -> int:
 	var r: int = clampi(int(round(col.r * 255.0)), 0, 255)
 	var g: int = clampi(int(round(col.g * 255.0)), 0, 255)
 	var b: int = clampi(int(round(col.b * 255.0)), 0, 255)
 	return _rgb_key_from_ints(r, g, b)
 
+# Loads province data and rebuilds all fast lookup tables.\n# Carga datos de provincias y reconstruye todas las tablas de búsqueda rápida.
 func load_from_file(path: String) -> void:
 	var f: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not f:
@@ -42,7 +44,7 @@ func load_from_file(path: String) -> void:
 	color_to_gid.clear()
 	rgb_to_gid.clear()
 
-	# Guardamos tanto el acceso por gid como el acceso por color para resolver el mapa rapido.
+	# Store province data both by gid and by color for fast map queries.
 	for p in data:
 		var gid: String = p.get("gid", "")
 		var nombre: String = p.get("nombre", "")
@@ -65,21 +67,24 @@ func load_from_file(path: String) -> void:
 
 	f.close()
 
+# Resolves a province id from a color, with an exact lookup and a tolerance fallback.\n# Resuelve un ID de provincia desde un color, con búsqueda exacta y fallback de tolerancia.
 func get_gid_by_color(col: Color, tolerancia: float = 0.01) -> String:
 	var exact_gid: String = rgb_to_gid.get(_rgb_key_from_color(col), "")
 	if exact_gid != "":
 		return exact_gid
 
-	# Fallback con tolerancia por si el color recibido no coincide exactamente.
+# Fallback in case the sampled color is slightly off from the stored one.\n# Fallback en caso de que el color muestreado esté ligeramente desfasado del almacenado.
 	for key_color in color_to_gid.keys():
 		if abs(key_color.r - col.r) < tolerancia and abs(key_color.g - col.g) < tolerancia and abs(key_color.b - col.b) < tolerancia:
 			return color_to_gid[key_color]
 	return ""
 
+# Updates the owner stored for one province.\n# Actualiza el dueño almacenado para una provincia.
 func set_province_owner(gid: String, owner_id: String) -> void:
 	if provinces_by_gid.has(gid):
 		provinces_by_gid[gid]["owner"] = owner_id
 
+# Saves the current province state back to JSON.\n# Guarda el estado actual de las provincias de vuelta a JSON.
 func save_to_file(path: String) -> bool:
 	var arr: Array = []
 	for gid in provinces_by_gid.keys():
@@ -105,11 +110,13 @@ func save_to_file(path: String) -> bool:
 	f.close()
 	return true
 
+# Returns the current owner id for one province.\n# Devuelve el ID del dueño actual para una provincia.
 func get_province_owner(gid: String) -> Variant:
 	if provinces_by_gid.has(gid):
 		return provinces_by_gid[gid].get("owner", null)
 	return null
 
+# Returns the temporary mining building cap for one province and building type.\n# Devuelve el límite temporal de edificios mineros para una provincia y tipo de edificio.
 func get_mining_building_limit(gid: String, building_id: String) -> int:
 	if not provinces_by_gid.has(gid):
 		return 0
@@ -121,6 +128,7 @@ func get_mining_building_limit(gid: String, building_id: String) -> int:
 		return 0
 	return int(mining_limits.get(building_id, 0))
 
+# Counts how many mining buildings of one type exist in a province.\n# Cuenta cuántos edificios mineros de un tipo existen en una provincia.
 func get_mining_building_count(gid: String, building_id: String) -> int:
 	if not provinces_by_gid.has(gid):
 		return 0
@@ -139,9 +147,11 @@ func get_mining_building_count(gid: String, building_id: String) -> int:
 			count += 1
 	return count
 
+# Checks whether a new mining building can still be added.\n# Verifica si se puede añadir un nuevo edificio minero.
 func can_build_mining_building(gid: String, building_id: String) -> bool:
 	return get_mining_building_count(gid, building_id) < get_mining_building_limit(gid, building_id)
 
+# Adds one mining building entry if the temporary cap allows it.\n# Añade una entrada de edificio minero si el límite temporal lo permite.
 func add_mining_building(gid: String, building_id: String) -> bool:
 	if not provinces_by_gid.has(gid):
 		return false
@@ -161,8 +171,8 @@ func add_mining_building(gid: String, building_id: String) -> bool:
 	provinces_by_gid[gid]["buildings"] = buildings_data
 	return true
 
+# Builds the political overlay image by tinting each province with its owner color.\n# Construye la imagen de overlay político tiñendo cada provincia con el color de su dueño.
 func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) -> Image:
-	# Crea un Image donde cada pixel de la color_map se reemplaza por el color de la nacion propietaria.
 	var img: Image = color_map.get_image()
 	var out: Image = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
 	for y in range(img.get_height()):
@@ -179,8 +189,8 @@ func recolor_overlay_from_color_map(color_map: Texture2D, nation_manager: Node) 
 				out.set_pixel(x, y, Color(0, 0, 0, 0))
 	return out
 
+# Builds a mask image that only contains the selected province.\n# Construye una imagen de máscara que solo contiene la provincia seleccionada.
 func build_selection_overlay(color_map: Texture2D, selected_gid: String, overlay_color: Color = Color(1, 1, 1, 1)) -> Image:
-	# Construye una mascara con solo la provincia seleccionada para dibujarla por encima del mapa.
 	var img: Image = color_map.get_image()
 	var out: Image = Image.create(img.get_width(), img.get_height(), false, Image.FORMAT_RGBA8)
 	for y in range(img.get_height()):

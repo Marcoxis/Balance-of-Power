@@ -16,6 +16,7 @@ var tips: Array = []
 
 const MIN_LOADING_TIME: float = 0.75
 
+# Starts threaded scene loading and prepares the rotating tip text.
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	if not Localization.language_changed.is_connected(_on_language_changed):
@@ -24,6 +25,7 @@ func _ready() -> void:
 	tip_label.text = Localization.translate_tip(tips[tip_index])
 	ResourceLoader.load_threaded_request(TARGET_SCENE_PATH)
 
+# Updates the loading bar, rotates tips, and switches scenes when ready.
 func _process(delta: float) -> void:
 	total_elapsed += delta
 	tip_elapsed += delta
@@ -59,6 +61,7 @@ func _process(delta: float) -> void:
 		progress_bar.value = maxf(progress_bar.value, 5.0)
 		progress_label.text = Localization.t("loading.preparing")
 
+# Loads gameplay tips from JSON and falls back to one default tip.
 func _load_tips() -> Array:
 	var file: FileAccess = FileAccess.open(TIPS_PATH, FileAccess.READ)
 	if not file:
@@ -79,6 +82,7 @@ func _load_tips() -> Array:
 		loaded_tips.append(Localization.t("loading.fallback_tip"))
 	return loaded_tips
 
+# Refreshes translated labels after a language change.
 func _on_language_changed(_language_code: String) -> void:
 	if not tips.is_empty():
 		tip_label.text = Localization.translate_tip(tips[tip_index])

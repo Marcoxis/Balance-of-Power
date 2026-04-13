@@ -1,0 +1,204 @@
+{
+  "military": {
+
+    "line_infantry_drill": {
+      "name": {
+        "en": "Line Infantry Drill",
+        "es": "Instruccion de infanteria de linea"
+      },
+      "cost": 80,
+      "id": "line_infantry_drill"
+    },
+    
+    "percussion_cap_weapons": {
+      "name": {
+        "en": "Percussion Cap Weapons",
+        "es": "Armas de piston"
+      },
+      "cost": 100,
+      "id": "percussion_cap_weapons"
+    },
+    "military_logistics": {
+      "name": {
+        "en": "Military Logistics",
+        "es": "Logistica militar"
+      },
+      "cost": 120,
+      "id": "military_logistics"
+    },
+    "rifled_artillery": {
+      "name": {
+        "en": "Rifled Artillery",
+        "es": "Artilleria estriada"
+      },
+      "cost": 150,
+      "id": "rifled_artillery"
+    },
+    "general_staff": {
+      "name": {
+        "en": "General Staff",
+        "es": "Estado mayor"
+      },
+      "cost": 190,
+      "id": "general_staff"
+    },
+    "ironclad_doctrine": {
+      "name": {
+        "en": "Ironclad Doctrine",
+        "es": "Doctrina de acorazados"
+      },
+      "cost": 230,
+      "id": "ironclad_doctrine"
+    }
+  },
+  "economic": {
+    "mechanized_weaving": {
+      "name": {
+        "en": "Mechanized Weaving",
+        "es": "Tejido mecanizado"
+      },
+      "cost": 90,
+      "id": "mechanized_weaving"
+    },
+    "steam_mining": {
+      "name": {
+        "en": "Steam Mining",
+        "es": "Mineria a vapor"
+      },
+      "cost": 120,
+      "id": "steam_mining"
+    },
+    "central_banking": {
+      "name": {
+        "en": "Central Banking",
+        "es": "Banca central"
+      },
+      "cost": 140,
+      "id": "central_banking"
+    },
+    "rail_freight": {
+      "name": {
+        "en": "Rail Freight",
+        "es": "Transporte ferroviario de mercancias"
+      },
+      "cost": 170,
+      "id": "rail_freight"
+    },
+    "industrial_accounting": {
+      "name": {
+        "en": "Industrial Accounting",
+        "es": "Contabilidad industrial"
+      },
+      "cost": 200,
+      "id": "industrial_accounting"
+    },
+    "mass_production": {
+      "name": {
+        "en": "Mass Production",
+        "es": "Produccion en masa"
+      },
+      "cost": 240,
+      "id": "mass_production"
+    }
+  },
+  "civil": {
+    "public_schools": {
+      "name": {
+        "en": "Public Schools",
+        "es": "Escuelas publicas"
+      },
+      "cost": 80,
+      "id": "public_schools"
+    },
+    "sanitation_systems": {
+      "name": {
+        "en": "Sanitation Systems",
+        "es": "Sistemas de saneamiento"
+      },
+      "cost": 100,
+      "id": "sanitation_systems"
+    },
+    "civil_service": {
+      "name": {
+        "en": "Civil Service",
+        "es": "Funcion publica"
+      },
+      "cost": 130,
+      "id": "civil_service"
+    },
+    "census_bureau": {
+      "name": {
+        "en": "Census Bureau",
+        "es": "Oficina de censo"
+      },
+      "cost": 150,
+      "id": "census_bureau"
+    },
+    "urban_planning": {
+      "name": {
+        "en": "Urban Planning",
+        "es": "Planificacion urbana"
+      },
+      "cost": 180,
+      "id": "urban_planning"
+    },
+    "public_health": {
+      "name": {
+        "en": "Public Health",
+        "es": "Salud publica"
+      },
+      "cost": 210,
+      "id": "public_health"
+    }
+  },
+  "diplomatic": {
+    "professional_diplomatic_corps": {
+      "name": {
+        "en": "Professional Diplomatic Corps",
+        "es": "Cuerpo diplomatico profesional"
+      },
+      "cost": 90,
+      "id": "professional_diplomatic_corps"
+    },
+    "consular_network": {
+      "name": {
+        "en": "Consular Network",
+        "es": "Red consular"
+      },
+      "cost": 110,
+      "id": "consular_network"
+    },
+    "treaty_law": {
+      "name": {
+        "en": "Treaty Law",
+        "es": "Derecho de tratados"
+      },
+      "cost": 130,
+      "id": "treaty_law"
+    },
+    "telegraph_diplomacy": {
+      "name": {
+        "en": "Telegraph Diplomacy",
+        "es": "Diplomacia telegrafica"
+      },
+      "cost": 160,
+      "id": "telegraph_diplomacy"
+    },
+    "great_power_protocol": {
+      "name": {
+        "en": "Great Power Protocol",
+        "es": "Protocolo de grandes potencias"
+      },
+      "cost": 190,
+      "id": "great_power_protocol"
+    },
+    "colonial_charters": {
+      "name": {
+        "en": "Colonial Charters",
+        "es": "Cartas coloniales"
+      },
+      "cost": 220,
+      "id": "colonial_charters"
+    }
+  }
+}

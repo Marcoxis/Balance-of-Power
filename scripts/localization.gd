@@ -9,10 +9,12 @@ const LEGACY_LOCALIZATION_PATH: String = "res://data/localization.json"
 var current_language: String = DEFAULT_LANGUAGE
 var translations: Dictionary = {}
 
+# Loads translations once and resets the active language to the default.
 func _ready() -> void:
 	_load_translations()
 	current_language = DEFAULT_LANGUAGE
 
+# Loads the translation table from the current file path, with a legacy fallback.
 func _load_translations() -> void:
 	var file: FileAccess = FileAccess.open(LOCALIZATION_PATH, FileAccess.READ)
 	var resolved_path: String = LOCALIZATION_PATH
@@ -35,6 +37,7 @@ func _load_translations() -> void:
 
 	translations = parsed
 
+# Switches the active language and notifies listeners.
 func set_language(language_code: String) -> void:
 	if not translations.has(language_code):
 		return
@@ -43,9 +46,11 @@ func set_language(language_code: String) -> void:
 	current_language = language_code
 	emit_signal("language_changed", current_language)
 
+# Returns the active language code.
 func get_language() -> String:
 	return current_language
 
+# Returns the list of languages available in the loaded file.
 func get_available_languages() -> Array[String]:
 	var languages: Array[String] = []
 	for key in translations.keys():
@@ -53,6 +58,7 @@ func get_available_languages() -> Array[String]:
 	languages.sort()
 	return languages
 
+# Resolves one translation key and formats optional arguments.
 func t(key: String, args: Array = []) -> String:
 	var language_table: Dictionary = translations.get(current_language, translations.get(DEFAULT_LANGUAGE, {}))
 	var fallback_table: Dictionary = translations.get(DEFAULT_LANGUAGE, {})
@@ -61,9 +67,11 @@ func t(key: String, args: Array = []) -> String:
 		return value % args
 	return value
 
+# Returns the localized month name used by the in-game clock.
 func get_month_name(month: int) -> String:
 	return t("months.%d" % clampi(month, 1, 12))
 
+# Resolves one loading tip from either a translated object or a plain string.
 func translate_tip(entry: Variant) -> String:
 	if typeof(entry) == TYPE_DICTIONARY:
 		var tip_data: Dictionary = entry

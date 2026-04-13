@@ -1,13 +1,16 @@
 extends Node
 
+# Handles country data and province-to-country ownership mapping.\n# Maneja datos de países y mapeo de propiedad provincia-país.
 class_name NationManager
 
 var nations: Dictionary = {}
 var province_to_nation: Dictionary = {}
 
+# Initializes the manager with a safe fallback dataset.\n# Inicializa el gestor con un dataset de fallback seguro.
 func _init() -> void:
 	_load_default_nations()
 
+# Loads the built-in country fallback values.\n# Carga los valores de fallback de países integrados.
 func _load_default_nations() -> void:
 	nations = {
 		"ES": {"id": "ES", "name": "Spain", "color": Color.from_rgba8(234, 175, 12, 200), "provinces": []},
@@ -16,6 +19,7 @@ func _load_default_nations() -> void:
 	}
 	_rebuild_province_index()
 
+# Rebuilds the reverse province -> country lookup table.\n# Reconstruye la tabla de búsqueda inversa provincia -> país.
 func _rebuild_province_index() -> void:
 	province_to_nation.clear()
 	for nation_id in nations.keys():
@@ -26,6 +30,7 @@ func _rebuild_province_index() -> void:
 			if gid != "":
 				province_to_nation[gid] = nation_id
 
+# Loads country data and ownership from JSON.\n# Carga datos de países y propiedad desde JSON.
 func load_from_file(path: String) -> void:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
@@ -75,6 +80,7 @@ func load_from_file(path: String) -> void:
 
 	_rebuild_province_index()
 
+# Saves the current country state back to JSON.\n# Guarda el estado actual de los países de vuelta a JSON.
 func save_to_file(path: String) -> bool:
 	var out: Array = []
 	for nation_id in nations.keys():
@@ -96,28 +102,34 @@ func save_to_file(path: String) -> bool:
 	file.close()
 	return true
 
+# Adds a new nation entry and refreshes province ownership lookup.\n# Añade una nueva entrada de nación y refresca la búsqueda de propiedad de provincias.
 func add_nation(id: String, nation_name: String, color: Color) -> void:
 	nations[id] = {"id": id, "name": nation_name, "color": color, "provinces": []}
 	_rebuild_province_index()
 
+# Returns the render color used for one nation.\n# Devuelve el color de renderizado usado para una nación.
 func get_nation_color(id: String) -> Color:
 	if nations.has(id):
 		return nations[id]["color"]
 	return Color(1, 1, 1, 0)
 
+# Returns the display name for one nation.\n# Devuelve el nombre de visualización para una nación.
 func get_nation_name(id: String) -> String:
 	if nations.has(id):
 		return nations[id]["name"]
 	return "Unknown"
 
+# Checks whether a nation id exists in the current dataset.\n# Verifica si un ID de nación existe en el dataset actual.
 func has_nation(id: String) -> bool:
 	return nations.has(id)
 
+# Returns which nation currently owns a province.\n# Devuelve qué nación posee actualmente una provincia.
 func get_province_owner(gid: String) -> Variant:
 	if province_to_nation.has(gid):
 		return province_to_nation[gid]
 	return null
 
+# Transfers a province to a new owner and updates both indexes.\n# Transfiere una provincia a un nuevo dueño y actualiza ambos índices.
 func set_province_owner(gid: String, owner_id: String) -> void:
 	var previous_owner: Variant = get_province_owner(gid)
 	if previous_owner != null and nations.has(previous_owner):

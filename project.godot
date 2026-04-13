@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+DebugSettings="*res://scripts/debug_settings.gd"
 Localization="*res://scripts/localization.gd"
 
 [display]

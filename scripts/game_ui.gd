@@ -25,6 +25,11 @@ var pause_menu_panel: PanelContainer = null
 var pause_menu_title_label: Label = null
 var pause_menu_buttons: Array[Button] = []
 
+var debug_panel: PanelContainer = null
+var debug_title_label: Label = null
+var debug_country_colors_checkbox: CheckBox = null
+var debug_show_sea_checkbox: CheckBox = null
+
 var hover_name_panel: PanelContainer = null
 var hover_name_label: Label = null
 
@@ -66,6 +71,7 @@ var current_time_paused: bool = true
 
 const INTRO_ANIMATION_DURATION: float = 3.8
 
+# Builds the UI tree and subscribes to language changes.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if not Localization.language_changed.is_connected(_on_language_changed):
@@ -73,33 +79,39 @@ func _ready() -> void:
 	_create_ui()
 	_apply_language()
 
+# Updates intro-only animated hints each frame.
 func _process(_delta: float) -> void:
 	if intro_active:
 		_update_intro_skip_hint()
 		if intro_skip_requested:
 			_end_intro_animation()
 
+# Returns the current visible viewport size.
 func _get_viewport_size() -> Vector2:
 	var viewport: Viewport = get_viewport()
 	if viewport == null:
 		return Vector2.ZERO
 	return viewport.get_visible_rect().size
 
+# Returns the current mouse position in viewport coordinates.
 func _get_mouse_position() -> Vector2:
 	var viewport: Viewport = get_viewport()
 	if viewport == null:
 		return Vector2.ZERO
 	return viewport.get_mouse_position()
 
+# Creates every runtime UI panel used during gameplay.
 func _create_ui() -> void:
 	_create_province_info_panel()
 	_create_pause_menu()
+	_create_debug_panel()
 	_create_hover_name_panel()
 	_create_top_menu()
 	_create_technology_panel()
 	_create_top_bar()
 	_create_intro_overlay()
 
+# Builds the draggable province information window.
 func _create_province_info_panel() -> void:
 	province_info_panel = PanelContainer.new()
 	province_info_panel.name = "provinceInfoPanel"
@@ -199,6 +211,7 @@ func _create_province_info_panel() -> void:
 
 	province_info_panel.position = _clamp_panel_to_viewport(Vector2(24, _get_viewport_size().y - 564), province_info_panel)
 
+# Builds the pause menu shown when the game is paused.
 func _create_pause_menu() -> void:
 	pause_menu_panel = PanelContainer.new()
 	pause_menu_panel.name = "pauseMenuPanel"
@@ -236,7 +249,7 @@ func _create_pause_menu() -> void:
 
 	var button_defs: Array = [
 		{"key": "game.resume", "callback": func() -> void: emit_signal("resume_requested")},
-		{"key": "menu.debugger", "callback": func() -> void: show_coming_soon_popup(Localization.t("menu.debugger"))},
+		{"key": "menu.debugger", "callback": func() -> void: toggle_debug_panel()},
 		{"key": "menu.options", "callback": func() -> void: show_coming_soon_popup(Localization.t("menu.options"))},
 		{"key": "game.quit_to_menu", "callback": func() -> void: emit_signal("return_to_main_menu_requested")},
 		{"key": "game.quit_game", "callback": func() -> void: emit_signal("quit_requested")}
@@ -252,6 +265,67 @@ func _create_pause_menu() -> void:
 		content.add_child(button)
 		pause_menu_buttons.append(button)
 
+# Builds the in-game debug settings window with toggle options.
+func _create_debug_panel() -> void:
+	debug_panel = PanelContainer.new()
+	debug_panel.name = "debugPanel"
+	debug_panel.visible = false
+	debug_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	debug_panel.offset_right = 360
+	debug_panel.offset_bottom = 220
+	add_child(debug_panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.1, 0.14, 0.97)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.55, 0.6, 0.7, 0.9)
+	panel_style.corner_radius_top_left = 10
+	panel_style.corner_radius_top_right = 10
+	panel_style.corner_radius_bottom_left = 10
+	panel_style.corner_radius_bottom_right = 10
+	panel_style.content_margin_left = 18
+	panel_style.content_margin_top = 18
+	panel_style.content_margin_right = 18
+	panel_style.content_margin_bottom = 18
+	debug_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var content: VBoxContainer = VBoxContainer.new()
+	content.add_theme_constant_override("separation", 12)
+	debug_panel.add_child(content)
+
+	var header: HBoxContainer = HBoxContainer.new()
+	header.add_theme_constant_override("separation", 8)
+	content.add_child(header)
+
+	debug_title_label = Label.new()
+	debug_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	debug_title_label.add_theme_font_size_override("font_size", 24)
+	header.add_child(debug_title_label)
+
+	var close_button: Button = Button.new()
+	close_button.text = "X"
+	close_button.custom_minimum_size = Vector2(36, 36)
+	close_button.pressed.connect(func() -> void:
+		hide_debug_panel()
+	)
+	header.add_child(close_button)
+
+	debug_country_colors_checkbox = CheckBox.new()
+	debug_country_colors_checkbox.toggled.connect(func(value: bool) -> void:
+		DebugSettings.set_show_country_colors(value)
+	)
+	content.add_child(debug_country_colors_checkbox)
+
+	debug_show_sea_checkbox = CheckBox.new()
+	debug_show_sea_checkbox.toggled.connect(func(value: bool) -> void:
+		DebugSettings.set_show_sea(value)
+	)
+	content.add_child(debug_show_sea_checkbox)
+
+# Builds the small hover tooltip shown over provinces.
 func _create_hover_name_panel() -> void:
 	hover_name_panel = PanelContainer.new()
 	hover_name_panel.name = "hoverNamePanel"
@@ -280,6 +354,7 @@ func _create_hover_name_panel() -> void:
 	hover_name_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
 	hover_name_panel.add_child(hover_name_label)
 
+# Builds the top-left gameplay menu button row.
 func _create_top_menu() -> void:
 	top_menu_panel = PanelContainer.new()
 	top_menu_panel.name = "topMenuPanel"
@@ -344,6 +419,7 @@ func _create_top_menu() -> void:
 		top_menu_buttons.append(button)
 		top_menu_title_keys.append(str(button_data["key"]))
 
+# Builds the left-side technology panel and its placeholder tabs.
 func _create_technology_panel() -> void:
 	technology_panel = PanelContainer.new()
 	technology_panel.name = "technologyPanel"
@@ -457,6 +533,7 @@ func _create_technology_panel() -> void:
 
 	_layout_technology_panel()
 
+# Resizes and positions the technology panel to one quarter of the screen.
 func _layout_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -467,6 +544,7 @@ func _layout_technology_panel() -> void:
 	technology_panel.offset_right = 16 + panel_width
 	technology_panel.offset_bottom = -16
 
+# Builds the top-right date, speed, and pause controls.
 func _create_top_bar() -> void:
 	top_bar_panel = PanelContainer.new()
 	top_bar_panel.name = "topBarPanel"
@@ -537,6 +615,7 @@ func _create_top_bar() -> void:
 		speed_row.add_child(button)
 		speed_buttons.append(button)
 
+# Builds the intro overlay used by the opening camera animation.
 func _create_intro_overlay() -> void:
 	intro_overlay = Control.new()
 	intro_overlay.name = "introOverlay"
@@ -570,6 +649,7 @@ func _create_intro_overlay() -> void:
 	intro_skip.position = Vector2(0, -52)
 	intro_overlay.add_child(intro_skip)
 
+# Starts or updates dragging of the province window header.
 func _on_province_info_header_gui_input(event: InputEvent) -> void:
 	if province_info_panel == null:
 		return
@@ -580,6 +660,7 @@ func _on_province_info_header_gui_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and province_info_dragging:
 		province_info_panel.position = _clamp_panel_to_viewport(_get_mouse_position() + province_info_drag_offset, province_info_panel)
 
+# Clamps a UI panel so it always stays inside the viewport.
 func _clamp_panel_to_viewport(target_position: Vector2, panel: Control) -> Vector2:
 	var viewport_size: Vector2 = _get_viewport_size()
 	var panel_size: Vector2 = panel.size
@@ -590,12 +671,14 @@ func _clamp_panel_to_viewport(target_position: Vector2, panel: Control) -> Vecto
 		clampf(target_position.y, 0.0, maxf(0.0, viewport_size.y - panel_size.y))
 	)
 
+# Stores the selected province payload and opens the info window.
 func set_selected_province(gid: String, payload: Dictionary) -> void:
 	current_selected_gid = gid
 	current_selected_name = str(payload.get("name", ""))
 	current_selected_payload = payload.duplicate(true)
 	_show_selected_payload()
 
+# Pushes the current selected province payload into the info controls.
 func _show_selected_payload() -> void:
 	if province_info_panel == null:
 		return
@@ -612,14 +695,17 @@ func _show_selected_payload() -> void:
 	province_info_panel.position = _clamp_panel_to_viewport(province_info_panel.position, province_info_panel)
 	province_info_panel.visible = true
 
+# Hides the province information window.
 func hide_province_info() -> void:
 	if province_info_panel != null:
 		province_info_dragging = false
 		province_info_panel.visible = false
 
+# Returns whether the province information window is open.
 func is_province_info_visible() -> bool:
 	return province_info_panel != null and province_info_panel.visible
 
+# Shows the province hover tooltip next to the mouse.
 func show_hover_name(name: String, mouse_pos: Vector2) -> void:
 	if hover_name_panel == null:
 		return
@@ -639,17 +725,61 @@ func show_hover_name(name: String, mouse_pos: Vector2) -> void:
 	)
 	hover_name_panel.visible = true
 
+# Hides the province hover tooltip.
 func hide_hover_name() -> void:
 	if hover_name_panel != null:
 		hover_name_panel.visible = false
 
+# Checks whether the mouse is over UI that should block province hover.
 func is_mouse_over_top_menu(mouse_pos: Vector2) -> bool:
 	if top_menu_panel != null and Rect2(top_menu_panel.global_position, top_menu_panel.size).has_point(mouse_pos):
 		return true
 	if technology_panel != null and technology_panel.visible and Rect2(technology_panel.global_position, technology_panel.size).has_point(mouse_pos):
 		return true
+	if debug_panel != null and debug_panel.visible and Rect2(debug_panel.global_position, debug_panel.size).has_point(mouse_pos):
+		return true
 	return false
 
+# Opens or closes the debug panel.
+func toggle_debug_panel() -> void:
+	if debug_panel == null:
+		return
+	if debug_panel.visible:
+		hide_debug_panel()
+	else:
+		show_debug_panel()
+
+# Opens the debug panel and syncs it with current debug settings.
+func show_debug_panel() -> void:
+	if debug_panel == null:
+		return
+	_center_debug_panel()
+	if debug_country_colors_checkbox != null:
+		debug_country_colors_checkbox.button_pressed = DebugSettings.show_country_colors
+	if debug_show_sea_checkbox != null:
+		debug_show_sea_checkbox.button_pressed = DebugSettings.show_sea
+	debug_panel.visible = true
+	hide_hover_name()
+
+# Hides the debug panel.
+func hide_debug_panel() -> void:
+	if debug_panel != null:
+		debug_panel.visible = false
+
+# Centers the debug panel on screen.
+func _center_debug_panel() -> void:
+	if debug_panel == null:
+		return
+	var viewport_size: Vector2 = _get_viewport_size()
+	var panel_size: Vector2 = debug_panel.size
+	if panel_size == Vector2.ZERO:
+		panel_size = debug_panel.get_combined_minimum_size()
+	debug_panel.position = Vector2(
+		maxf(0.0, (viewport_size.x - panel_size.x) * 0.5),
+		maxf(0.0, (viewport_size.y - panel_size.y) * 0.5)
+	)
+
+# Opens or closes the technology panel.
 func toggle_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -658,6 +788,7 @@ func toggle_technology_panel() -> void:
 	else:
 		show_technology_panel()
 
+# Opens the technology panel and refreshes its layout.
 func show_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -665,24 +796,31 @@ func show_technology_panel() -> void:
 	technology_panel.visible = true
 	hide_hover_name()
 
+# Hides the technology panel.
 func hide_technology_panel() -> void:
 	if technology_panel != null:
 		technology_panel.visible = false
 
+# Opens the pause menu and hides panels that should not overlap it.
 func show_pause_menu() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = true
 		center_pause_menu()
 	hide_technology_panel()
+	hide_debug_panel()
 	hide_hover_name()
 
+# Hides the pause menu and any debug panel opened from it.
 func hide_pause_menu() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = false
+	hide_debug_panel()
 
+# Returns whether the pause menu is currently visible.
 func is_pause_menu_visible() -> bool:
 	return pause_menu_panel != null and pause_menu_panel.visible
 
+# Centers the pause menu on screen.
 func center_pause_menu() -> void:
 	if pause_menu_panel == null:
 		return
@@ -695,15 +833,18 @@ func center_pause_menu() -> void:
 		maxf(0.0, (viewport_size.y - panel_size.y) * 0.5)
 	)
 
+# Updates the displayed date text.
 func set_game_date_text(date_text: String) -> void:
 	if date_label != null:
 		date_label.text = date_text
 
+# Updates the selected time speed button state.
 func set_game_speed(speed: int) -> void:
 	current_speed = speed
 	for i in range(speed_buttons.size()):
 		speed_buttons[i].disabled = (i + 1) == current_speed
 
+# Updates the pause button label and tooltip.
 func set_time_paused(value: bool) -> void:
 	current_time_paused = value
 	if pause_toggle_button != null:
@@ -714,6 +855,7 @@ func set_time_paused(value: bool) -> void:
 			pause_toggle_button.text = "||"
 			pause_toggle_button.tooltip_text = Localization.t("game.pause_time")
 
+# Starts the opening camera animation and blocks regular input during it.
 func start_intro(camera: Camera2D) -> void:
 	if intro_overlay == null or camera == null:
 		return
@@ -744,17 +886,21 @@ func start_intro(camera: Camera2D) -> void:
 			_end_intro_animation()
 	)
 
+# Returns whether the intro sequence is still active.
 func is_intro_active() -> bool:
 	return intro_active
 
+# Requests that the intro should be skipped on the next frame.
 func request_intro_skip() -> void:
 	intro_skip_requested = true
 
+# Animates the intro skip hint opacity.
 func _update_intro_skip_hint() -> void:
 	if intro_skip == null:
 		return
 	intro_skip.modulate.a = 0.55 + (sin(Time.get_ticks_msec() / 180.0) + 1.0) * 0.18
 
+# Stops the intro sequence and restores normal camera control.
 func _end_intro_animation() -> void:
 	if intro_tween != null:
 		intro_tween.kill()
@@ -768,6 +914,7 @@ func _end_intro_animation() -> void:
 		intro_camera.zoom = intro_original_camera_zoom
 		intro_camera.input_enabled = true
 
+# Shows a generic popup for not-yet-implemented features.
 func show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	var dialog: AcceptDialog = AcceptDialog.new()
 	dialog.title = title
@@ -781,6 +928,7 @@ func show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	dialog.confirmed.connect(func() -> void: dialog.queue_free())
 	dialog.canceled.connect(func() -> void: dialog.queue_free())
 
+# Refreshes all translated labels and active UI texts.
 func _apply_language() -> void:
 	if intro_skip != null:
 		intro_skip.text = Localization.t("game.intro_skip")
@@ -794,6 +942,12 @@ func _apply_language() -> void:
 		top_menu_buttons[i].tooltip_text = Localization.t(top_menu_title_keys[i])
 	if technology_title_label != null:
 		technology_title_label.text = Localization.t("game.tech.title")
+	if debug_title_label != null:
+		debug_title_label.text = Localization.t("debug.title")
+	if debug_country_colors_checkbox != null:
+		debug_country_colors_checkbox.text = Localization.t("debug.country_colors")
+	if debug_show_sea_checkbox != null:
+		debug_show_sea_checkbox.text = Localization.t("debug.show_sea")
 	if technology_tab_container != null:
 		for i in range(min(technology_tab_container.get_tab_count(), technology_tab_title_keys.size())):
 			technology_tab_container.set_tab_title(i, Localization.t(technology_tab_title_keys[i]))
@@ -816,5 +970,6 @@ func _apply_language() -> void:
 	if current_selected_gid != "" and is_province_info_visible():
 		_show_selected_payload()
 
+# Re-applies translated UI after the language changes.
 func _on_language_changed(_language_code: String) -> void:
 	_apply_language()
