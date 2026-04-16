@@ -13,6 +13,7 @@ var ultima_pos_raton: Vector2 = Vector2.ZERO
 var input_enabled: bool = true
 
 # Moves the camera with keyboard input while gameplay input is enabled.
+# Mueve la c?mara con el teclado mientras la entrada del juego est? habilitada.
 
 func _process(delta: float) -> void:
 	if not input_enabled:
@@ -33,6 +34,7 @@ func _process(delta: float) -> void:
 		position += direccion.normalized() * velocidad_teclado * delta
 
 # Handles mouse drag panning and wheel zoom for the world camera.
+# Gestiona el arrastre con rat?n y el zoom de rueda para la c?mara del mundo.
 func _input(event: InputEvent) -> void:
 	if not input_enabled:
 		return

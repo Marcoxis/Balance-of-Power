@@ -7,6 +7,7 @@ signal return_to_main_menu_requested
 signal quit_requested
 signal time_pause_toggled
 signal time_speed_selected(speed: int)
+signal event_option_selected(event_id: String, option_id: String, consequences: Dictionary)
 
 var province_info_panel: PanelContainer = null
 var province_info_title: Label = null
@@ -24,6 +25,13 @@ var municipalities_placeholder_label: Label = null
 var pause_menu_panel: PanelContainer = null
 var pause_menu_title_label: Label = null
 var pause_menu_buttons: Array[Button] = []
+
+var event_popup_panel: PanelContainer = null
+var event_popup_title_label: Label = null
+var event_popup_image: TextureRect = null
+var event_popup_text_label: Label = null
+var event_popup_options_container: VBoxContainer = null
+var current_event_id: String = ""
 
 var debug_panel: PanelContainer = null
 var debug_title_label: Label = null
@@ -72,6 +80,7 @@ var current_time_paused: bool = true
 const INTRO_ANIMATION_DURATION: float = 3.8
 
 # Builds the UI tree and subscribes to language changes.
+# Construye el ?rbol de UI y se suscribe a cambios de idioma.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if not Localization.language_changed.is_connected(_on_language_changed):
@@ -80,6 +89,7 @@ func _ready() -> void:
 	_apply_language()
 
 # Updates intro-only animated hints each frame.
+# Actualiza en cada frame las pistas animadas que solo usa la intro.
 func _process(_delta: float) -> void:
 	if intro_active:
 		_update_intro_skip_hint()
@@ -87,6 +97,7 @@ func _process(_delta: float) -> void:
 			_end_intro_animation()
 
 # Returns the current visible viewport size.
+# Devuelve el tama?o visible actual del viewport.
 func _get_viewport_size() -> Vector2:
 	var viewport: Viewport = get_viewport()
 	if viewport == null:
@@ -94,6 +105,7 @@ func _get_viewport_size() -> Vector2:
 	return viewport.get_visible_rect().size
 
 # Returns the current mouse position in viewport coordinates.
+# Devuelve la posici?n actual del rat?n en coordenadas del viewport.
 func _get_mouse_position() -> Vector2:
 	var viewport: Viewport = get_viewport()
 	if viewport == null:
@@ -101,9 +113,11 @@ func _get_mouse_position() -> Vector2:
 	return viewport.get_mouse_position()
 
 # Creates every runtime UI panel used during gameplay.
+# Crea todos los paneles de UI en tiempo de ejecuci?n usados durante la partida.
 func _create_ui() -> void:
 	_create_province_info_panel()
 	_create_pause_menu()
+	_create_event_popup()
 	_create_debug_panel()
 	_create_hover_name_panel()
 	_create_top_menu()
@@ -112,6 +126,7 @@ func _create_ui() -> void:
 	_create_intro_overlay()
 
 # Builds the draggable province information window.
+# Construye la ventana arrastrable de informaci?n de provincia.
 func _create_province_info_panel() -> void:
 	province_info_panel = PanelContainer.new()
 	province_info_panel.name = "provinceInfoPanel"
@@ -212,6 +227,7 @@ func _create_province_info_panel() -> void:
 	province_info_panel.position = _clamp_panel_to_viewport(Vector2(24, _get_viewport_size().y - 564), province_info_panel)
 
 # Builds the pause menu shown when the game is paused.
+# Construye el men? de pausa mostrado cuando el juego est? en pausa.
 func _create_pause_menu() -> void:
 	pause_menu_panel = PanelContainer.new()
 	pause_menu_panel.name = "pauseMenuPanel"
@@ -266,6 +282,7 @@ func _create_pause_menu() -> void:
 		pause_menu_buttons.append(button)
 
 # Builds the in-game debug settings window with toggle options.
+# Construye la ventana ingame de ajustes debug con opciones conmutables.
 func _create_debug_panel() -> void:
 	debug_panel = PanelContainer.new()
 	debug_panel.name = "debugPanel"
@@ -325,7 +342,75 @@ func _create_debug_panel() -> void:
 	)
 	content.add_child(debug_show_sea_checkbox)
 
+# Builds the reusable event popup used for narrative decisions.
+# Construye el popup reutilizable de eventos usado para decisiones narrativas.
+func _create_event_popup() -> void:
+	event_popup_panel = PanelContainer.new()
+	event_popup_panel.name = "eventPopupPanel"
+	event_popup_panel.visible = false
+	event_popup_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	event_popup_panel.offset_right = 620
+	event_popup_panel.offset_bottom = 620
+	add_child(event_popup_panel)
+
+	var panel_style: StyleBoxFlat = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.09, 0.1, 0.13, 0.98)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.66, 0.62, 0.48, 0.95)
+	panel_style.corner_radius_top_left = 12
+	panel_style.corner_radius_top_right = 12
+	panel_style.corner_radius_bottom_left = 12
+	panel_style.corner_radius_bottom_right = 12
+	panel_style.content_margin_left = 18
+	panel_style.content_margin_top = 18
+	panel_style.content_margin_right = 18
+	panel_style.content_margin_bottom = 18
+	event_popup_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var content: VBoxContainer = VBoxContainer.new()
+	content.add_theme_constant_override("separation", 12)
+	event_popup_panel.add_child(content)
+
+	var header: HBoxContainer = HBoxContainer.new()
+	header.add_theme_constant_override("separation", 8)
+	content.add_child(header)
+
+	event_popup_title_label = Label.new()
+	event_popup_title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	event_popup_title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	event_popup_title_label.add_theme_font_size_override("font_size", 28)
+	event_popup_title_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
+	header.add_child(event_popup_title_label)
+
+	var close_button: Button = Button.new()
+	close_button.text = "X"
+	close_button.custom_minimum_size = Vector2(36, 36)
+	close_button.pressed.connect(func() -> void:
+		hide_event_popup()
+	)
+	header.add_child(close_button)
+
+	event_popup_image = TextureRect.new()
+	event_popup_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	event_popup_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	event_popup_image.custom_minimum_size = Vector2(0, 220)
+	event_popup_image.visible = false
+	content.add_child(event_popup_image)
+
+	event_popup_text_label = Label.new()
+	event_popup_text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	event_popup_text_label.add_theme_font_size_override("font_size", 18)
+	content.add_child(event_popup_text_label)
+
+	event_popup_options_container = VBoxContainer.new()
+	event_popup_options_container.add_theme_constant_override("separation", 10)
+	content.add_child(event_popup_options_container)
+
 # Builds the small hover tooltip shown over provinces.
+# Construye el peque?o tooltip de hover mostrado sobre provincias.
 func _create_hover_name_panel() -> void:
 	hover_name_panel = PanelContainer.new()
 	hover_name_panel.name = "hoverNamePanel"
@@ -355,6 +440,7 @@ func _create_hover_name_panel() -> void:
 	hover_name_panel.add_child(hover_name_label)
 
 # Builds the top-left gameplay menu button row.
+# Construye la fila de botones del men? de juego arriba a la izquierda.
 func _create_top_menu() -> void:
 	top_menu_panel = PanelContainer.new()
 	top_menu_panel.name = "topMenuPanel"
@@ -420,6 +506,7 @@ func _create_top_menu() -> void:
 		top_menu_title_keys.append(str(button_data["key"]))
 
 # Builds the left-side technology panel and its placeholder tabs.
+# Construye el panel lateral izquierdo de tecnolog?a y sus pesta?as placeholder.
 func _create_technology_panel() -> void:
 	technology_panel = PanelContainer.new()
 	technology_panel.name = "technologyPanel"
@@ -534,6 +621,7 @@ func _create_technology_panel() -> void:
 	_layout_technology_panel()
 
 # Resizes and positions the technology panel to one quarter of the screen.
+# Redimensiona y posiciona el panel de tecnolog?a a un cuarto de la pantalla.
 func _layout_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -545,6 +633,7 @@ func _layout_technology_panel() -> void:
 	technology_panel.offset_bottom = -16
 
 # Builds the top-right date, speed, and pause controls.
+# Construye los controles de fecha, velocidad y pausa arriba a la derecha.
 func _create_top_bar() -> void:
 	top_bar_panel = PanelContainer.new()
 	top_bar_panel.name = "topBarPanel"
@@ -616,6 +705,7 @@ func _create_top_bar() -> void:
 		speed_buttons.append(button)
 
 # Builds the intro overlay used by the opening camera animation.
+# Construye el overlay de intro usado por la animaci?n inicial de c?mara.
 func _create_intro_overlay() -> void:
 	intro_overlay = Control.new()
 	intro_overlay.name = "introOverlay"
@@ -650,6 +740,7 @@ func _create_intro_overlay() -> void:
 	intro_overlay.add_child(intro_skip)
 
 # Starts or updates dragging of the province window header.
+# Inicia o actualiza el arrastre del encabezado de la ventana de provincia.
 func _on_province_info_header_gui_input(event: InputEvent) -> void:
 	if province_info_panel == null:
 		return
@@ -661,6 +752,7 @@ func _on_province_info_header_gui_input(event: InputEvent) -> void:
 		province_info_panel.position = _clamp_panel_to_viewport(_get_mouse_position() + province_info_drag_offset, province_info_panel)
 
 # Clamps a UI panel so it always stays inside the viewport.
+# Limita un panel de UI para que siempre permanezca dentro del viewport.
 func _clamp_panel_to_viewport(target_position: Vector2, panel: Control) -> Vector2:
 	var viewport_size: Vector2 = _get_viewport_size()
 	var panel_size: Vector2 = panel.size
@@ -672,6 +764,7 @@ func _clamp_panel_to_viewport(target_position: Vector2, panel: Control) -> Vecto
 	)
 
 # Stores the selected province payload and opens the info window.
+# Guarda el payload de la provincia seleccionada y abre la ventana de informaci?n.
 func set_selected_province(gid: String, payload: Dictionary) -> void:
 	current_selected_gid = gid
 	current_selected_name = str(payload.get("name", ""))
@@ -679,6 +772,7 @@ func set_selected_province(gid: String, payload: Dictionary) -> void:
 	_show_selected_payload()
 
 # Pushes the current selected province payload into the info controls.
+# Vuelca el payload actual de provincia seleccionada en los controles de informaci?n.
 func _show_selected_payload() -> void:
 	if province_info_panel == null:
 		return
@@ -696,16 +790,19 @@ func _show_selected_payload() -> void:
 	province_info_panel.visible = true
 
 # Hides the province information window.
+# Oculta la ventana de informaci?n de provincia.
 func hide_province_info() -> void:
 	if province_info_panel != null:
 		province_info_dragging = false
 		province_info_panel.visible = false
 
 # Returns whether the province information window is open.
+# Devuelve si la ventana de informaci?n de provincia est? abierta.
 func is_province_info_visible() -> bool:
 	return province_info_panel != null and province_info_panel.visible
 
 # Shows the province hover tooltip next to the mouse.
+# Muestra el tooltip de hover de provincia junto al rat?n.
 func show_hover_name(name: String, mouse_pos: Vector2) -> void:
 	if hover_name_panel == null:
 		return
@@ -726,11 +823,13 @@ func show_hover_name(name: String, mouse_pos: Vector2) -> void:
 	hover_name_panel.visible = true
 
 # Hides the province hover tooltip.
+# Oculta el tooltip de hover de provincia.
 func hide_hover_name() -> void:
 	if hover_name_panel != null:
 		hover_name_panel.visible = false
 
 # Checks whether the mouse is over UI that should block province hover.
+# Comprueba si el rat?n est? sobre UI que debe bloquear el hover de provincias.
 func is_mouse_over_top_menu(mouse_pos: Vector2) -> bool:
 	if top_menu_panel != null and Rect2(top_menu_panel.global_position, top_menu_panel.size).has_point(mouse_pos):
 		return true
@@ -738,9 +837,153 @@ func is_mouse_over_top_menu(mouse_pos: Vector2) -> bool:
 		return true
 	if debug_panel != null and debug_panel.visible and Rect2(debug_panel.global_position, debug_panel.size).has_point(mouse_pos):
 		return true
+	if event_popup_panel != null and event_popup_panel.visible and Rect2(event_popup_panel.global_position, event_popup_panel.size).has_point(mouse_pos):
+		return true
 	return false
 
+# Returns whether an event popup is currently open.
+# Devuelve si actualmente hay un popup de evento abierto.
+func is_event_popup_visible() -> bool:
+	return event_popup_panel != null and event_popup_panel.visible
+
+# Clears every option row from the current event popup.
+# Limpia todas las filas de opciones del popup de evento actual.
+func _clear_event_popup_options() -> void:
+	if event_popup_options_container == null:
+		return
+	for child in event_popup_options_container.get_children():
+		child.queue_free()
+
+# Formats consequence data into a short readable string for the UI.
+# Formatea los datos de consecuencias en una cadena corta legible para la UI.
+func _format_event_consequences(consequences: Variant) -> String:
+	if typeof(consequences) == TYPE_DICTIONARY:
+		var parts: Array[String] = []
+		for key in (consequences as Dictionary).keys():
+			parts.append("%s: %s" % [str(key), str((consequences as Dictionary)[key])])
+		return ", ".join(parts)
+	if typeof(consequences) == TYPE_ARRAY:
+		var parts: Array[String] = []
+		for entry in consequences:
+			parts.append(str(entry))
+		return ", ".join(parts)
+	return str(consequences)
+
+# Builds one event option dictionary with id, text, and consequences.
+# Construye un diccionario de opción de evento con id, texto y consecuencias.
+func create_event_option(option_id: String, option_text: String, consequences: Dictionary = {}) -> Dictionary:
+	return {
+		"id": option_id,
+		"text": option_text,
+		"consequences": consequences
+	}
+
+# Opens one event popup from simple parameters instead of a full dictionary.
+# Abre un popup de evento desde parámetros simples en lugar de un diccionario completo.
+func open_event_popup(
+	event_id: String,
+	title: String,
+	body_text: String,
+	options: Array = [],
+	image_path: String = "",
+	image_texture: Texture2D = null
+) -> void:
+	var event_data: Dictionary = {
+		"id": event_id,
+		"title": title,
+		"text": body_text,
+		"options": options
+	}
+
+	if image_texture != null:
+		event_data["image_texture"] = image_texture
+	elif image_path != "":
+		event_data["image_path"] = image_path
+
+	show_event_popup(event_data)
+
+# Shows a configurable event popup with image, text, options, and consequences.
+# Muestra un popup de evento configurable con imagen, texto, opciones y consecuencias.
+func show_event_popup(event_data: Dictionary) -> void:
+	if event_popup_panel == null:
+		return
+
+	current_event_id = str(event_data.get("id", ""))
+	event_popup_title_label.text = str(event_data.get("title", "Event"))
+	event_popup_text_label.text = str(event_data.get("text", ""))
+	_clear_event_popup_options()
+
+	var image_texture: Texture2D = null
+	var image_value: Variant = event_data.get("image_texture", null)
+	if image_value is Texture2D:
+		image_texture = image_value
+	elif event_data.has("image_path"):
+		var loaded_resource: Resource = load(str(event_data.get("image_path", "")))
+		if loaded_resource is Texture2D:
+			image_texture = loaded_resource
+
+	if event_popup_image != null:
+		event_popup_image.texture = image_texture
+		event_popup_image.visible = image_texture != null
+
+	var options: Array = event_data.get("options", [])
+	for option_value in options:
+		if typeof(option_value) != TYPE_DICTIONARY:
+			continue
+		var option_data: Dictionary = option_value
+		var option_row: VBoxContainer = VBoxContainer.new()
+		option_row.add_theme_constant_override("separation", 4)
+		event_popup_options_container.add_child(option_row)
+
+		var option_button: Button = Button.new()
+		option_button.text = str(option_data.get("text", "Option"))
+		option_button.custom_minimum_size = Vector2(0, 44)
+		var option_id: String = str(option_data.get("id", option_button.text.to_snake_case()))
+		var consequences_value: Variant = option_data.get("consequences", {})
+		var consequences: Dictionary = consequences_value if typeof(consequences_value) == TYPE_DICTIONARY else {}
+		option_button.pressed.connect(func() -> void:
+			emit_signal("event_option_selected", current_event_id, option_id, consequences)
+			hide_event_popup()
+		)
+		option_row.add_child(option_button)
+
+		if option_data.has("consequences"):
+			var consequences_label: Label = Label.new()
+			consequences_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			consequences_label.self_modulate = Color(0.76, 0.8, 0.86, 0.88)
+			consequences_label.text = _format_event_consequences(option_data.get("consequences", {}))
+			option_row.add_child(consequences_label)
+
+	_center_event_popup()
+	event_popup_panel.visible = true
+	hide_hover_name()
+	hide_pause_menu()
+	hide_debug_panel()
+	hide_technology_panel()
+
+# Hides the current event popup and clears its selected id.
+# Oculta el popup de evento actual y limpia su id seleccionado.
+func hide_event_popup() -> void:
+	if event_popup_panel != null:
+		event_popup_panel.visible = false
+	current_event_id = ""
+
+# Centers the event popup on screen.
+# Centra el popup de evento en pantalla.
+func _center_event_popup() -> void:
+	if event_popup_panel == null:
+		return
+	var viewport_size: Vector2 = _get_viewport_size()
+	var panel_size: Vector2 = event_popup_panel.size
+	if panel_size == Vector2.ZERO:
+		panel_size = event_popup_panel.get_combined_minimum_size()
+	event_popup_panel.position = Vector2(
+		maxf(0.0, (viewport_size.x - panel_size.x) * 0.5),
+		maxf(0.0, (viewport_size.y - panel_size.y) * 0.5)
+	)
+
 # Opens or closes the debug panel.
+# Abre o cierra el panel de debug.
 func toggle_debug_panel() -> void:
 	if debug_panel == null:
 		return
@@ -750,6 +993,7 @@ func toggle_debug_panel() -> void:
 		show_debug_panel()
 
 # Opens the debug panel and syncs it with current debug settings.
+# Abre el panel de debug y lo sincroniza con los ajustes debug actuales.
 func show_debug_panel() -> void:
 	if debug_panel == null:
 		return
@@ -762,11 +1006,13 @@ func show_debug_panel() -> void:
 	hide_hover_name()
 
 # Hides the debug panel.
+# Oculta el panel de debug.
 func hide_debug_panel() -> void:
 	if debug_panel != null:
 		debug_panel.visible = false
 
 # Centers the debug panel on screen.
+# Centra el panel de debug en pantalla.
 func _center_debug_panel() -> void:
 	if debug_panel == null:
 		return
@@ -780,6 +1026,7 @@ func _center_debug_panel() -> void:
 	)
 
 # Opens or closes the technology panel.
+# Abre o cierra el panel de tecnolog?a.
 func toggle_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -789,6 +1036,7 @@ func toggle_technology_panel() -> void:
 		show_technology_panel()
 
 # Opens the technology panel and refreshes its layout.
+# Abre el panel de tecnolog?a y refresca su layout.
 func show_technology_panel() -> void:
 	if technology_panel == null:
 		return
@@ -797,11 +1045,13 @@ func show_technology_panel() -> void:
 	hide_hover_name()
 
 # Hides the technology panel.
+# Oculta el panel de tecnolog?a.
 func hide_technology_panel() -> void:
 	if technology_panel != null:
 		technology_panel.visible = false
 
 # Opens the pause menu and hides panels that should not overlap it.
+# Abre el men? de pausa y oculta paneles que no deben superponerse.
 func show_pause_menu() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = true
@@ -811,16 +1061,19 @@ func show_pause_menu() -> void:
 	hide_hover_name()
 
 # Hides the pause menu and any debug panel opened from it.
+# Oculta el men? de pausa y cualquier panel de debug abierto desde ?l.
 func hide_pause_menu() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = false
 	hide_debug_panel()
 
 # Returns whether the pause menu is currently visible.
+# Devuelve si el men? de pausa est? visible actualmente.
 func is_pause_menu_visible() -> bool:
 	return pause_menu_panel != null and pause_menu_panel.visible
 
 # Centers the pause menu on screen.
+# Centra el men? de pausa en pantalla.
 func center_pause_menu() -> void:
 	if pause_menu_panel == null:
 		return
@@ -834,17 +1087,20 @@ func center_pause_menu() -> void:
 	)
 
 # Updates the displayed date text.
+# Actualiza el texto de fecha mostrado.
 func set_game_date_text(date_text: String) -> void:
 	if date_label != null:
 		date_label.text = date_text
 
 # Updates the selected time speed button state.
+# Actualiza el estado del bot?n de velocidad de tiempo seleccionado.
 func set_game_speed(speed: int) -> void:
 	current_speed = speed
 	for i in range(speed_buttons.size()):
 		speed_buttons[i].disabled = (i + 1) == current_speed
 
 # Updates the pause button label and tooltip.
+# Actualiza la etiqueta y el tooltip del bot?n de pausa.
 func set_time_paused(value: bool) -> void:
 	current_time_paused = value
 	if pause_toggle_button != null:
@@ -856,6 +1112,7 @@ func set_time_paused(value: bool) -> void:
 			pause_toggle_button.tooltip_text = Localization.t("game.pause_time")
 
 # Starts the opening camera animation and blocks regular input during it.
+# Inicia la animaci?n inicial de c?mara y bloquea la entrada normal durante ella.
 func start_intro(camera: Camera2D) -> void:
 	if intro_overlay == null or camera == null:
 		return
@@ -887,20 +1144,24 @@ func start_intro(camera: Camera2D) -> void:
 	)
 
 # Returns whether the intro sequence is still active.
+# Devuelve si la secuencia de intro sigue activa.
 func is_intro_active() -> bool:
 	return intro_active
 
 # Requests that the intro should be skipped on the next frame.
+# Solicita que la intro se salte en el siguiente frame.
 func request_intro_skip() -> void:
 	intro_skip_requested = true
 
 # Animates the intro skip hint opacity.
+# Anima la opacidad de la pista para saltar la intro.
 func _update_intro_skip_hint() -> void:
 	if intro_skip == null:
 		return
 	intro_skip.modulate.a = 0.55 + (sin(Time.get_ticks_msec() / 180.0) + 1.0) * 0.18
 
 # Stops the intro sequence and restores normal camera control.
+# Detiene la secuencia de intro y restaura el control normal de c?mara.
 func _end_intro_animation() -> void:
 	if intro_tween != null:
 		intro_tween.kill()
@@ -915,6 +1176,7 @@ func _end_intro_animation() -> void:
 		intro_camera.input_enabled = true
 
 # Shows a generic popup for not-yet-implemented features.
+# Muestra un popup gen?rico para funciones a?n no implementadas.
 func show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	var dialog: AcceptDialog = AcceptDialog.new()
 	dialog.title = title
@@ -929,6 +1191,7 @@ func show_coming_soon_popup(title: String, icon_label: String = "") -> void:
 	dialog.canceled.connect(func() -> void: dialog.queue_free())
 
 # Refreshes all translated labels and active UI texts.
+# Refresca todas las etiquetas traducidas y los textos activos de la UI.
 func _apply_language() -> void:
 	if intro_skip != null:
 		intro_skip.text = Localization.t("game.intro_skip")
@@ -971,5 +1234,6 @@ func _apply_language() -> void:
 		_show_selected_payload()
 
 # Re-applies translated UI after the language changes.
+# Vuelve a aplicar la UI traducida despu?s de que cambie el idioma.
 func _on_language_changed(_language_code: String) -> void:
 	_apply_language()

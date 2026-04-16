@@ -29,6 +29,7 @@ var debug_country_colors_checkbox: CheckBox = null
 var debug_show_sea_checkbox: CheckBox = null
 
 # Builds the menu state, language selector, and debug dialog.
+# Construye el estado del men?, el selector de idioma y el di?logo de debug.
 func _ready() -> void:
 	var popup_menu: PopupMenu = language_button.get_popup()
 	popup_menu.clear()
@@ -42,6 +43,7 @@ func _ready() -> void:
 	_show_main_menu()
 
 # Creates the reusable debug dialog shown from the main menu.
+# Crea el di?logo reutilizable de debug mostrado desde el men? principal.
 func _create_debug_dialog() -> void:
 	debug_dialog = AcceptDialog.new()
 	add_child(debug_dialog)
@@ -63,24 +65,28 @@ func _create_debug_dialog() -> void:
 	content.add_child(debug_show_sea_checkbox)
 
 # Shows the root main menu and hides submenus.
+# Muestra el men? principal ra?z y oculta los submen?s.
 func _show_main_menu() -> void:
 	main_menu.visible = true
 	singleplayer_menu.visible = false
 	options_menu.visible = false
 
 # Shows the singleplayer submenu.
+# Muestra el submen? de un jugador.
 func _show_singleplayer_menu() -> void:
 	main_menu.visible = false
 	singleplayer_menu.visible = true
 	options_menu.visible = false
 
 # Shows the options submenu.
+# Muestra el submen? de opciones.
 func _show_options_menu() -> void:
 	main_menu.visible = false
 	singleplayer_menu.visible = false
 	options_menu.visible = true
 
 # Refreshes all main menu texts to the active language.
+# Refresca todos los textos del men? principal al idioma activo.
 func _apply_language() -> void:
 	title_label.text = Localization.t("menu.main_title")
 	subtitle_label.text = Localization.t("menu.main_subtitle")
@@ -110,56 +116,69 @@ func _apply_language() -> void:
 		debug_show_sea_checkbox.button_pressed = DebugSettings.show_sea
 
 # Opens the generic placeholder popup with a translated title.
+# Abre el popup gen?rico de placeholder con un t?tulo traducido.
 func _show_coming_soon(title: String) -> void:
 	popup.title = title
 	popup.dialog_text = Localization.t("ui.coming_soon")
 	popup.popup_centered()
 
 # Opens the singleplayer submenu.
+# Abre el submen? de un jugador.
 func _on_singleplayer_pressed() -> void:
 	_show_singleplayer_menu()
 
 # Shows the multiplayer placeholder popup.
+# Muestra el popup placeholder de multijugador.
 func _on_multiplayer_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.multiplayer"))
 
 # Opens the options submenu.
+# Abre el submen? de opciones.
 func _on_options_pressed() -> void:
 	_show_options_menu()
 
 # Closes the application from the menu.
+# Cierra la aplicaci?n desde el men?.
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 # Starts a new game through the loading screen.
+# Inicia una nueva partida a trav?s de la pantalla de carga.
 func _on_new_game_pressed() -> void:
 	get_tree().change_scene_to_file(LOADING_SCENE_PATH)
 
 # Shows the load-game placeholder popup.
+# Muestra el popup placeholder de cargar partida.
 func _on_load_game_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.load_game"))
 
 # Returns from submenus to the main menu.
+# Vuelve desde los submen?s al men? principal.
 func _on_back_pressed() -> void:
 	_show_main_menu()
 
 # Shows the graphics placeholder popup.
+# Muestra el popup placeholder de gr?ficos.
 func _on_graphics_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.graphics"))
 
 # Shows the sound placeholder popup.
+# Muestra el popup placeholder de sonido.
 func _on_sound_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.sound"))
 
 # Shows the controls placeholder popup.
+# Muestra el popup placeholder de controles.
 func _on_controls_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.controls"))
 
 # Shows the accessibility placeholder popup.
+# Muestra el popup placeholder de accesibilidad.
 func _on_accessibility_pressed() -> void:
 	_show_coming_soon(Localization.t("menu.accessibility"))
 
 # Opens the main-menu debug settings dialog.
+# Abre el di?logo de ajustes de debug del men? principal.
 func _on_debugger_pressed() -> void:
 	if debug_dialog == null:
 		return
@@ -168,6 +187,7 @@ func _on_debugger_pressed() -> void:
 	debug_dialog.popup_centered()
 
 # Applies the language selected from the drop-down button.
+# Aplica el idioma seleccionado desde el bot?n desplegable.
 func _on_language_selected(id: int) -> void:
 	match id:
 		0:
@@ -176,5 +196,6 @@ func _on_language_selected(id: int) -> void:
 			Localization.set_language("es")
 
 # Re-applies all menu texts after a language change.
+# Vuelve a aplicar todos los textos del men? tras un cambio de idioma.
 func _on_language_changed(_language_code: String) -> void:
 	_apply_language()

@@ -10,11 +10,13 @@ var current_language: String = DEFAULT_LANGUAGE
 var translations: Dictionary = {}
 
 # Loads translations once and resets the active language to the default.
+# Carga las traducciones una vez y reinicia el idioma activo al valor por defecto.
 func _ready() -> void:
 	_load_translations()
 	current_language = DEFAULT_LANGUAGE
 
 # Loads the translation table from the current file path, with a legacy fallback.
+# Carga la tabla de traducci?n desde la ruta actual, con un fallback legado.
 func _load_translations() -> void:
 	var file: FileAccess = FileAccess.open(LOCALIZATION_PATH, FileAccess.READ)
 	var resolved_path: String = LOCALIZATION_PATH
@@ -38,6 +40,7 @@ func _load_translations() -> void:
 	translations = parsed
 
 # Switches the active language and notifies listeners.
+# Cambia el idioma activo y notifica a los listeners.
 func set_language(language_code: String) -> void:
 	if not translations.has(language_code):
 		return
@@ -47,10 +50,12 @@ func set_language(language_code: String) -> void:
 	emit_signal("language_changed", current_language)
 
 # Returns the active language code.
+# Devuelve el c?digo del idioma activo.
 func get_language() -> String:
 	return current_language
 
 # Returns the list of languages available in the loaded file.
+# Devuelve la lista de idiomas disponibles en el archivo cargado.
 func get_available_languages() -> Array[String]:
 	var languages: Array[String] = []
 	for key in translations.keys():
@@ -59,6 +64,7 @@ func get_available_languages() -> Array[String]:
 	return languages
 
 # Resolves one translation key and formats optional arguments.
+# Resuelve una clave de traducci?n y formatea argumentos opcionales.
 func t(key: String, args: Array = []) -> String:
 	var language_table: Dictionary = translations.get(current_language, translations.get(DEFAULT_LANGUAGE, {}))
 	var fallback_table: Dictionary = translations.get(DEFAULT_LANGUAGE, {})
@@ -68,10 +74,12 @@ func t(key: String, args: Array = []) -> String:
 	return value
 
 # Returns the localized month name used by the in-game clock.
+# Devuelve el nombre localizado del mes usado por el reloj del juego.
 func get_month_name(month: int) -> String:
 	return t("months.%d" % clampi(month, 1, 12))
 
 # Resolves one loading tip from either a translated object or a plain string.
+# Resuelve un consejo de carga desde un objeto traducido o una cadena simple.
 func translate_tip(entry: Variant) -> String:
 	if typeof(entry) == TYPE_DICTIONARY:
 		var tip_data: Dictionary = entry
