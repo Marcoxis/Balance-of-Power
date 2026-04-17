@@ -4,6 +4,7 @@ signal event_option_selected(event_id: String, option_id: String, consequences: 
 
 @onready var white_map: TextureRect = $whiteMap
 @onready var color_map: TextureRect = $colorMap
+@onready var world_camera: Camera2D = $Camera2D
 
 # Stores the overlay used to paint political ownership on the map.
 # Guarda el overlay usado para pintar la propiedad política en el mapa.
@@ -18,13 +19,21 @@ var province_info_owner: Label = null
 var province_info_buildings: Label = null
 var province_info_resources: Label = null
 var province_info_extra: Label = null
+var top_bar_panel: PanelContainer = null
+var date_label: Label = null
+var speed_buttons: Array[Button] = []
+var pause_toggle_button: Button = null
 var pause_menu_panel: PanelContainer = null
+var console_panel: PanelContainer = null
+var console_output: RichTextLabel = null
+var console_input: LineEdit = null
 var event_popup_panel: PanelContainer = null
 var event_popup_title: Label = null
 var event_popup_image: TextureRect = null
 var event_popup_text: Label = null
 var event_popup_options: VBoxContainer = null
 var current_event_id: String = ""
+var console_lines: Array[String] = []
 
 # Holds runtime managers created when the scene boots.
 # Guarda los managers creados en tiempo de ejecución al iniciar la escena.
@@ -40,12 +49,40 @@ var selection_overlay_image: Image = null
 var previous_selected_gid := ""
 var selected_province_gid := ""
 var blink_time := 0.0
+var current_game_date: Dictionary = {"day": 1, "month": 1, "year": 1836}
+var current_time_speed: int = 3
+var time_paused: bool = true
+var time_accumulator: float = 0.0
+var day_change_speed_multiplier: float = 1.0
 
 # Stores the blink tuning values for the selected province overlay.
 # Guarda los valores de ajuste del parpadeo del overlay de provincia seleccionada.
 const SELECTION_BLINK_SPEED := 3.2
 const SELECTION_MIN_ALPHA := 0.38
 const SELECTION_MAX_ALPHA := 0.62
+const CONSOLE_MAX_LINES := 28
+const SPEED_TO_DAYS_PER_SECOND := {
+	1: 0.35,
+	2: 0.75,
+	3: 1.5,
+	4: 3.0,
+	5: 6.0
+}
+const MONTH_NAMES := [
+	"",
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
+]
 
 # Packs one RGB color into a single integer lookup key.
 # Empaqueta un color RGB en una única clave entera de búsqueda.
@@ -146,6 +183,8 @@ func colores_iguales(c1: Color, c2: Color, tolerancia: float = 0.01) -> bool:
 # Boots managers, caches, overlays, and base UI for the map scene.
 # Inicializa managers, cachés, overlays y la UI base para la escena del mapa.
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# Create and configure runtime managers.
 	# Crear y configurar managers.
 	province_manager = ProvinceManager.new()
@@ -154,6 +193,9 @@ func _ready():
 
 	nation_manager = NationManager.new()
 	add_child(nation_manager)
+
+	if not DebugSettings.settings_changed.is_connected(_apply_debug_settings):
+		DebugSettings.settings_changed.connect(_apply_debug_settings)
 
 	# Reuse ProvinceManager data so the province JSON is not parsed twice.
 	# Reutilizamos la carga ya hecha por ProvinceManager para no parsear el JSON dos veces.
@@ -219,10 +261,13 @@ func _ready():
 	# Build the ownership texture once using the cached province pixels.
 	# Generamos la textura de propietarios una vez, ya apoyados en la caché de píxeles.
 	call_deferred("_refresh_owner_overlay")
+	call_deferred("_apply_debug_settings")
 
 # Updates the selection blink animation every frame.
 # Actualiza la animación de parpadeo de selección en cada frame.
 func _process(delta: float) -> void:
+	_update_game_time(delta)
+
 	if selection_overlay == null or selected_province_gid == "":
 		return
 
@@ -246,6 +291,93 @@ func _format_population(value: int) -> String:
 			out = "." + out
 			count = 0
 	return out
+
+# Advances the in-game date according to the selected speed.
+# Hace avanzar la fecha del juego según la velocidad seleccionada.
+func _update_game_time(delta: float) -> void:
+	if time_paused or get_tree().paused:
+		return
+
+	var days_per_second: float = float(SPEED_TO_DAYS_PER_SECOND.get(current_time_speed, 1.0)) * day_change_speed_multiplier
+	time_accumulator += delta * days_per_second
+
+	while time_accumulator >= 1.0:
+		time_accumulator -= 1.0
+		_advance_one_day()
+
+# Advances the calendar by one day and wraps month and year values.
+# Avanza el calendario un día y ajusta mes y año cuando toca.
+func _advance_one_day() -> void:
+	current_game_date["day"] = int(current_game_date["day"]) + 1
+
+	var month: int = int(current_game_date["month"])
+	var max_days: int = _get_days_in_month(month, int(current_game_date["year"]))
+	if int(current_game_date["day"]) > max_days:
+		current_game_date["day"] = 1
+		current_game_date["month"] = month + 1
+
+	if int(current_game_date["month"]) > 12:
+		current_game_date["month"] = 1
+		current_game_date["year"] = int(current_game_date["year"]) + 1
+
+	_update_date_label()
+
+# Returns how many days one given month has.
+# Devuelve cuántos días tiene un mes concreto.
+func _get_days_in_month(month: int, year: int) -> int:
+	match month:
+		1, 3, 5, 7, 8, 10, 12:
+			return 31
+		4, 6, 9, 11:
+			return 30
+		2:
+			if _is_leap_year(year):
+				return 29
+			return 28
+		_:
+			return 30
+
+# Checks whether one year is leap.
+# Comprueba si un año es bisiesto.
+func _is_leap_year(year: int) -> bool:
+	return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
+
+# Updates the visible date text in the top bar.
+# Actualiza el texto visible de la fecha en la barra superior.
+func _update_date_label() -> void:
+	if date_label == null:
+		return
+
+	var day: int = int(current_game_date["day"])
+	var month: int = int(current_game_date["month"])
+	var year: int = int(current_game_date["year"])
+	date_label.text = "%02d %s %d" % [day, MONTH_NAMES[month], year]
+
+# Updates the time speed selection state and button labels.
+# Actualiza el estado de la velocidad del tiempo y las etiquetas de los botones.
+func _update_time_controls() -> void:
+	if pause_toggle_button != null:
+		pause_toggle_button.text = ">" if time_paused else "||"
+
+	for i in range(speed_buttons.size()):
+		speed_buttons[i].disabled = (i + 1) == current_time_speed
+
+# Toggles whether the in-game time is paused.
+# Alterna si el tiempo del juego está pausado.
+func _toggle_time_pause() -> void:
+	time_paused = not time_paused
+	_update_time_controls()
+
+# Sets the active in-game time speed.
+# Establece la velocidad activa del tiempo del juego.
+func _set_time_speed(speed: int) -> void:
+	current_time_speed = clampi(speed, 1, 5)
+	_update_time_controls()
+
+# Sets the global multiplier used to speed up or slow down day changes.
+# Establece el multiplicador global usado para acelerar o frenar el cambio de día.
+func _set_day_change_speed_multiplier(value: float) -> void:
+	day_change_speed_multiplier = maxf(0.01, value)
 
 # Builds the per-province pixel cache used by overlays and selection.
 # Construye la caché de píxeles por provincia usada por overlays y selección.
@@ -302,9 +434,82 @@ func _create_selection_ui() -> void:
 	province_name_label.add_theme_constant_override("outline_size", 6)
 	margin.add_child(province_name_label)
 
+	_create_top_bar()
 	_create_province_info_panel()
 	_create_pause_menu()
+	_create_console()
 	_create_event_popup()
+
+# Creates the top-right time bar with date, speed buttons, and pause toggle.
+# Crea la barra superior derecha con fecha, velocidades y botón de pausa.
+func _create_top_bar() -> void:
+	top_bar_panel = PanelContainer.new()
+	top_bar_panel.name = "topBarPanel"
+	top_bar_panel.anchor_left = 1.0
+	top_bar_panel.anchor_top = 0.0
+	top_bar_panel.anchor_right = 1.0
+	top_bar_panel.anchor_bottom = 0.0
+	top_bar_panel.offset_left = -430
+	top_bar_panel.offset_top = 16
+	top_bar_panel.offset_right = -16
+	top_bar_panel.offset_bottom = 90
+	ui_layer.add_child(top_bar_panel)
+
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.1, 0.14, 0.95)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.62, 0.66, 0.74, 0.92)
+	panel_style.corner_radius_top_left = 10
+	panel_style.corner_radius_top_right = 10
+	panel_style.corner_radius_bottom_left = 10
+	panel_style.corner_radius_bottom_right = 10
+	panel_style.content_margin_left = 16
+	panel_style.content_margin_top = 12
+	panel_style.content_margin_right = 16
+	panel_style.content_margin_bottom = 12
+	top_bar_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var layout := VBoxContainer.new()
+	layout.add_theme_constant_override("separation", 8)
+	top_bar_panel.add_child(layout)
+
+	var top_row := HBoxContainer.new()
+	top_row.add_theme_constant_override("separation", 10)
+	layout.add_child(top_row)
+
+	date_label = Label.new()
+	date_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	date_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	date_label.add_theme_font_size_override("font_size", 24)
+	date_label.add_theme_color_override("font_color", Color(0.95, 0.92, 0.8, 1.0))
+	top_row.add_child(date_label)
+
+	pause_toggle_button = Button.new()
+	pause_toggle_button.custom_minimum_size = Vector2(52, 34)
+	pause_toggle_button.pressed.connect(_toggle_time_pause)
+	top_row.add_child(pause_toggle_button)
+
+	var speed_row := HBoxContainer.new()
+	speed_row.alignment = BoxContainer.ALIGNMENT_END
+	speed_row.add_theme_constant_override("separation", 8)
+	layout.add_child(speed_row)
+
+	speed_buttons.clear()
+	for speed_value in [1, 2, 3, 4, 5]:
+		var button := Button.new()
+		button.custom_minimum_size = Vector2(44, 32)
+		button.text = str(speed_value)
+		button.pressed.connect(func(value: int = speed_value) -> void:
+			_set_time_speed(value)
+		)
+		speed_row.add_child(button)
+		speed_buttons.append(button)
+
+	_update_date_label()
+	_update_time_controls()
 
 # Creates the legacy pause menu used by this map UI implementation.
 # Crea el menú de pausa legado usado por esta implementación de UI del mapa.
@@ -359,6 +564,65 @@ func _create_pause_menu() -> void:
 		button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 		button.pressed.connect(button_data["action"])
 		content.add_child(button)
+
+# Creates the in-game console used to execute quick debug commands.
+# Crea la consola ingame usada para ejecutar comandos rápidos de debug.
+func _create_console() -> void:
+	console_panel = PanelContainer.new()
+	console_panel.name = "consolePanel"
+	console_panel.visible = false
+	console_panel.offset_right = 760
+	console_panel.offset_bottom = 280
+	console_panel.position = Vector2(24, 24)
+	console_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	console_panel.process_mode = Node.PROCESS_MODE_ALWAYS
+	ui_layer.add_child(console_panel)
+
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.05, 0.06, 0.08, 0.94)
+	panel_style.border_width_left = 2
+	panel_style.border_width_top = 2
+	panel_style.border_width_right = 2
+	panel_style.border_width_bottom = 2
+	panel_style.border_color = Color(0.28, 0.78, 0.48, 0.9)
+	panel_style.corner_radius_top_left = 8
+	panel_style.corner_radius_top_right = 8
+	panel_style.corner_radius_bottom_left = 8
+	panel_style.corner_radius_bottom_right = 8
+	panel_style.content_margin_left = 12
+	panel_style.content_margin_top = 12
+	panel_style.content_margin_right = 12
+	panel_style.content_margin_bottom = 12
+	console_panel.add_theme_stylebox_override("panel", panel_style)
+
+	var content := VBoxContainer.new()
+	content.add_theme_constant_override("separation", 8)
+	content.process_mode = Node.PROCESS_MODE_ALWAYS
+	console_panel.add_child(content)
+
+	var title := Label.new()
+	title.text = "Console"
+	title.add_theme_font_size_override("font_size", 22)
+	title.add_theme_color_override("font_color", Color(0.72, 0.96, 0.78, 1.0))
+	content.add_child(title)
+
+	console_output = RichTextLabel.new()
+	console_output.custom_minimum_size = Vector2(730, 190)
+	console_output.scroll_active = true
+	console_output.bbcode_enabled = false
+	console_output.selection_enabled = true
+	console_output.fit_content = false
+	console_output.process_mode = Node.PROCESS_MODE_ALWAYS
+	content.add_child(console_output)
+
+	console_input = LineEdit.new()
+	console_input.placeholder_text = "Enter command..."
+	console_input.process_mode = Node.PROCESS_MODE_ALWAYS
+	console_input.mouse_filter = Control.MOUSE_FILTER_STOP
+	console_input.text_submitted.connect(_on_console_command_submitted)
+	content.add_child(console_input)
+
+	_append_console_line("Type 'help' to list available commands.")
 
 # Creates the reusable event popup for scripted choices.
 # Crea el popup reutilizable de eventos para decisiones guionizadas.
@@ -554,6 +818,181 @@ func _show_province_info(gid: String, nombre: String) -> void:
 	province_info_extra.text = "%s\nFoto del terreno: %s\nFoto de los municipios: %s" % [extra_text, terrain_text, municipalities_text]
 	province_info_panel.visible = true
 
+# Returns whether the in-game console is currently visible.
+# Devuelve si la consola ingame está visible actualmente.
+func is_console_visible() -> bool:
+	return console_panel != null and console_panel.visible
+
+# Detects the keyboard shortcut used to open or close the console.
+# Detecta el atajo de teclado usado para abrir o cerrar la consola.
+func _is_console_toggle_event(event: InputEvent) -> bool:
+	if not (event is InputEventKey):
+		return false
+
+	var key_event: InputEventKey = event
+	if not key_event.pressed or key_event.echo:
+		return false
+
+	return key_event.physical_keycode == KEY_QUOTELEFT or key_event.unicode == 186 or key_event.unicode == 170
+
+# Enables or disables camera input from UI states such as the console.
+# Activa o desactiva la entrada de la cámara desde estados de UI como la consola.
+func _set_camera_input_enabled(enabled: bool) -> void:
+	if world_camera != null:
+		world_camera.input_enabled = enabled
+		if not enabled:
+			world_camera.arrastrando = false
+
+# Opens the console and focuses the input field.
+# Abre la consola y enfoca el campo de entrada.
+func show_console() -> void:
+	if console_panel == null:
+		return
+	console_panel.visible = true
+	_set_camera_input_enabled(false)
+	if console_input != null:
+		console_input.editable = true
+		console_input.mouse_filter = Control.MOUSE_FILTER_STOP
+		console_input.grab_focus()
+
+# Hides the console and clears the current input line.
+# Oculta la consola y limpia la línea de entrada actual.
+func hide_console() -> void:
+	if console_panel == null:
+		return
+	console_panel.visible = false
+	_set_camera_input_enabled(true)
+	if console_input != null:
+		console_input.text = ""
+		console_input.release_focus()
+
+# Toggles the console visibility state.
+# Alterna el estado visible de la consola.
+func toggle_console() -> void:
+	if is_console_visible():
+		hide_console()
+	else:
+		show_console()
+
+# Appends one line to the console log and trims old output.
+# Añade una línea al log de consola y recorta la salida antigua.
+func _append_console_line(line: String) -> void:
+	console_lines.append(line)
+	while console_lines.size() > CONSOLE_MAX_LINES:
+		console_lines.remove_at(0)
+	_refresh_console_output()
+
+# Rebuilds the console visible text from the stored lines.
+# Reconstruye el texto visible de la consola desde las líneas guardadas.
+func _refresh_console_output() -> void:
+	if console_output == null:
+		return
+	console_output.clear()
+	for line in console_lines:
+		console_output.append_text("%s\n" % line)
+	console_output.scroll_to_line(max(0, console_lines.size() - 1))
+
+# Receives submitted console text and dispatches the command parser.
+# Recibe el texto enviado por la consola y despacha el parser de comandos.
+func _on_console_command_submitted(command_text: String) -> void:
+	var raw_command: String = command_text.strip_edges()
+	if raw_command == "":
+		return
+
+	_append_console_line("> " + raw_command)
+	if console_input != null:
+		console_input.clear()
+	_execute_console_command(raw_command)
+	if console_input != null and is_console_visible():
+		console_input.grab_focus()
+
+# Executes one console command and prints feedback to the log.
+# Ejecuta un comando de consola y escribe feedback en el log.
+func _execute_console_command(raw_command: String) -> void:
+	var parts: PackedStringArray = raw_command.split(" ", false)
+	if parts.is_empty():
+		return
+
+	var command: String = parts[0].to_lower()
+	match command:
+		"help":
+			_append_console_line("help, clear, close, pause, resume, refresh_map, event_test, select <gid>, set_owner <gid> <country_id>, get_day_speed, set_day_speed <value>")
+		"clear":
+			console_lines.clear()
+			_refresh_console_output()
+		"close":
+			hide_console()
+		"pause":
+			if get_tree().paused:
+				_append_console_line("Game is already paused.")
+			else:
+				if pause_menu_panel != null:
+					pause_menu_panel.visible = true
+				get_tree().paused = true
+				_append_console_line("Game paused.")
+		"resume":
+			if not get_tree().paused:
+				_append_console_line("Game is already running.")
+			else:
+				_resume_game()
+				_append_console_line("Game resumed.")
+		"refresh_map":
+			_refresh_owner_overlay()
+			_append_console_line("Political overlay refreshed.")
+		"get_day_speed":
+			_append_console_line("Day speed multiplier: %s" % str(day_change_speed_multiplier))
+		"set_day_speed":
+			if parts.size() < 2:
+				_append_console_line("Missing argument: speed multiplier")
+				return
+			if not parts[1].is_valid_float():
+				_append_console_line("Invalid number: %s" % parts[1])
+				return
+			var new_speed: float = parts[1].to_float()
+			_set_day_change_speed_multiplier(new_speed)
+			_append_console_line("Day speed multiplier set to: %s" % str(day_change_speed_multiplier))
+		"event_test":
+			open_event_popup(
+				"test_event",
+				"Test Event",
+				"This is a sample event fired from the console.",
+				[
+					create_event_option("accept", "Accept", {"prestige": 10}),
+					create_event_option("reject", "Reject", {"prestige": -5})
+				]
+			)
+			_append_console_line("Test event opened.")
+		"select":
+			if parts.size() < 2:
+				_append_console_line("Missing argument: province gid")
+				return
+			var gid: String = parts[1]
+			if province_manager == null or not province_manager.provinces_by_gid.has(gid):
+				_append_console_line("Unknown province gid: %s" % gid)
+				return
+			var province_data: Dictionary = province_manager.provinces_by_gid[gid]
+			_set_selected_province(gid, str(province_data.get("nombre", gid)))
+			_append_console_line("Selected province: %s" % gid)
+		"set_owner":
+			if parts.size() < 2:
+				_append_console_line("Missing argument: province gid")
+				return
+			if parts.size() < 3:
+				_append_console_line("Missing argument: country id")
+				return
+			var gid: String = parts[1]
+			var owner_id: String = parts[2].to_upper()
+			if province_manager == null or not province_manager.provinces_by_gid.has(gid):
+				_append_console_line("Unknown province gid: %s" % gid)
+				return
+			if nation_manager == null or not nation_manager.has_nation(owner_id):
+				_append_console_line("Unknown country id: %s" % owner_id)
+				return
+			set_province_owner_by_gid(gid, owner_id)
+			_append_console_line("Owner changed: %s -> %s" % [gid, owner_id])
+		_:
+			_append_console_line("unkow command")
+
 # Returns whether an event popup is currently visible.
 # Devuelve si actualmente hay un popup de evento visible.
 func is_event_popup_visible() -> bool:
@@ -696,6 +1135,7 @@ func _resume_game() -> void:
 	if pause_menu_panel != null:
 		pause_menu_panel.visible = false
 	get_tree().paused = false
+	_update_time_controls()
 
 # Shows the temporary options popup from the pause menu.
 # Muestra el popup temporal de opciones desde el menú de pausa.
@@ -762,7 +1202,22 @@ func _set_selected_province(gid: String, nombre: String) -> void:
 
 # Handles pause toggling and province selection clicks.
 # Gestiona la activación de pausa y los clics de selección de provincia.
+func _input(event: InputEvent) -> void:
+	if _is_console_toggle_event(event):
+		toggle_console()
+		get_viewport().set_input_as_handled()
+
+# Handles pause toggling and province selection clicks.
+# Gestiona la activación de pausa y los clics de selección de provincia.
 func _unhandled_input(event):
+	if is_console_visible():
+		if event.is_action_pressed("ui_cancel"):
+			hide_console()
+			get_viewport().set_input_as_handled()
+		elif event is InputEventMouseButton:
+			get_viewport().set_input_as_handled()
+		return
+
 	if is_event_popup_visible():
 		if event.is_action_pressed("ui_cancel"):
 			hide_event_popup()
@@ -778,6 +1233,7 @@ func _unhandled_input(event):
 			get_tree().paused = not is_open
 			if province_info_panel != null and not is_open:
 				province_info_panel.visible = false
+			_update_time_controls()
 		return
 
 	if event is InputEventMouseButton \
@@ -827,6 +1283,18 @@ func _refresh_owner_overlay() -> void:
 			owner_overlay_image.set_pixel(pixel.x, pixel.y, overlay_color)
 
 	owner_overlay.texture = ImageTexture.create_from_image(owner_overlay_image)
+	_apply_debug_settings()
+
+# Applies current debug visibility settings to the rendered map layers.
+# Aplica los ajustes actuales de visibilidad debug a las capas renderizadas del mapa.
+func _apply_debug_settings() -> void:
+	if owner_overlay != null:
+		owner_overlay.visible = DebugSettings.show_country_colors
+
+	# The current map uses the base texture as land and sea together.
+	# El mapa actual usa la textura base para tierra y mar al mismo tiempo.
+	if white_map != null:
+		white_map.visible = true
 
 # Changes province ownership and persists the province file.
 # Cambia la propiedad de la provincia y persiste el archivo de provincias.
